@@ -14,5 +14,6 @@ CSS
 Backend - 
 GOLANG
 POSTGRESQL
+SQLLite
 GIN
 
