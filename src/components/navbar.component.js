@@ -1,34 +1,40 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
 import './navbar.component.css';
 
-function NavBar(props) {
-    let path = '/user';
-    let name = 'Signup';
+import logo from '../img/logo.png'; 
+ 
 
-    if (window.sessionStorage.getItem('isLoggedIn') === null || window.sessionStorage.getItem('isLoggedIn') === 'false'){
-        path = path;
-        name = name;
-    } else{
-        var userObject = JSON.parse(window.sessionStorage.getItem("userDetails"));
-        path = '/profile';
-        name = userObject['firstName'];
-    }
+const Navbar = () => {
     return (
-        <div className = "header">
-            {/* Logo */}
-            <Link className = "nav-title" to="/">
-                <img className = "nav-logo" src={ "/logo.png" } alt="React logo" />
-            </Link>
 
-            {/* Page Links */}
-            <div className = "nav-items">
-                <Link className = "nav-link" style = {{fontSize: "1.3em"}} to='/Home'>Home</Link>
-                <Link className = "nav-link" style = {{fontSize: "1.3em"}} to='/login'>Login</Link>
-                <Link className = "nav-link" style = {{fontSize: "1.3em"}} to={path}>{name}</Link>
+    <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar"></span><span class="icon-bar"> </span> <span class="icon-bar"></span> </button>
+                <div class="logo"> <a href="#"> <img src={logo} alt=""/></a></div>
+            </div>
+                
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="#">Candidate Profile Search</a></li>
+                    <li><a href="#">Post Job Description</a></li>
+                    <li><a href="#">Shortlist Candidates</a></li>
+                </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                    <li>
+                            <input name="" type="submit" value="Sign In" class="sign-in-bt-top" id="btnlogin"/>
+                        </li>
+                    </ul>
             </div>
         </div>
-    )
-};
+    </nav>
+   
+       
+        
+   
+    
 
-export default NavBar;
+    )
+}
+export default Navbar
