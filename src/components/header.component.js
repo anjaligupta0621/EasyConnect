@@ -12,20 +12,17 @@ import jobseekerLogo from "../img/jobseeker.png"
 
 const Header = () => {
     return (
-
-    <header>
-        <div class="top-select">
-                <div class="viewas">
-                <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={recruiterLogo}/> &nbsp;view as Recruiter </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item" href="#"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
+        <header>
+            <div className="top-select">
+                <div className="viewas">
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={recruiterLogo}/> &nbsp;view as Recruiter </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a className="dropdown-item" href="#"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
                     </div>
+                </div>
             </div>
-            </div>
-       <Navbar/>
-    </header>
-    
-
+            <Navbar/>
+        </header>
     )
 }
 export default Header
