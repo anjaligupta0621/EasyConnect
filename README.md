@@ -24,7 +24,7 @@ The platform will allow recruiters to post different jobs, and shortlist candida
   * -[ ] Apply for Jobs
 
 ## Technology Stack
-  * Frontend - ReactJs, HTML, CSS, AJAX
+  * Frontend - ReactJs, HTML, CSS, Bootstrap, AJAX
   * Backend - Golang, GORM, GIN
   * Databse - SQLite 3
  
