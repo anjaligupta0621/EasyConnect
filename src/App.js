@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Navbar from "./components/navbar.component"
-
-// import AuthCredentials from "./components/create-user.component";
 import Home from "./components/home.component";
 import './App.css';
+import LoginModal from './components/login.component';
+import SignUpModal from './components/signup.component';
 
 function App(props) {
   return (
@@ -13,6 +13,8 @@ function App(props) {
            
             <Routes>
               <Route path="/home" element={<Home />} />
+              <Route path="/login" element={<LoginModal />} />
+              <Route path="/signup" element={<SignUpModal />} />
               <Route path="/" element={<Home />} />
             </Routes>
           </Router>

@@ -5,8 +5,27 @@
 
 /*** Login Modal Area Start ***/
 
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 10;
+	background: rgba(0, 0, 0, 0.75);
+  }
+  
+  .modal {
+	position: fixed;
+	top: 30vh;
+	left: 10%;
+	width: 80%;
+	z-index: 100;
+	overflow: hidden;
+  }
+
 .modal-login {
-    display: none; /* Hidden by default */
+    /* display: none;*/ /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
     padding-top: 60px; /* Location of the box */
