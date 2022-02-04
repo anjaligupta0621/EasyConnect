@@ -25,7 +25,7 @@
   }
 
 .modal-login {
-    display: none; /* Hidden by default */
+    /* display: none;*/ /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top */
     padding-top: 60px; /* Location of the box */
