@@ -70,7 +70,6 @@ class LoginModal extends React.Component {
             </div>
         </div>
     );
-    
 };
 };
 
