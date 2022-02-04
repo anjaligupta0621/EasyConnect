@@ -10,7 +10,7 @@ import (
 var db *gorm.DB
 
 func createDB() {
-	db, err := gorm.Open("sqlite3", "loginDetails.db")
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		fmt.Println(err.Error())
 		panic("failed to connect database")
@@ -18,5 +18,5 @@ func createDB() {
 	defer db.Close()
 
 	// Migrate the schema
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Recruiter{})
 }
