@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
+import closelogo from '../img/close.png';
  
 class LoginModal extends React.Component {
 
@@ -22,11 +23,13 @@ class LoginModal extends React.Component {
     render() {
     return (
         <div>
-            <div className='backdrop'/>
+            {/* <div className='backdrop'/> */}
             <div id="loginModal" className='modal-login'>
                 <div className="modal-content-login"> 
                     <span className="closecv"> 
-                    <img src="img/close.png" width="26" height="27" alt="close" />
+                    <Link to="/">
+                        <img src={closelogo} width="26" height="27" alt="close" />
+                    </Link>
                     </span>
     
                     <div className="modal-header">
