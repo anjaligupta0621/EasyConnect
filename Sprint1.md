@@ -19,12 +19,24 @@ all work done in Spint1.
   * A tab which will help the User to switch between the Recruiter View and Job Seeker View.
   * Added the Recruiter View in this Sprint.
   * Recruiter can login and Sign on our Platform.
+
+
+
+https://user-images.githubusercontent.com/94247770/152626822-4e7421dc-d0bb-4470-8dd4-798410a3182d.mp4
+
+
  
 * Backend : 
   * Setup the Project Using Golang, Gorm and SQlite 3.
   * Developed the Authentication Api which will help the Recruiter to Register and Login.
   * Create the Database of Recruiter which will hold the record of Users.
   * Create the endPoints using Mux which will help us to Interact with the User Interface.
+
+
+
+https://user-images.githubusercontent.com/94247770/152626833-29a48221-a17d-4897-ba3e-efa80b24a4ca.mp4
+
+
 
 ## Technology Stack
   * Frontend - ReactJs, HTML, CSS, Bootstrap, AJAX
