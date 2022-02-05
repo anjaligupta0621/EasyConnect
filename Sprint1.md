@@ -12,13 +12,16 @@ all work done in Spint1.
 
 ## Milestones Achieved
 * FrontEnd : 
-  * Setup the project using React technology Stack.
+  * Setup the project using React.JS technology Stack.
   * Added all the required HTML, CSS, Bootsptrap files.
-  * Designed Components which are required to complete our requirements.
+  * Designed the following components:
+    - Header and Navbar Components
+    - Home Component (Landing Page)
+    - Login and Signup Components
   * Home page showing higher level view of all parts of the final project.
   * A tab which will help the User to switch between the Recruiter View and Job Seeker View.
   * Added the Recruiter View in this Sprint.
-  * Recruiter can login and Sign on our Platform.
+  * Recruiter can login and Sign Up on our Platform.
 
 
 
@@ -29,8 +32,8 @@ https://user-images.githubusercontent.com/94247770/152626822-4e7421dc-d0bb-4470-
 * Backend : 
   * Setup the Project Using Golang, Gorm and SQlite 3.
   * Developed the Authentication Api which will help the Recruiter to Register and Login.
-  * Create the Database of Recruiter which will hold the record of Users.
-  * Create the endPoints using Mux which will help us to Interact with the User Interface.
+  * Created the Database of Recruiter which will hold the record of Users.
+  * Created the endPoints using Mux which will help in interacting with the User Interface.
 
 
 
