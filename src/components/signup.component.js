@@ -79,12 +79,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={{ padding: "0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Name of the Company</div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Name of the Company*</div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="name"
                                                                 type="name"
                                                                 id="name"
+                                                                required
                                                                 value={this.companyName}
                                                                 onChange={() => this.onChangeCompanyNameHandler}
                                                                 className="text-inputs" />
@@ -94,12 +95,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={{ padding: "0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Name of the Recruiter</div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Name of the Recruiter*</div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="name"
                                                                 type="name"
                                                                 id="name"
+                                                                required
                                                                 value={this.recruiterName}
                                                                 onChange={() => this.onChangeRecruiterNameHandler}
                                                                 className="text-inputs" />
@@ -124,12 +126,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={{ padding: "0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Corporate email ID</div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Corporate email ID*</div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="Email"
                                                                 type="email"
                                                                 id="email"
+                                                                required
                                                                 value={this.corporateEmail}
                                                                 onChange={() => this.onChangeEmailHandler}
                                                                 className="text-inputs" />
@@ -139,12 +142,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={{ padding: "0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Contact Number</div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Contact Number*</div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="name"
                                                                 type="text"
                                                                 id="name"
+                                                                required
                                                                 value={this.contactNumber}
                                                                 onChange={() => this.onChangeContactHandler}
                                                                 className="text-inputs" />
@@ -153,12 +157,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" style={{ padding: "0px  10px 0px 0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Password <span>(6 or more characters)</span></div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Password* <span>(6 or more characters)</span></div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="name"
                                                                 type="password"
                                                                 id="password"
+                                                                required
                                                                 value={this.password}
                                                                 onChange={() => this.onChangePasswordHandler}
                                                                 className="text-inputs" />
@@ -168,12 +173,13 @@ class SignUpModal extends React.Component {
 
                                                     <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" style={{ padding: "1px 0 0 0px" }}>
 
-                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Re-enter Password</div>
+                                                        <div className="col-lg-12 legend" style={{ padding: "0px" }}>Re-enter Password*</div>
                                                         <div className="col-lg-12" style={{ padding: "0px" }}>
                                                             <input
                                                                 name="name"
                                                                 type="password"
                                                                 id="password"
+                                                                required
                                                                 className="text-inputs" />
                                                             <span id="passwordError"></span>
                                                         </div>
@@ -182,7 +188,7 @@ class SignUpModal extends React.Component {
                                                 </div>
 
                                                 <div className="col-lg-12" style={{ padding: "0px" }}>
-                                                    <button type="button" className="btn btn-primary next-step submit-button" id="submit" data-toggle="modal" data-target=".bd-example-modal-sm">submit</button>
+                                                    <input type="submit" className="btn btn-primary next-step submit-button" id="submit" data-toggle="modal" data-target=".bd-example-modal-sm" value="submit"/>
                                                 </div>
                                                 <div className="clearfix"></div>
                                             </div>

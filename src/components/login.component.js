@@ -34,13 +34,14 @@ class LoginModal extends React.Component {
                 <h1>Recruiter Login</h1>
                 <form>
                   <label htmlFor="email" className="col-lg-12 text-left">
-                    Corporate Email ID
+                    Corporate Email ID*
                   </label>
                   <div className="col-lg-12">
                     <input
                       name="emailId"
                       type="email"
                       id="email"
+                      required
                       value={this.email}
                       onChange={(event) => this.onChangeEmailHandler}
                       className="text-input"
@@ -48,13 +49,14 @@ class LoginModal extends React.Component {
                   </div>
 
                   <label htmlFor="pass" className="col-lg-12 text-left">
-                    Enter Password <a href="#">Forgot Password?</a>
+                    Enter Password *<a href="#">Forgot Password?</a>
                   </label>
                   <div className="col-lg-12">
                     <input
                       name="emailId"
                       type="password"
                       id="password"
+                      required
                       value={this.loginPassword}
                       onChange={(event) => this.onChangePasswordHandler}
                       className="text-input"
