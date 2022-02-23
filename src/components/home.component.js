@@ -16,7 +16,7 @@ import shadowImage from '../img/steps-shadow.png'
 class Home extends React.PureComponent {
 
 	state = {
-		showModal: true
+		showModal: false
 	}
 	render() {
 		const mystyle = {
@@ -29,8 +29,8 @@ class Home extends React.PureComponent {
 		};
 		return (
 			< div>
-				<Header />
-
+				<Header/>
+				{this.state.showModal && <LoginModal />}
 				<div id="banner" className="text-center">
 					<h1 className="banner-logo-box"><span className="main-logo mr-10"></span>
 						<div>

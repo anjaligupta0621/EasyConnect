@@ -16,7 +16,7 @@ type Recruiter struct {
 	Password     string
 	Organization string
 	Website      string
-	Contact      int64
+	Contact      string
 }
 
 type Login struct {
