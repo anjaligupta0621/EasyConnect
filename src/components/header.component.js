@@ -17,7 +17,7 @@ const Header = () => {
                 <div className="viewas">
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={recruiterLogo}/> &nbsp;view as Recruiter </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a className="dropdown-item" href="#"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a className="dropdown-item" href="/user"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
                     </div>
                 </div>
             </div>

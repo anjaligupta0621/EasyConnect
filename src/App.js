@@ -5,6 +5,8 @@ import Home from "./components/home.component";
 import './App.css';
 import LoginModal from './components/login.component';
 import SignUpModal from './components/signup.component';
+import Jobseekerheader from './components/jobseeker.component';
+
 
 function App(props) {
   return (
@@ -16,6 +18,7 @@ function App(props) {
               <Route path="/login" element={<LoginModal />} />
               <Route path="/signup" element={<SignUpModal />} />
               <Route path="/" element={<Home />} />
+              <Route path="/user" element={<Jobseekerheader />} />
             </Routes>
           </Router>
   );
