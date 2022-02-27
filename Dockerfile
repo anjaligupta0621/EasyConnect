@@ -1,6 +1,6 @@
 FROM node:current-alpine
 
-WORKDIR /userInterface
+WORKDIR /easyConnectUI
 COPY package*.json ./
 RUN ["npm", "install"]
 COPY . .

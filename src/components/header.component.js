@@ -10,7 +10,8 @@ import Navbar from "./navbar.component.js"
 import recruiterLogo from "../img/recruiter.png"
 import jobseekerLogo from "../img/jobseeker.png"
 
-const Header = () => {
+const Header = (props) => {
+    
     return (
         <header>
             <div className="top-select">
@@ -21,7 +22,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <Navbar/>
+            <Navbar showLogin={props.showLogin} hideLogin={props.hideLogin}/>
         </header>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
 import closelogo from '../img/close.png';
-import axios from 'axios';
+
  
 class SignUpModal extends React.Component {
 
@@ -59,13 +59,7 @@ class SignUpModal extends React.Component {
 
         console.log(user);
 
-        axios.post('http://localhost:8081/users', user)
-            .then(response => {
-                console.log("User Logged In");
-            })
-            .catch(error => {
-                console.log("Error occured");
-            })
+       
     }
 
 

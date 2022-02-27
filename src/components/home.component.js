@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
+import { Modal,Button } from 'react-bootstrap';
 import '../css/main.css';
 import '../css/menu.css';
 import '../css/styles.css';
@@ -18,6 +19,19 @@ class Home extends React.PureComponent {
 	state = {
 		showModal: false
 	}
+
+  showLoginDialog =()=> {
+    this.setState({
+      showModal:true
+    })
+  }
+
+  hideLoginDialog =()=> {
+    this.setState({
+      showModal:false
+    })
+  }
+
 	render() {
 		const mystyle = {
 			boxShadow: "0 0 10px rgba(0,0,0,0.6)",
@@ -29,8 +43,9 @@ class Home extends React.PureComponent {
 		};
 		return (
 			< div>
-				<Header/>
-				{this.state.showModal && <LoginModal />}
+      { this.state.showModal? <LoginModal hideLogin={this.hideLoginDialog}/> : null }
+
+      <Header showLogin={this.showLoginDialog} hideLogin={this.hideLoginDialog}/>
 				<div id="banner" className="text-center">
 					<h1 className="banner-logo-box"><span className="main-logo mr-10"></span>
 						<div>
