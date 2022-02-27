@@ -25,7 +25,8 @@ class PostJob extends React.Component {
         isPartAllowed: false,
         startDate: '',
         responsibilities: '',
-        salaryRange: ''
+        salaryFrom: '',
+        salaryTo: ''
     }
 
     prevStep = () => {
@@ -47,8 +48,8 @@ class PostJob extends React.Component {
     render(){
 
         const { step } = this.state;
-        const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryRange } = this.state;
-        const values = { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryRange  }
+        const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryFrom, salaryTo } = this.state;
+        const values = { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryFrom, salaryTo  }
 
         switch (step) {
             case 1: 
@@ -68,28 +69,10 @@ class PostJob extends React.Component {
                     <Header />
                     <JobDetails 
                         prevStep = {this.prevStep}
-                        nextStep = {this.nextStep}
                         handleChange = {this.handleChange}
                         values = { values } />
                 </div>              
                 )
-            case 3: 
-              return (
-                <div className='body-outer'>
-                    <Header />
-                    {/* <Confirmation 
-                        prevStep = {this.prevStep}
-                        nextStep = {this.nextStep}
-                        values = {values} /> */}
-                </div>
-              )
-            case 4:
-              return (
-                <div className='body-outer'>
-                    <Header />
-                    {/* <Success /> */}
-                </div>
-              )
             default: 
                // do nothing
           }

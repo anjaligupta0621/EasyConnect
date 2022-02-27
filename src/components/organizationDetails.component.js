@@ -31,7 +31,11 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                         <div id="organization-details">
                             <h3>Name of the Organization</h3>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <input name="organization name" type="text" disabvalue="Abyeti Technologies" />
+                                <input 
+                                    name="organization name" 
+                                    onChange={handleChange('organization')}
+                                    type="text" 
+                                    disabvalue="University of Florida" />
                             </div>
                         </div>
                     </div>
@@ -39,7 +43,11 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                         <div id="website-name" className="margin-top-60">
                             <h3>Name of the Website</h3>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <input name="organization name" type="text" value="http://www.abyeti.com/" />
+                            <input 
+                                name="organization website" 
+                                type="text" 
+                                onChange={handleChange('orgWebsite')}
+                                 />
                             </div>
                         </div>
                     <div className="clearfix"></div>
@@ -47,7 +55,7 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                     <div id="organization-description" className="margin-top-60">
                         <h3>Description of the Organization</h3>
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <textarea name="" cols="" rows=""  placeholder="Write a short description about your organization"></textarea>
+                            <textarea onChange={handleChange('orgDescription')} name="" cols="" rows=""  placeholder="Write a short description about your organization"></textarea>
                             <p>Max characters 1000</p>
                         </div>
                     </div>
