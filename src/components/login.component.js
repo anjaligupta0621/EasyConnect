@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
 import closelogo from '../img/close.png';
-import axios from 'axios';
+
  
 class LoginModal extends React.Component {
 
