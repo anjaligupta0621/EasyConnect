@@ -7,12 +7,8 @@ import LoginModal from './login.component';
 
 class Navbar extends React.Component {
 
-    state = {
-        showComponent: false
-    }
 
     onSignIn = (event) => {
-        // console.log("lodu")
         window.location = "/login"
     }
 

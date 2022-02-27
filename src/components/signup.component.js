@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
 import closelogo from '../img/close.png';
+import axios from 'axios';
  
 class SignUpModal extends React.Component {
 
@@ -11,7 +12,8 @@ class SignUpModal extends React.Component {
         corporateWebsite: '',
         corporateEmail: '',
         contactNumber: '',
-        password: ''
+        password: '',
+        repassword: ''
     }
 
     onChangeCompanyNameHandler = (event) => {
@@ -38,10 +40,38 @@ class SignUpModal extends React.Component {
         this.setState({password: event.target.value});
     }
 
+    onChangeRePasswordHandler = (event) => {
+        this.setState({repassword: event.target.value});
+    }
+
+    onSignUpHandler = (event) => {
+
+        event.preventDefault();
+
+        const user = {
+            name: this.state.recruiterName,
+            email: this.state.corporateEmail,
+            password: this.state.password,
+            organization: this.state.companyName,
+            website: this.state.corporateWebsite,
+            contact: this.state.contactNumber
+        }
+
+        console.log(user);
+
+        axios.post('http://localhost:8081/users', user)
+            .then(response => {
+                console.log("User Logged In");
+            })
+            .catch(error => {
+                console.log("Error occured");
+            })
+    }
+
 
     render() {
         return (
-            <div>
+            <div className='body-outer'>
                 {/* <div className='backdrop'/> */}
                 <div id="loginModal" className='modal-login'> 
                     <div className="modal-content-login"> 
@@ -84,7 +114,7 @@ class SignUpModal extends React.Component {
                                                             type="name" 
                                                             id="name" 
                                                             value={this.companyName} 
-                                                            onChange={() => this.onChangeCompanyNameHandler} 
+                                                            onChange={(event) => this.onChangeCompanyNameHandler(event)} 
                                                             className="text-inputs" />
                                                         </div>
                                                             
@@ -99,7 +129,7 @@ class SignUpModal extends React.Component {
                                                             type="name" 
                                                             id="name"
                                                             value={this.recruiterName} 
-                                                            onChange={() => this.onChangeRecruiterNameHandler} 
+                                                            onChange={(event) => this.onChangeRecruiterNameHandler(event)} 
                                                             className="text-inputs" />
                                                                     
                                                         </div>
@@ -114,7 +144,7 @@ class SignUpModal extends React.Component {
                                                             type="name" 
                                                             id="name"
                                                             value={this.corporateWebsite}
-                                                            onChange={() => this.onChangeWebsiteHandler}  
+                                                            onChange={(event) => this.onChangeWebsiteHandler(event)}  
                                                             className="text-inputs" />
                                                                     
                                                         </div>
@@ -129,7 +159,7 @@ class SignUpModal extends React.Component {
                                                             type="email" 
                                                             id="email" 
                                                             value={this.corporateEmail}
-                                                            onChange={() => this.onChangeEmailHandler} 
+                                                            onChange={(event) => this.onChangeEmailHandler(event)} 
                                                             className="text-inputs" />
                                                             <span id="emailError"></span>
                                                         </div>
@@ -144,7 +174,7 @@ class SignUpModal extends React.Component {
                                                             type="text" 
                                                             id="name"
                                                             value={this.contactNumber}
-                                                            onChange={() => this.onChangeContactHandler} 
+                                                            onChange={(event) => this.onChangeContactHandler(event)} 
                                                             className="text-inputs" />
                                                         </div>
                                                     </div>
@@ -158,7 +188,7 @@ class SignUpModal extends React.Component {
                                                             type="password" 
                                                             id="password" 
                                                             value={this.password}
-                                                            onChange={() => this.onChangePasswordHandler} 
+                                                            onChange={(event) => this.onChangePasswordHandler(event)} 
                                                             className="text-inputs" />
                                                             <span id="passwordError"></span>
                                                         </div>
@@ -172,6 +202,8 @@ class SignUpModal extends React.Component {
                                                             name="name" 
                                                             type="password" 
                                                             id="password" 
+                                                            value={this.repassword}
+                                                            onChange = {(event) => this.onChangeRePasswordHandler(event)}
                                                             className="text-inputs" />
                                                             <span id="passwordError"></span>
                                                         </div>
@@ -180,7 +212,14 @@ class SignUpModal extends React.Component {
                                                 </div>
                                                         
                                                 <div className="col-lg-12" style={{padding:"0px"}}>
-                                                    <button type="button" className="btn btn-primary next-step submit-button" id="submit" data-toggle="modal" data-target=".bd-example-modal-sm">submit</button>
+                                                    <button 
+                                                        type="button" 
+                                                        onClick={(event) => this.onSignUpHandler(event)}
+                                                        className="btn btn-primary next-step submit-button" 
+                                                        id="submit" 
+                                                        data-toggle="modal" 
+                                                        data-target=".bd-example-modal-sm"
+                                                        >submit</button>
                                                 </div>
                                                 
                                                     

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
 import closelogo from '../img/close.png';
+import axios from 'axios';
  
 class LoginModal extends React.Component {
 
@@ -183,7 +184,7 @@ class LoginModal extends React.Component {
                                         type="email" 
                                         id="email" 
                                         value={this.email}
-                                        onChange={(event) => this.onChangeEmailHandler} 
+                                        onChange={(event) => this.onChangeEmailHandler(event)} 
                                         className="text-input"/>
                                     </div>
                                 
@@ -194,12 +195,16 @@ class LoginModal extends React.Component {
                                         type="password" 
                                         id="password" 
                                         value={this.loginPassword}
-                                        onChange={(event) => this.onChangePasswordHandler} 
+                                        onChange={(event) => this.onChangePasswordHandler(event)} 
                                         className="text-input" />
                                     </div>
                                 
                                     <div className="col-lg-12 login">
-                                        <input type="submit" value="LOG IN" className="text-input"/>
+                                        <input 
+                                            type="submit" 
+                                            value="LOG IN" 
+                                            onClick={(event) => this.onSignInHandler(event)}
+                                            className="text-input"/>
                                     </div>
                                 
                                         Don't have an account? <a onClick={this.showSignUp} href="#" class="signup-bottom">Sign Up</a>

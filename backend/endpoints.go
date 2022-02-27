@@ -10,23 +10,21 @@ import (
 
 // Our User Struct
 type Recruiter struct {
-	gorm.Model
-	Name         string
-	Email        string
-	Password     string
+	ID           uint   `gorm:"primary_key; AUTO_ Increment "`
+	Name         string `gorm:"Not null "`
+	Email        string `gorm:"unique; Not null "`
+	Password     string `gorm:"unique; Not null "`
 	Organization string
 	Website      string
-	Contact      int64
+	Contact      string `gorm:"unique; Not null "`
 }
 
 type Login struct {
-	gorm.Model
 	Email    string
 	Password string
 }
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
-	//fmt.Fprintf(w, "Get Data API User Endpoint Hit ---> ")
 
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
@@ -41,31 +39,17 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 
-	var users []Recruiter
-	db.Find(&users)
-	//var singleUser Recruiter
-	result := false
-	var returnUser Recruiter
-	for i, singleUser := range users {
-		fmt.Println(i, singleUser.Email, singleUser.Password)
-		if singleUser.Email == login.Email {
-			if singleUser.Password == login.Password {
-				result = true
-				returnUser = singleUser
-				break
-			}
-		}
-	}
+	var recruiter_ Recruiter
+	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&recruiter_)
 
-	if result {
-		json.NewEncoder(w).Encode(returnUser)
+	if recruiter_.Email != "" {
+		json.NewEncoder(w).Encode(recruiter_)
 	} else {
 		fmt.Fprintf(w, "Login Failed")
 	}
 }
 
 func putUserData(w http.ResponseWriter, r *http.Request) {
-	//fmt.Fprintf(w, "Put Data API User Endpoint Hit ----> ")
 
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
@@ -79,12 +63,7 @@ func putUserData(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		panic(err2)
 	}
-	fmt.Println(recruiter.Name)
-
-	//vars := mux.Vars(r)
-	//name := vars["name"]
-	//email := vars["email"]
 
 	db.Create(&Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
-	fmt.Fprintf(w, "New User Successfully Created")
+	fmt.Fprintf(w, "New Recruiter Successfully Added: "+recruiter.Name)
 }
