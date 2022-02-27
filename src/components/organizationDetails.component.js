@@ -19,6 +19,10 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
 				    <h1>Post New Job</h1>
 				    <div id="postjob"></div>
             <div className="container-fluid" >
+            <ul className="nav nav-pills">
+                <li className="active"><a data-toggle="pill" >Organization Details</a></li>
+                <li><a data-toggle="pill" onClick={Continue}>Job Description</a></li>
+		    </ul>
                 <div className="tab-content">
 
                 <form>
