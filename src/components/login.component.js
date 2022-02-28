@@ -7,13 +7,45 @@ import closelogo from '../img/close.png';
 class LoginModal extends React.Component {
 
     state = {
-		showSignUp: false
+		showSignUp: false,
+        email:"",
+        password:""
 	}
 
+    onChangeEmailHandler = (event) => {
+        this.setState({email: event.target.value});
+    }
+
+    onChangePasswordHandler = (event) => {
+        this.setState({password: event.target.value});
+    }
+
+    onSignInHandler =(event)=>{
+
+        let data ={
+            Email :this.state.email,
+            Password: this.state.password
+        }
+
+       
+        fetch(`http://localhost:8081/users`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        .then(res => {
+            debugger;
+            return res.json();
+        }).then(result => {
+         
+            debugger;
+        }).catch( e =>{
+            debugger;
+        })
+       
+    }
     showSignUp= ()=>{
       this.setState({showSignUp:true})
     };
 
+
+    
     hideSignUp= ()=>{
         this.setState({showSignUp:false})
       };
@@ -176,14 +208,14 @@ class LoginModal extends React.Component {
 
                     <div className="modal-body">
                             <h1>Recruiter Login</h1>
-                                <form>
+                                <div>
                                     <label htmlFor="email" className="col-lg-12">Corporate Email ID</label>
                                     <div className="col-lg-12">
                                         <input 
                                         name="emailId" 
                                         type="email" 
                                         id="email" 
-                                        value={this.email}
+                                        value={this.state.email}
                                         onChange={(event) => this.onChangeEmailHandler(event)} 
                                         className="text-input"/>
                                     </div>
@@ -191,10 +223,10 @@ class LoginModal extends React.Component {
                                     <label htmlFor="pass" className="col-lg-12">Enter Password <a href="#">Forgot Password?</a></label>
                                     <div className="col-lg-12">
                                         <input 
-                                        name="emailId" 
+                                        name="Password" 
                                         type="password" 
                                         id="password" 
-                                        value={this.loginPassword}
+                                        value={this.state.password}
                                         onChange={(event) => this.onChangePasswordHandler(event)} 
                                         className="text-input" />
                                     </div>
@@ -208,7 +240,7 @@ class LoginModal extends React.Component {
                                     </div>
                                 
                                         Don't have an account? <a onClick={this.showSignUp} href="#" class="signup-bottom">Sign Up</a>
-                                </form>
+                                </div>
                         </div>
                     </div>
                 </div>

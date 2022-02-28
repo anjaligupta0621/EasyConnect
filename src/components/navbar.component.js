@@ -7,11 +7,6 @@ import LoginModal from './login.component';
 
 class Navbar extends React.Component {
 
-
-    onSignIn = (event) => {
-        window.location = "/login"
-    }
-
     render() {
         return (
             <nav className="navbar navbar-inverse">
