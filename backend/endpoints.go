@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/jinzhu/gorm"
@@ -28,7 +27,7 @@ func setupCorsResponse(w *http.ResponseWriter, req *http.Request) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Authorization")
- }
+}
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
@@ -51,12 +50,12 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 	if recruiter_.Email != "" {
 		json.NewEncoder(w).Encode(recruiter_)
 	} else {
-		fmt.Fprintf(w, "Login Failed")
+		json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
 	}
 }
 
 func putUserData(w http.ResponseWriter, r *http.Request) {
-
+	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		panic("failed to connect database")
@@ -71,5 +70,5 @@ func putUserData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db.Create(&Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
-	fmt.Fprintf(w, "New Recruiter Successfully Added: "+recruiter.Name)
+	json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
 }
