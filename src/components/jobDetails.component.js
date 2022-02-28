@@ -5,17 +5,25 @@ import '../css/main.css';
 import '../css/styles.css';
 import '../css/menu.css';
 import '../css/select-drop.css';
+import '../css/toggle.css';
 
 const JobDetails = ({ prevStep, handleChange, values }) => {
 
     const [showLocation, setShowLocation] = useState(false);
+    const [isParttime, setIsParttime] = useState(true);
 
     const onSubmit = e => {
         e.preventDefault();
         const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, 
-            location, startDate, responsibilities, salaryFrom, salaryTo } = values;
+            location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo } = values;
         console.log({organization, orgWebsite, orgDescription, roleName, roleType, jobType,
-            location, startDate, responsibilities, salaryFrom, salaryTo});
+            location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo});
+    }
+
+    const onToggle = e => {
+        console.log("Inside Toggle Function");
+        setIsParttime(!isParttime);
+        console.log(isParttime);
     }
     
     const Previous = e => {
@@ -177,6 +185,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                         </div>
                                         {showLocation && 
                                             (<div id="div1" className="show-regularjob">
+                                                <div className="clearfix"></div>
                                                 <h4>Internship Location(s)*</h4>
                                                 <input 
                                                     name="locality" 
@@ -194,11 +203,22 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                     <h5>Is Part Time Allowed?*</h5>
                                                 </div>
                                                 <div className=" col-lg-9 toggle_bt2">
-                                                    <div className="onoffswitch2">
+                                                    <label className="switch">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            checked = {values.isPartAllowed === true} 
+                                                            value={true}
+                                                            onClick={onToggle} 
+                                                            onChange={handleChange('isPartAllowed')}
+                                                             />
+                                                        <span className="slider round" ></span>
+                                                    </label>
+                                                    { /* <div className="onoffswitch2">
                                                         <input type="checkbox" defaultChecked className="onoffswitch-checkbox2" id="onoffswitch2" />
                                                         <label htmlFor="onoffswitch2" className="onoffswitch-label2"><span className="onoffswitch-inner2"></span><span className="onoffswitch-switch2"></span></label>
-                                                    </div>
-                                                </div> 
+                                        </div> */}
+                                                </div>  
+                                                
                                             </div>)}
                                     </div>
                                     <div className="clearfix"></div>
