@@ -22,7 +22,7 @@ class PostJob extends React.Component {
         roleType: '',
         jobType: '',
         location: '',
-        isPartAllowed: false,
+        isPartAllowed: true,
         startDate: '',
         responsibilities: '',
         salaryFrom: '',
@@ -48,8 +48,8 @@ class PostJob extends React.Component {
     render(){
 
         const { step } = this.state;
-        const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryFrom, salaryTo } = this.state;
-        const values = { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, startDate, responsibilities, salaryFrom, salaryTo  }
+        const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo } = this.state;
+        const values = { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo  }
 
         switch (step) {
             case 1: 
