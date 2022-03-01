@@ -33,7 +33,7 @@ class LoginModal extends React.Component {
             debugger;
             return res.json();
         }).then(result => {
-         
+            this.props.hideLogin();
             debugger;
         }).catch( e =>{
             debugger;
