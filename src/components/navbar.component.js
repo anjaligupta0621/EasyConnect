@@ -7,6 +7,9 @@ import LoginModal from './login.component';
 
 class Navbar extends React.Component {
 
+    state = {
+		signIn: "Sign In"
+	}
     render() {
         return (
             <nav className="navbar navbar-inverse">
@@ -26,8 +29,7 @@ class Navbar extends React.Component {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                             <li className="active"><a href="/">Home</a></li>
-                            <li><a href="#">Candidate Profile Search</a></li>
-                            <li><a href="#">Post Job Description</a></li>
+                            <li><a href="/postJob">Post Job Description</a></li>
                             <li><a href="#">Shortlist Candidates</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">

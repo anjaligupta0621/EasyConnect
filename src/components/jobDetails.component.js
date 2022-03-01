@@ -1,11 +1,11 @@
 import { React, useState } from "react";
-import {Grid,Button, Divider, Container, TextField } from "@material-ui/core";
 import '../css/login-modal-wizard.css';
 import '../css/main.css';
 import '../css/styles.css';
 import '../css/menu.css';
 import '../css/select-drop.css';
 import '../css/toggle.css';
+import './jobDetails.component.css';
 
 const JobDetails = ({ prevStep, handleChange, values }) => {
 
@@ -45,7 +45,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
 			    <div className="body-area col-lg-12 col-md-12 col-sm-12 col-xs-12" > 
 				    <h1>Post New Job</h1>
 				    <div id="postjob">
-                        <div className="container-fluid"  >
+                        <div className="container-fluid" style={{padding:'0px'}} >
                             <ul className="nav nav-pills">
                                 <li><a data-toggle="pill" onClick={Previous}>Organization Details</a></li>
                                 <li className="active"><a data-toggle="pill" href="#description">Job Description</a></li>
@@ -256,33 +256,32 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                     </div>
                                     <div className="clearfix"></div>
                                     
-                                    <div >
+                                    <div id="salaryRange" class="border-top">
                                         <h3>Salary Range <span>( $ )</span></h3>
-                                        {/* <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="padding:0px;"> */}
+                                         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" style ={{padding:"0px"}}> 
                                         <h5>From</h5>
                                         <input type="text" onChange={handleChange('salaryFrom')} className="textbox280" />
-                                        {/* </div> */}
+                                         </div> 
                                         
-                                        {/* <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" style="padding:0px;"> */}
+                                         <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" style ={{padding:"0px"}}> 
                                         <h5>To</h5>				
                                         <input type="text" onChange={handleChange('salaryTo')} className="textbox280" />
-                                        {/* </div> */}
+                                         </div>
                                     </div>
 
                                     <div className="clearfix"></div>
                                     
-                                    <div className="border-top">
+                                    {/* <div className="border-top">
                                         <button 
                                             className="post-button"
                                             style={{'marginTop':'10px','position':'relative'}}
                                             onClick={Previous}>PREVIOUS</button>
-                                    </div> 
+                                    </div>  */}
                                     <div className="clearfix"></div>
                                     
                                     <div className="border-top">
                                         <button 
                                             onClick={onSubmit}
-                                            style={{'float':'right', 'position':'relative'}} 
                                             className="post-button">POST JOB DESCRIPTION</button>
                                     </div> 
                                     

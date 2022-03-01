@@ -1,10 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import '../css/login-modal-wizard.css';
-import '../css/main.css';
-import '../css/styles.css';
-import '../css/menu.css';
-import '../css/select-drop.css';
 import Header from "./header.component";
 import OrganizationDetails from './organizationDetails.component';
 import JobDetails from './jobDetails.component';

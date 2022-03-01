@@ -17,7 +17,8 @@ import shadowImage from '../img/steps-shadow.png'
 class Home extends React.PureComponent {
 
 	state = {
-		showModal: false
+		showModal: false,
+    isLoggedIn:false
 	}
 
   showLoginDialog =()=> {
@@ -33,10 +34,13 @@ class Home extends React.PureComponent {
   }
 
 	render() {
-		const mystyle = {
-			boxShadow: "0 0 10px rgba(0,0,0,0.6)",
-
-		};
+		const  mystyle = {  
+      padding: "0px",
+      backgroundImage:`url(${shadowImage})`,
+      backgroundRepeat:"no-repeat",
+      backgroundPosition:"top left"     
+      
+    };
 		const blockStyle = {
 			borderRadisu: "5px",
 
@@ -46,64 +50,62 @@ class Home extends React.PureComponent {
       { this.state.showModal? <LoginModal hideLogin={this.hideLoginDialog}/> : null }
 
       <Header showLogin={this.showLoginDialog} hideLogin={this.hideLoginDialog}/>
-				<div id="banner" className="text-center">
-					<h1 className="banner-logo-box"><span className="main-logo mr-10"></span>
-						<div>
-							Easy <span>Connect</span>
-						</div>
-					</h1>
-					<p className="caption1">We help you find the <span>Right and Job-ready Candidates</span></p>
-					<p className="caption2">Completely <span>FREE.</span> No hidden charges. <span>No credit card required</span></p>
+			<div id="banner" className="text-center">
+  <h1><img src={logolarge} alt="Easy Connect"/>Easy <span>Connect</span></h1> 
+  <p className="caption1">We help you find the <span>Right and Job-ready Candidates</span></p>
+  <p className="caption2">Completely <span>FREE.</span> No hidden charges. <span>No credit card required</span></p>
 
 
-					<div className="col-lg-12 steps" style={{ padding: "15px 10px",display: "grid",gridTemplateColumns: "1fr 1fr 1fr 1fr",gridGap: "10px" }}>
-						<a href="#section1" style={blockStyle}>
-							<div className="col-lg-12 col-md-6 col-sm-6 step1" style={mystyle}>
-								<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">01</div>
-								<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-									<h2>Access a large pool of freshers</h2>
-									<p>Access 25000+ freshers from across 500+ colleges in India</p>
-								</div>
-							</div>
-						</a>
-
-						<a href="#section2" style={blockStyle}>
-							<div className="col-lg-12 col-md-6 col-sm-6 step1" style={mystyle}>
-								<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">02</div>
-								<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-									<h2>Applicants are automatically sorted</h2>
-									<p>Interested Applicants will be automatically sorted by Employability Skills</p>
-								</div>
-							</div>
-						</a>
-
-						<a href="#section3" style={blockStyle}>
-							<div className="col-lg-12 col-md-6 col-sm-6 step1" style={mystyle}>
-								<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">03</div>
-								<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-									<h2>View rich profiles of top ranked candidates</h2>
-									<p>Listen to the audio profiles of top ranked candidates. Shortlist candidates who fit your Organization’s culture</p>
-								</div>
-							</div>
-						</a>
-
-						<a href="#section4" style={blockStyle}>
-							<div className="col-lg-12 col-md-6 col-sm-6 step1" style={mystyle}>
-								<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">04</div>
-								<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-									<h2>Hire freshers without leaving your office</h2>
-									<p>Hire only the best freshers directly from your Office without the expense of visiting Campuses</p>
-								</div>
-							</div>
-						</a>
-
-					</div>
-
-					<div className="banner-arrow text-center">
-						<a href="#section1"><img src={bannerArrow} alt="" /></a>
-					</div>
-				</div>
+  <div className="col-lg-12 steps" style={{padding:"0px"}}>
+  <a href="#section1">	
+		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">01</div>
+			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+				<h2>Access a large pool of freshers</h2>
+				<p>Access 25000+ freshers from across 500+ colleges in India</p>
 			</div>
+		</div>
+	</a>
+
+  <a href="#section2">	
+		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">02</div>
+			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+				<h2>Applicants are automatically sorted</h2>
+				<p>Interested Applicants will be automatically sorted by Employability Skills</p>
+			</div>
+		</div>
+	</a>
+	
+	<a href="#section3">	
+		<div className="col-lg-3 col-md-6 col-sm-6 step1"  style={mystyle}>
+			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">03</div>
+			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+				<h2>View rich profiles of top ranked candidates</h2>
+				<p>Listen to the audio profiles of top ranked candidates. Shortlist candidates who fit your Organization’s culture</p>
+			</div>
+		</div>
+	</a>
+	
+	<a href="#section4">	
+		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">04</div>
+			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+				<h2>Hire freshers without leaving your office</h2>
+				<p>Hire only the best freshers directly from your Office without the expense of visiting Campuses</p>
+			</div>
+		</div>
+	</a>
+
+  </div>
+
+  <div className="banner-arrow text-center">
+      <a href="#section1"><img src={bannerArrow} alt=""/></a>
+  </div>
+</div>
+  </div>
+
+		
 
 
 		);

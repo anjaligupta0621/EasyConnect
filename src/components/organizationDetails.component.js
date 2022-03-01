@@ -1,10 +1,6 @@
 import { React } from "react";
-import {Button, Divider, Container, TextField } from "@material-ui/core";
-import '../css/login-modal-wizard.css';
-import '../css/main.css';
 import '../css/styles.css';
-import '../css/menu.css';
-import '../css/select-drop.css';
+import './organizationDetails.component.css';
 
 const OrganizationDetails = ({ nextStep, handleChange, values }) => {
     const Continue = e => {
@@ -17,11 +13,11 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
             <div className="main-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			    <div className="body-area col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
 				    <h1>Post New Job</h1>
-				    <div id="postjob"></div>
-            <div className="container-fluid" >
+				    <div id="postjob">
+            <div className="container-fluid" style={{padding:"0px"}}>
             <ul className="nav nav-pills">
                 <li className="active"><a data-toggle="pill" >Organization Details</a></li>
-                <li><a data-toggle="pill" onClick={Continue}>Job Description</a></li>
+                <li><a data-toggle="pill" onClick={Continue} >Job Description</a></li>
 		    </ul>
                 <div className="tab-content">
 
@@ -38,8 +34,9 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                                     disabvalue="University of Florida" />
                             </div>
                         </div>
-                    </div>
+
                     <div className="clearfix"></div>
+
                         <div id="website-name" className="margin-top-60">
                             <h3>Name of the Website</h3>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -50,6 +47,7 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                                  />
                             </div>
                         </div>
+
                     <div className="clearfix"></div>
 
                     <div id="organization-description" className="margin-top-60">
@@ -59,17 +57,21 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                             <p>Max characters 1000</p>
                         </div>
                     </div>
+
                     <div className="clearfix"></div>
                                     
                     <button 
                         className="submit-button"
-                        onClick={ Continue } >Next</button>
-                   
+                        onClick={ Continue } >Next
+                    </button>
+
+                    </div>
                 </form>
                 </div>
                 </div>
                 </div>
                 </div>
+        </div>
         </div>
     )
 }

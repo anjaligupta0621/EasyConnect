@@ -1,7 +1,8 @@
 import React from 'react'
+
+import '../css/styles.css';
 import '../css/main.css';
 import '../css/menu.css';
-import '../css/styles.css';
 import '../css/login-modal-wizard.css';
 import '../css/select-drop.css';
 import './header.component.css';
