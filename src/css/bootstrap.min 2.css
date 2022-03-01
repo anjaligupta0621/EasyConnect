@@ -3427,7 +3427,8 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 }
 .tab-content>.tab-pane {
-	display: none
+	/* display: none */
+	display: block;
 }
 .tab-content>.active {
 	display: block

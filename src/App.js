@@ -6,6 +6,7 @@ import './App.css';
 import LoginModal from './components/login.component';
 import SignUpModal from './components/signup.component';
 import Jobseekerheader from './components/jobseeker.component';
+import PostJob from './components/postJob.component';
 
 
 function App(props) {
@@ -17,6 +18,7 @@ function App(props) {
               <Route path="/home" element={<Home />} />
               <Route path="/login" element={<LoginModal />} />
               <Route path="/signup" element={<SignUpModal />} />
+              <Route path="/postjob" element={<PostJob />} />
               <Route path="/" element={<Home />} />
               <Route path="/user" element={<Jobseekerheader />} />
             </Routes>
