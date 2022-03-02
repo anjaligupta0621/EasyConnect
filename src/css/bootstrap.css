@@ -4064,7 +4064,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .tab-content > .tab-pane {
-  display: none;
+  /* display: none; */
+  display: block;
 }
 .tab-content > .active {
   display: block;
@@ -6583,4 +6584,3 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */

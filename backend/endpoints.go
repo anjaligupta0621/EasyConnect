@@ -2,49 +2,74 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
-	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 )
 
 // Our User Struct
-type User struct {
-	gorm.Model
-	Name  string
-	Email string
+type Recruiter struct {
+	ID           uint   `gorm:"primary_key; AUTO_ Increment "`
+	Name         string `gorm:"Not null "`
+	Email        string `gorm:"unique; Not null "`
+	Password     string `gorm:"unique; Not null "`
+	Organization string
+	Website      string
+	Contact      string `gorm:"unique; Not null "`
+	Jobs         []Job  `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+}
+
+type Login struct {
+	Email    string
+	Password string
+}
+
+func setupCorsResponse(w *http.ResponseWriter, req *http.Request) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Authorization")
 }
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Get Data API User Endpoint Hit")
-
-	db, err := gorm.Open("sqlite3", "loginDetails.db")
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
 	defer db.Close()
 
-	var users []User
-	db.Find(&users)
-	fmt.Println("{}", users)
+	decoder := json.NewDecoder(r.Body)
+	var login Login
+	err2 := decoder.Decode(&login)
+	if err2 != nil {
+		panic(err2)
+	}
 
-	json.NewEncoder(w).Encode(users)
+	var recruiter_ Recruiter
+	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&recruiter_)
+
+	if recruiter_.Email != "" {
+		json.NewEncoder(w).Encode(recruiter_)
+	} else {
+		json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
+	}
 }
 
 func putUserData(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Put Data API User Endpoint Hit")
-
-	db, err := gorm.Open("sqlite3", "loginDetails.db")
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
 	defer db.Close()
 
-	vars := mux.Vars(r)
-	name := vars["name"]
-	email := vars["email"]
+	decoder := json.NewDecoder(r.Body)
+	var recruiter Recruiter
+	err2 := decoder.Decode(&recruiter)
+	if err2 != nil {
+		panic(err2)
+	}
 
-	db.Create(&User{Name: name, Email: email})
-	fmt.Fprintf(w, "New User Successfully Created")
+	db.Create(&Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
+	json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
 }
