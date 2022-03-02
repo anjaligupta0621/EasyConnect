@@ -21,6 +21,7 @@ type Job struct {
 	Salary_Start     uint16
 	Salary_End       uint16
 	Active           bool `gorm:"Not null"`
+	RecruiterID      uint
 }
 
 func getJobs(w http.ResponseWriter, r *http.Request) {
@@ -52,6 +53,21 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 
 func addJob(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	var job Job
+	err2 := decoder.Decode(&job)
+	if err2 != nil {
+		panic(err2)
+	}
+
+	db.Create(&Job{JobID: job.JobID, Role_Name: job.Role_Name, Role_Type: job.Role_Type, Type: job.Type, Location: job.Location, Start_Date: job.Start_Date, Posted_Date: job.Posted_Date, Responsibilities: job.Responsibilities, Salary_Start: job.Salary_Start, Salary_End: job.Salary_End, Active: job.Active, RecruiterID: job.RecruiterID})
+	json.NewEncoder(w).Encode("New job Successfully Added")
 	//TBD
 }
 
