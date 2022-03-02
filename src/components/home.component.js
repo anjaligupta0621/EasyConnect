@@ -33,7 +33,7 @@ class Home extends React.PureComponent {
 
   <div className="col-lg-12 steps home-grid-container" >
   <a href="#section1" className="home-cards">	
-		<div class="col-lg-12 col-md-6 col-sm-6 step1">
+		<div class="col-lg-12 step1">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">01</div>
 			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>Access a large pool of freshers</h2>
@@ -43,7 +43,7 @@ class Home extends React.PureComponent {
 	</a>
 
   <a href="#section2" className="home-cards">	
-		<div class="col-lg-12 col-md-6 col-sm-6 step1">
+		<div class="col-lg-12 step1">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">02</div>
 			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>Applicants are automatically sorted</h2>
@@ -53,7 +53,7 @@ class Home extends React.PureComponent {
 	</a>
 	
 	<a href="#section3" className="home-cards">	
-		<div class="col-lg-12 col-md-6 col-sm-6 step1" >
+		<div class="col-lg-12 step1" >
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">03</div>
 			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>View rich profiles of top ranked candidates</h2>
@@ -63,7 +63,7 @@ class Home extends React.PureComponent {
 	</a>
 	
 	<a href="#section4" className="home-cards">	
-		<div class="col-lg-12 col-md-6 col-sm-6 step1">
+		<div class="col-lg-12 step1">
 			<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">04</div>
 			<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>Hire freshers without leaving your office</h2>
