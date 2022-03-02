@@ -1,0 +1,22 @@
+//Author Guarav
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func dashboardHandler(w http.ResponseWriter, r *http.Request){
+    fmt.Fprintf(w, "Here Goes Job Request List/Card")
+    fmt.Println("Endpoint Hit: dashboardHandler")
+}
+
+func dashboardRequestHandler() {
+    http.HandleFunc("/", dashboardHandler)
+    log.Fatal(http.ListenAndServe(":10000", nil))
+}
+
+func main() {
+    dashboardRequestHandler()
+}
