@@ -16,7 +16,7 @@ type Recruiter struct {
 	Organization string
 	Website      string
 	Contact      string `gorm:"unique; Not null "`
-	Jobs         []Job  `gorm:"foreignKey:JobID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+	Jobs         []Job  `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
 
 type Login struct {
