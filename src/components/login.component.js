@@ -239,7 +239,7 @@ class LoginModal extends React.Component {
                                             className="text-input"/>
                                     </div>
                                 
-                                        Don't have an account? <a onClick={this.showSignUp} href="#" class="signup-bottom">Sign Up</a>
+                                        Don't have an account? <a onClick={this.showSignUp} href="#" className="signup-bottom">Sign Up</a>
                                 </div>
                         </div>
                     </div>
