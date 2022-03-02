@@ -7,8 +7,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-var db *gorm.DB
-
 func createDB() {
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
@@ -19,4 +17,5 @@ func createDB() {
 
 	// Migrate the schema
 	db.AutoMigrate(&Recruiter{})
+	db.AutoMigrate(&Job{})
 }
