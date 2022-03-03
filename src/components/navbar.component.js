@@ -1,16 +1,21 @@
 import React from 'react'
 import './navbar.component.css';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.png';
 import LoginModal from './login.component';
 
 
-class Navbar extends React.Component {
+const Navbar =(props) => {
 
-    state = {
-		signIn: "Sign In"
-	}
-    render() {
+    const nav = useNavigate();
+    const postJob = () =>{
+        if (props.isLoggedIn) {          
+            nav('/jobDashBoard');
+        } else {
+            props.showLogin();
+        }
+    }
+   
         return (
             <nav className="navbar navbar-inverse">
                 <div className="container-fluid">
@@ -29,19 +34,23 @@ class Navbar extends React.Component {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                             <li className="active"><a href="/">Home</a></li>
-                            <li><a href="/postJob">Post Job Description</a></li>
+                            <li><a onClick={postJob}>Post Job Description</a></li>
                             <li><a href="#">Shortlist Candidates</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li>
-                                <input name="" type="submit" value="Sign In" className="sign-in-bt-top" id="btnlogin" onClick={(event) => this.props.showLogin(event)} />
+                                {
+                                    (!props.isLoggedIn && !global.isLoggedIn) ? 
+                                    <input name="" type="submit" value="Sign In" className="sign-in-bt-top" id="btnlogin" onClick={props.showLogin} /> :
+                                    <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
+                                }
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         );
-    }
+  
 
 }
 

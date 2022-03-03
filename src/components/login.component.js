@@ -34,8 +34,11 @@ class LoginModal extends React.Component {
             return res.json();
         }).then(result => {
             this.props.hideLogin();
+            this.props.setIsLoggedIn(true);
+            global.isLoggedIn = true;
             debugger;
-        }).catch( e =>{
+        }).catch( e => {
+            global.isLoggedIn = false;
             debugger;
         })
        

@@ -27,9 +27,21 @@ class Home extends React.PureComponent {
     })
   }
 
+  signOut = () => {
+    debugger;
+    this.setIsLoggedIn(false);
+    global.isLoggedIn = false;
+  }
+
   hideLoginDialog =()=> {
     this.setState({
       showModal:false
+    })
+  }
+
+  setIsLoggedIn = (isLoggedIn) => {
+    this.setState({
+      isLoggedIn: isLoggedIn
     })
   }
 
@@ -47,13 +59,13 @@ class Home extends React.PureComponent {
 		};
 		return (
 			< div>
-      { this.state.showModal? <LoginModal hideLogin={this.hideLoginDialog}/> : null }
+      { this.state.showModal? <LoginModal hideLogin={this.hideLoginDialog} setIsLoggedIn={this.setIsLoggedIn} /> : null }
 
-      <Header showLogin={this.showLoginDialog} hideLogin={this.hideLoginDialog}/>
+      <Header showLogin={this.showLoginDialog} isLoggedIn={this.state.isLoggedIn} signOut={this.signOut} setIsLoggedIn={this.setIsLoggedIn} />
 			<div id="banner" className="text-center">
-  <h1><img src={logolarge} alt="Easy Connect"/>Easy <span>Connect</span></h1> 
-  <p className="caption1">We help you find the <span>Right and Job-ready Candidates</span></p>
-  <p className="caption2">Completely <span>FREE.</span> No hidden charges. <span>No credit card required</span></p>
+      <h1><img src={logolarge} alt="Easy Connect"/>Easy <span>Connect</span></h1> 
+      <p className="caption1">We help you find the <span>Right and Job-ready Candidates</span></p>
+      <p className="caption2">Completely <span>FREE.</span> No hidden charges. <span>No credit card required</span></p>
 
 
   <div className="col-lg-12 steps" style={{padding:"0px"}}>
