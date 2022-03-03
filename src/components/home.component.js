@@ -28,9 +28,11 @@ class Home extends React.PureComponent {
   }
 
   signOut = () => {
-    debugger;
+    // debugger;
+    alert("shahsank");
     this.setIsLoggedIn(false);
     global.isLoggedIn = false;
+
   }
 
   hideLoginDialog =()=> {
@@ -40,6 +42,9 @@ class Home extends React.PureComponent {
   }
 
   setIsLoggedIn = (isLoggedIn) => {
+    // debugger;
+    this.props.log(true);
+    // debugger;
     this.setState({
       isLoggedIn: isLoggedIn
     })

@@ -3,17 +3,24 @@ import './navbar.component.css';
 import { useNavigate } from "react-router-dom";
 import logo from '../img/logo.png';
 import LoginModal from './login.component';
-
+import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 const Navbar =(props) => {
 
     const nav = useNavigate();
+    // const history = useHistory();
     const postJob = () =>{
         if (props.isLoggedIn) {          
-            nav('/jobDashBoard');
+            this.props.history.push('/jobDashBoard');
         } else {
             props.showLogin();
         }
+    }
+
+    const gotoHome = () => {
+        // debugger;
+        this.props.history.push('/home');
     }
    
         return (
@@ -33,8 +40,8 @@ const Navbar =(props) => {
 
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
-                            <li className="active"><a href="/">Home</a></li>
-                            <li><a onClick={postJob}>Post Job Description</a></li>
+                            <li className="active"><button onClick={gotoHome}>Home</button></li>
+                            <li><button onClick={postJob}>Post Job Description</button></li>
                             <li><a href="#">Shortlist Candidates</a></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
