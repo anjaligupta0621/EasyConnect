@@ -6,23 +6,16 @@ import '../css/menu.css';
 import '../css/select-drop.css';
 import '../css/toggle.css';
 import './jobDetails.component.css';
+import axios from "axios";
 
 const JobDetails = ({ prevStep, handleChange, values }) => {
 
     const [showLocation, setShowLocation] = useState(false);
-    const [isParttime, setIsParttime] = useState(true);
-
-    const onSubmit = e => {
-        e.preventDefault();
-        const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, 
-            location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo } = values;
-        console.log({organization, orgWebsite, orgDescription, roleName, roleType, jobType,
-            location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo});
-    }
+    const [isParttime, setIsParttime] = useState(false);
 
     const onToggle = e => {
         console.log("Inside Toggle Function");
-        setIsParttime(!isParttime);
+        setIsParttime(isParttime => !isParttime);
         console.log(isParttime);
     }
     
@@ -37,6 +30,37 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
 
     const onWFH = e => {
         setShowLocation(false);
+    }
+
+    const onPostJobHandler = e => {
+        e.preventDefault();
+
+        let today = new Date();
+        today = today.getMonth()+1 + '-' + today.getDate() + '-' + today.getFullYear();
+
+        let data = {
+            Role_Name: values.roleName ,
+            Role_Type: values.roleType,
+            Type: values.jobType ,
+            Location: values.location ,
+            Start_Date: values.startDate ,
+            Posted_Date: today,
+            Responsibilities: values.responsibilities ,
+            Salary_Start: values.salaryFrom ,
+            Salary_End: values.salaryTo ,
+            Active: String(values.isPartAllowed) ,
+            RecruiterID: 1 
+        }
+        
+       
+        console.log(JSON.stringify(data));
+        fetch(`http://localhost:8081/postjob`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        .then(res => {
+            return res.json();
+        }).catch( e =>{
+            console.log(e);
+        })
+       
     }
 
     return (
@@ -207,7 +231,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                         <input 
                                                             type="checkbox" 
                                                             checked = {values.isPartAllowed === true} 
-                                                            value={true}
+                                                            value={isParttime}
                                                             onClick={onToggle} 
                                                             onChange={handleChange('isPartAllowed')}
                                                              />
@@ -256,7 +280,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                     </div>
                                     <div className="clearfix"></div>
                                     
-                                    <div id="salaryRange" class="border-top">
+                                    <div id="salaryRange" className="border-top">
                                         <h3>Salary Range <span>( $ )</span></h3>
                                          <div className="col-lg-4 col-md-4 col-sm-6 col-xs-6" style ={{padding:"0px"}}> 
                                         <h5>From</h5>
@@ -281,7 +305,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                     
                                     <div className="border-top">
                                         <button 
-                                            onClick={onSubmit}
+                                            onClick={onPostJobHandler}
                                             className="post-button">POST JOB DESCRIPTION</button>
                                     </div> 
                                     

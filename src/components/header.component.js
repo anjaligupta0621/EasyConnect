@@ -23,7 +23,7 @@ const Header = (props) => {
                     </div>
                 </div>
             </div>
-            <Navbar showLogin={props.showLogin} hideLogin={props.hideLogin}/>
+            <Navbar showLogin={props.showLogin} isLoggedIn={props.isLoggedIn} signOut={props.signOut} />
         </header>
     )
 }
