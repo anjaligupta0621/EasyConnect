@@ -45,32 +45,35 @@ class PostJob extends React.Component {
         const { step } = this.state;
         const { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo } = this.state;
         const values = { organization, orgWebsite, orgDescription, roleName, roleType, jobType, location, isPartAllowed, startDate, responsibilities, salaryFrom, salaryTo  }
-
+        
+        const jobRender = () =>
+        {
         switch (step) {
+
             case 1: 
-              return (
-                <div className='body-outer'>
-                    <Header />
-                    <OrganizationDetails 
+              return <OrganizationDetails 
                         nextStep = {this.nextStep}
                         handleChange = {this.handleChange}
-                        values = { values } />
-                </div>
+                        values = { values } />; 
+           
                 
-              )
             case 2: 
-              return (
-                <div className='body-outer'>
-                    <Header />
-                    <JobDetails 
+                return  <JobDetails 
                         prevStep = {this.prevStep}
                         handleChange = {this.handleChange}
-                        values = { values } />
-                </div>              
-                )
+                        values = { values } />;
             default: 
-               // do nothing
+               return <div></div>
           }
+        }
+        return(
+            <div>
+            <Header />
+            {jobRender()}
+            </div>
+
+           
+        )
 
     };
 }
