@@ -30,16 +30,16 @@ class LoginModal extends React.Component {
        
         fetch(`http://localhost:8081/users`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
-            debugger;
+            // debugger;
             return res.json();
         }).then(result => {
             this.props.hideLogin();
             this.props.setIsLoggedIn(true);
             global.isLoggedIn = true;
-            debugger;
+            // debugger;
         }).catch( e => {
             global.isLoggedIn = false;
-            debugger;
+            // debugger;
         })
        
     }

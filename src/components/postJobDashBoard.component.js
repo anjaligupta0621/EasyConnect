@@ -1,19 +1,20 @@
 import { React } from "react";
 import '../css/styles.css';
 import Header from "./header.component";
-import './postJobDashBoard.component.css'
+import './postJobDashBoard.component.css';
+import { Link } from "react-router-dom";
 import addJobButton from '../img/add-job-btn.png';
 
-const PostJobDashBoard = () => {
+const PostJobDashBoard = (props) => {
 
     return (
         
         <div >
             <Header />
+
             <div className="main-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div className="body-area col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-				<h1>Dashboard <a href="/postJob"><img src={addJobButton} alt=""/> Post Job</a></h1>
-				
+				<h1>Dashboard <Link to="/postJob"><img src={addJobButton} alt=""/> Post Job</Link></h1>
 				<table className="responsive-table">
 					<thead>
 					  <tr>
