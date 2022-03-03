@@ -17,7 +17,7 @@ func main() {
 func handleRequests() {
 	rtr := mux.NewRouter().StrictSlash(true)
 	rtr.HandleFunc("/users", getUsers).Methods("POST")
-	rtr.HandleFunc("/", putUserData).Methods("POST")
+	rtr.HandleFunc("/addUser", putUserData).Methods("POST")
 	rtr.HandleFunc("/getJob", getJobs).Methods("POST")
 	rtr.HandleFunc("/postjob", addJob).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8081", rtr))
