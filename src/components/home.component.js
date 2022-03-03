@@ -73,9 +73,9 @@ class Home extends React.PureComponent {
       <p className="caption2">Completely <span>FREE.</span> No hidden charges. <span>No credit card required</span></p>
 
 
-  <div className="col-lg-12 steps" style={{padding:"0px"}}>
-  <a href="#section1">	
-		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+  <div className="col-lg-12 steps home-grid-container" >
+  <a href="#section1" className="home-cards">	
+		<div className="col-lg-12 step1">
 			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">01</div>
 			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>Access a large pool of freshers</h2>
@@ -84,8 +84,8 @@ class Home extends React.PureComponent {
 		</div>
 	</a>
 
-  <a href="#section2">	
-		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+  <a href="#section2" className="home-cards">	
+		<div className="col-lg-12 step1">
 			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">02</div>
 			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>Applicants are automatically sorted</h2>
@@ -94,8 +94,8 @@ class Home extends React.PureComponent {
 		</div>
 	</a>
 	
-	<a href="#section3">	
-		<div className="col-lg-3 col-md-6 col-sm-6 step1"  style={mystyle}>
+	<a href="#section3" className="home-cards">	
+		<div className="col-lg-12 step1" >
 			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">03</div>
 			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 				<h2>View rich profiles of top ranked candidates</h2>
@@ -103,11 +103,12 @@ class Home extends React.PureComponent {
 			</div>
 		</div>
 	</a>
-	
-	<a href="#section4">	
-		<div className="col-lg-3 col-md-6 col-sm-6 step1" style={mystyle}>
+
+	<a href="#section4" className="home-cards">	
+		<div className="col-lg-12 step1">
 			<div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 step-no">04</div>
 			<div className="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
 				<h2>Hire freshers without leaving your office</h2>
 				<p>Hire only the best freshers directly from your Office without the expense of visiting Campuses</p>
 			</div>
