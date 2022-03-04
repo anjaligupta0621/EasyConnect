@@ -1,13 +1,14 @@
-package main
+package initDB
 
 import (
 	"fmt"
 
+	"github.com/anjaligupta0621/EasyConnect/backend/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-func createDB() {
+func CreateDB() {
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -16,6 +17,6 @@ func createDB() {
 	defer db.Close()
 
 	// Migrate the schema
-	db.AutoMigrate(&Recruiter{})
-	db.AutoMigrate(&Job{})
+	db.AutoMigrate(&models.Recruiter{})
+	db.AutoMigrate(&models.Job{})
 }
