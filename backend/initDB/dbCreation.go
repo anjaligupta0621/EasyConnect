@@ -8,7 +8,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-func createDB() {
+func CreateDB() {
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		fmt.Println(err.Error())

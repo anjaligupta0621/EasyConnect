@@ -10,7 +10,7 @@ import (
 
 // Our User Struct
 
-func getJobs(w http.ResponseWriter, r *http.Request) {
+func GetJobs(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	type Recruiter_struct struct {
 		Recruiter_ID uint
@@ -39,7 +39,7 @@ func getJobs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addJob(w http.ResponseWriter, r *http.Request) {
+func AddJob(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
@@ -59,12 +59,12 @@ func addJob(w http.ResponseWriter, r *http.Request) {
 	//TBD
 }
 
-func deleteJob(w http.ResponseWriter, r *http.Request) {
+func DeleteJob(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	//TBD
 }
 
-func updateJob(w http.ResponseWriter, r *http.Request) {
+func UpdateJob(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	//TBD
 }

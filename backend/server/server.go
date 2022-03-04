@@ -4,14 +4,15 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/anjaligupta0621/EasyConnect/backend/handler"
 	"github.com/gorilla/mux"
 )
 
-func handleRequests() {
+func HandleRequests() {
 	rtr := mux.NewRouter().StrictSlash(true)
-	rtr.HandleFunc("/login", handler.getUsers).Methods("POST")
-	rtr.HandleFunc("/signup", handler.putUserData).Methods("POST")
-	rtr.HandleFunc("/getJobById", handler.getJobs).Methods("POST")
-	rtr.HandleFunc("/postJob", handler.addJob).Methods("POST")
+	rtr.HandleFunc("/login", handler.GetUsers).Methods("POST")
+	rtr.HandleFunc("/signup", handler.PutUserData).Methods("POST")
+	rtr.HandleFunc("/getJobById", handler.GetJobs).Methods("POST")
+	rtr.HandleFunc("/postJob", handler.AddJob).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }

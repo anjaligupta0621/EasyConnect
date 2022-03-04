@@ -14,7 +14,7 @@ func setupCorsResponse(w *http.ResponseWriter, req *http.Request) {
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Authorization")
 }
 
-func getUsers(w http.ResponseWriter, r *http.Request) {
+func GetUsers(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
@@ -39,7 +39,7 @@ func getUsers(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func putUserData(w http.ResponseWriter, r *http.Request) {
+func PutUserData(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
