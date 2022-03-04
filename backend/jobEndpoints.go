@@ -8,6 +8,10 @@ import (
 )
 
 // Our User Struct
+
+type Person struct {
+	RecruiterID uint
+}
 type Job struct {
 	JobID            uint   `gorm:"primary_key; AUTO_ Increment"`
 	Role_Name        string `gorm:"Not null"`
