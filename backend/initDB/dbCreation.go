@@ -1,8 +1,9 @@
-package main
+package initDB
 
 import (
 	"fmt"
 
+	"github.com/anjaligupta0621/EasyConnect/backend/models"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
@@ -16,6 +17,6 @@ func createDB() {
 	defer db.Close()
 
 	// Migrate the schema
-	db.AutoMigrate(&Recruiter{})
-	db.AutoMigrate(&Job{})
+	db.AutoMigrate(&models.Recruiter{})
+	db.AutoMigrate(&models.Job{})
 }
