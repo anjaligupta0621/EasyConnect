@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import '../css/login-modal-wizard.css';
+import '../css/utils.css';
+import '../css/suppress.css';
 import closelogo from '../img/close.png';
 
  
@@ -56,7 +58,7 @@ class LoginModal extends React.Component {
     render() {
     return (
         <div >
-            <div id="loginModal" className='modal-login'>
+            <div id="loginModal" className='modal-login suppress-bg'>
 
                 <div className="modal-content-login"> 
                     <span className="closecv" onClick={this.props.hideLogin}> 
@@ -209,7 +211,7 @@ class LoginModal extends React.Component {
                             <img src="img/login-logo.png" />
                         </div>
 
-                    <div className="modal-body">
+                    <div className="modal-body w-100">
                             <h1>Recruiter Login</h1>
                                 <div>
                                     <label htmlFor="email" className="col-lg-12">Corporate Email ID</label>
@@ -234,15 +236,17 @@ class LoginModal extends React.Component {
                                         className="text-input" />
                                     </div>
                                 
-                                    <div className="col-lg-12 login">
+                                    <div className="col-lg-12 login bg-transparent">
                                         <input 
                                             type="submit" 
                                             value="LOG IN" 
                                             onClick={(event) => this.onSignInHandler(event)}
                                             className="text-input"/>
                                     </div>
-                                
-                                        Don't have an account? <a onClick={this.showSignUp} href="#" className="signup-bottom">Sign Up</a>
+                                 <div className="text-white padding-0-15">
+                                 Don't have an account? <a onClick={this.showSignUp} href="#" className="signup-bottom">Sign Up</a>
+                                 </div>
+                                       
                                 </div>
                         </div>
                     </div>
