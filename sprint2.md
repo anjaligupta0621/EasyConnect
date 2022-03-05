@@ -209,5 +209,58 @@ Created the Unit test cases to check the robustness of our API.
  * Validity of http request.
  * Successful Fetching of jobs mapped to recruiter Id.
 
- 
+# FrontEnd Documentation
+## Technologies: ReactJS, CSS, HTML, Bootstrap
+## SignUp User
+* A Modal will popUp when the recruiter as a user will click on signIn button on Home Page. If the recruiter is not already registered than he can click on signUp button in that Modal. Recruiter can fill their details and submit.User will be registered.
+## Login User
+* A Interface is created where Recruiter will add their credentials for Login and he can logOut after completing their work.
+## Job Dashboard
+* A recruiter can click on the postJob Description where he need to login first and then he redirect to dashboard.
+* A recruiter Job Posting dashboard where all the jobs posted by the recruiter will display. He can make changes to the job Posting.
+## Post Job
+* A layout is created where the recruiter post their jobs.
+* Recruiter need to add the organization and job description details in the layout.
+* Recruiter add the jobs and jobs displayed on recruiter dashboard.
+## Mobile view
+All User Interface pages are scree size responsive. Attaching the various screenshots to validate this.
+* Home Page Screenshot
+* <img width="400" alt="Screen Shot 2022-03-04 at 9 40 22 PM" src="https://user-images.githubusercontent.com/16004962/156864862-82259b64-1b01-4e2d-829e-617c8192a3ef.png">
+
+* Post Job Screenshot
+* <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
+
+
+## Cypress Testing
+To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.
+
+### Testing Login
+<img width="1436" alt="Screen Shot 2022-03-04 at 9 52 32 PM" src="https://user-images.githubusercontent.com/16004962/156865125-893fb795-f792-4f38-8df5-7d1306d93c56.png">
+
+### Testing Logout
+<img width="1436" alt="Screen Shot 2022-03-04 at 9 52 32 PM" src="https://user-images.githubusercontent.com/16004962/156865125-893fb795-f792-4f38-8df5-7d1306d93c56.png">
+
+
+### Testing SignUp
+<img width="1417" alt="Screen Shot 2022-03-04 at 9 55 04 PM" src="https://user-images.githubusercontent.com/16004962/156865136-ac91e42f-a79a-4eb8-8ba9-d5e7b3f373cc.png">
+
+
+### Testing PostJob
+<img width="1414" alt="Screen Shot 2022-03-04 at 9 53 13 PM" src="https://user-images.githubusercontent.com/16004962/156865145-1c6893ab-c0e4-4716-8c02-f8231d0920f8.png">
+
+### Testing Using Cypress
+Created the 4 cypress test cases where we are checking user Login, User Logout, Show Jobs and Add Jobs. All Test cases passing correctly. Attaching the screenshot below.
+
+<img width="1290" alt="Screen Shot 2022-03-04 at 10 03 01 PM" src="https://user-images.githubusercontent.com/16004962/156865345-b1487ce9-3317-46d6-84bc-12b60b4cb0b9.png">
+
+
+## Setup and Install
+  * FrontEnd: Install NodeJS, React Router DOM 
+  * Backend: Install Golang, SQlite 3
+
+## Authors
+  * Shashank Kumar
+  * Richa Gupta
+  * Anjali Gupta
+  * Gaurav Pathak
 
