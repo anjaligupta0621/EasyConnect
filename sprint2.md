@@ -1,3 +1,6 @@
+# Complete video demo of the project progress:
+https://drive.google.com/file/d/1_EVGk6AFDZtBuQJx9vvPnt3Dmdr0FPX8/view
+
 # Backend Documentation
 
 ## Database Schema
