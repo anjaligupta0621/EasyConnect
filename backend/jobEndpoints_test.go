@@ -15,8 +15,8 @@ import (
 
 func Router2() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/login", handler.GetUsers).Methods("POST")
-	router.HandleFunc("/signup", handler.PutUserData).Methods("POST")
+	router.HandleFunc("/postJob", handler.GetUsers).Methods("POST")
+	router.HandleFunc("/getJobById", handler.PutUserData).Methods("POST")
 	return router
 }
 
@@ -35,7 +35,6 @@ var job = &models.Job{
 }
 
 func TestAddJob(t *testing.T) {
-
 	jsonPayload, _ := json.Marshal(job)
 	request, _ := http.NewRequest("POST", "/postJob", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
@@ -45,7 +44,6 @@ func TestAddJob(t *testing.T) {
 
 func TestGetJobs(t *testing.T) {
 	recID := &models.Person{RecruiterID: 2}
-
 	jsonPayload, _ := json.Marshal(recID)
 	request, _ := http.NewRequest("POST", "/getJobById", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
