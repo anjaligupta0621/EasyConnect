@@ -9,33 +9,6 @@ class PostJobDashBoard extends React.Component{
 
 	state = {
 		jobs: [],
-		mockJobsResponse: [{
-			"JobID": 1,
-			"Role_Name": "SDE",
-			"Role_Type": "Software Development",
-			"Type": "Regular (In-office/On-field)",
-			"Location": "Florida",
-			"Start_Date": "Immediately",
-			"Posted_Date": "3-2-2022",
-			"Responsibilities": "sde",
-			"Salary_Start": "11",
-			"Salary_End": "12",
-			"Active": "false",
-			"RecruiterID": 1
-		  },{
-			"JobID": 2,
-			"Role_Name": "SDE",
-			"Role_Type": "Software Development",
-			"Type": "Regular (In-office/On-field)",
-			"Location": "Florida",
-			"Start_Date": "Immediately",
-			"Posted_Date": "3-2-2022",
-			"Responsibilities": "sde",
-			"Salary_Start": "20",
-			"Salary_End": "30",
-			"Active": "false",
-			"RecruiterID": 1
-		  }],
 		status: 'Closed',
 		applicants: 0
 	}
@@ -53,7 +26,7 @@ class PostJobDashBoard extends React.Component{
 
 		
 		fetch(`http://localhost:8081/getJobById`, { body: raw, method: "POST", mode:"cors"})
-        .then(response => response.text())
+        .then(response => response.json())
 		.then(result => {
 			// console.log(result)
 			this.setState({jobs: result})
@@ -92,7 +65,7 @@ render() {
 						</tr>
 						</tbody>
 						<tbody>
-							{this.state.mockJobsResponse.map((item) => (
+							{this.state.jobs.map((item) => (
 								<tr key={item.JobID}>
 								<td className="no-display">{item.Posted_Date}</td>
 								<td className="full-width">{item["Role_Name"]}<a href="#">  (View)</a></td>
