@@ -173,12 +173,15 @@ postJob:
 ## API Testing
 ### Testing /login
 
+<img width="1440" alt="Screen Shot 2022-03-04 at 8 26 30 PM" src="https://user-images.githubusercontent.com/94247770/156861989-b2653fb2-8082-4121-ac67-14bccbe24bf0.png">
+
 ### Testing /signup
+<img width="1440" alt="Screen Shot 2022-03-04 at 8 26 03 PM" src="https://user-images.githubusercontent.com/94247770/156861997-e818aa8e-291b-4ebc-b9f1-8111d684b2b0.png">
 
 ### Testing /postJob
+<img width="1437" alt="Screen Shot 2022-03-04 at 8 24 58 PM" src="https://user-images.githubusercontent.com/94247770/156862011-633680bb-5b5c-45d1-b381-a3a73579d511.png">
 
 ### Testing /getJobById
-
-
+<img width="1438" alt="Screen Shot 2022-03-04 at 8 21 36 PM" src="https://user-images.githubusercontent.com/94247770/156862023-8571d5af-8df1-4a5c-b99f-e4daa491f2e4.png">
 
 ## API Testing
