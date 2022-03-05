@@ -7,6 +7,7 @@ import '../css/select-drop.css';
 import '../css/toggle.css';
 import './jobDetails.component.css';
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const JobDetails = ({ prevStep, handleChange, values }) => {
 
@@ -49,7 +50,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
             Salary_Start: values.salaryFrom ,
             Salary_End: values.salaryTo ,
             Active: String(values.isPartAllowed) ,
-            RecruiterID: 1 
+            RecruiterID: 7 
         }
         
        
@@ -58,7 +59,11 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
         .then(res => {
             console.log("Job Added Succesfully")
             return res.json();
-        }).catch( e =>{
+        })
+        .then(result => {
+            window.location.assign('http://localhost:3000/jobDashboard')
+        })
+        .catch( e =>{
             console.log(e);
         })
        
