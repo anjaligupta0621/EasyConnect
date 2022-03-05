@@ -54,7 +54,7 @@ const Header = (props) => {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                         
-                            <li class="active"><Link to="/">Home</Link></li>
+                            <li className="active"><Link to="/">Home</Link></li>
                             {
                                 (props.isLoggedIn || global.isLoggedIn) ?
                                 <li><Link to="/jobDashboard">Post Job Description</Link></li> :

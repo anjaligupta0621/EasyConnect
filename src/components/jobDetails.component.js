@@ -54,8 +54,9 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
         
        
         console.log(JSON.stringify(data));
-        fetch(`http://localhost:8081/postjob`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        fetch(`http://localhost:8081/postJob`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
+            console.log("Job Added Succesfully")
             return res.json();
         }).catch( e =>{
             console.log(e);
