@@ -40,7 +40,7 @@ class LoginModal extends React.Component {
         this.setState({corporateWebsite: event.target.value});
     }
 
-    onChangeEmailHandler = (event) => {
+    onChangeSignUpEmailHandler = (event) => {
         this.setState({corporateEmail: event.target.value});
     }
 
@@ -74,6 +74,9 @@ class LoginModal extends React.Component {
     }
 
     onSignupHandler = event => {
+
+        event.preventDefault();
+        
         const user = {
             Name: this.state.recruiterName,
             Email: this.state.corporateEmail,
@@ -82,20 +85,26 @@ class LoginModal extends React.Component {
             Website: this.state.corporateWebsite,
             Contact: this.state.contactNumber
         }
+        console.log(JSON.stringify(user));
         fetch(`http://localhost:8081/signup`, {body: JSON.stringify(user), method: "POST", mode:"cors"})
             .then(res => {
-                // debugger;
+                console.log("User Added Succesfully")
                 return res.json();
-            }).then(result => {
-                console.log(result);
-                this.props.hideLogin();
-                this.props.setIsLoggedIn(true);
-                global.isLoggedIn = true;
-                // debugger;
-            }).catch( e => {
-                console.log(e)
-                global.isLoggedIn = false;
-                // debugger;
+            })
+            .then(result => {
+                this.setState({
+                    email: user.Email,
+                    password: user.Password,
+                    companyName: '',
+                    recruiterName: '',
+                    corporateWebsite: '',
+                    corporateEmail: '',
+                    contactNumber: '',
+                    signUpPassword: '', 
+                })
+            })
+            .catch( e =>{
+                console.log(e);
             })
 
     }
@@ -155,7 +164,7 @@ class LoginModal extends React.Component {
                                                             type="name" 
                                                             id="name" 
                                                             value={this.companyName} 
-                                                            onChange={() => this.onChangeCompanyNameHandler} 
+                                                            onChange={(event) => this.onChangeCompanyNameHandler(event)} 
                                                             className="text-inputs" />
                                                         </div>
                                                             
@@ -170,7 +179,7 @@ class LoginModal extends React.Component {
                                                             type="name" 
                                                             id="name"
                                                             value={this.recruiterName} 
-                                                            onChange={() => this.onChangeRecruiterNameHandler} 
+                                                            onChange={(event) => this.onChangeRecruiterNameHandler(event)} 
                                                             className="text-inputs" />
                                                                     
                                                         </div>
@@ -185,7 +194,7 @@ class LoginModal extends React.Component {
                                                             type="name" 
                                                             id="name"
                                                             value={this.corporateWebsite}
-                                                            onChange={() => this.onChangeWebsiteHandler}  
+                                                            onChange={(event) => this.onChangeWebsiteHandler(event)}  
                                                             className="text-inputs" />
                                                                     
                                                         </div>
@@ -200,7 +209,7 @@ class LoginModal extends React.Component {
                                                             type="email" 
                                                             id="email" 
                                                             value={this.corporateEmail}
-                                                            onChange={() => this.onChangeEmailHandler} 
+                                                            onChange={(event) => this.onChangeSignUpEmailHandler(event)} 
                                                             className="text-inputs" />
                                                             <span id="emailError"></span>
                                                         </div>
@@ -215,7 +224,7 @@ class LoginModal extends React.Component {
                                                             type="text" 
                                                             id="name"
                                                             value={this.contactNumber}
-                                                            onChange={() => this.onChangeContactHandler} 
+                                                            onChange={(event) => this.onChangeContactHandler(event)} 
                                                             className="text-inputs" />
                                                         </div>
                                                     </div>
@@ -229,7 +238,7 @@ class LoginModal extends React.Component {
                                                             type="password" 
                                                             id="password" 
                                                             value={this.password}
-                                                            onChange={() => this.onChangePasswordHandler} 
+                                                            onChange={(event) => this.onChangeSignUpPasswordHandler(event)} 
                                                             className="text-inputs" />
                                                             <span id="passwordError"></span>
                                                         </div>
@@ -251,7 +260,13 @@ class LoginModal extends React.Component {
                                                 </div>
                                                         
                                                 <div className="col-lg-12" style={{padding:"0px"}}>
-                                                    <button type="button" className="btn btn-primary next-step submit-button" id="submit" data-toggle="modal" data-target=".bd-example-modal-sm">submit</button>
+                                                    <button 
+                                                        type="button" 
+                                                        className="btn btn-primary next-step submit-button" 
+                                                        id="submit" 
+                                                        onClick={(event) => this.onSignupHandler(event)}
+                                                        data-toggle="modal" 
+                                                        data-target=".bd-example-modal-sm">submit</button>
                                                 </div>
                                                 
                                                     

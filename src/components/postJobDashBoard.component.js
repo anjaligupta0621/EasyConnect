@@ -15,13 +15,9 @@ class PostJobDashBoard extends React.Component{
 
 
 	componentDidMount() {
-		
-		let id = {
-			'Recruiter_ID' : 1
-		}
 
 		var raw = JSON.stringify({
-			"Recruiter_ID": 1
+			"Recruiter_ID": 6
 		});
 
 		
