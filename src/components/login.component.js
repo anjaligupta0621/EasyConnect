@@ -11,7 +11,13 @@ class LoginModal extends React.Component {
     state = {
 		showSignUp: false,
         email:"",
-        password:""
+        password:"",
+        companyName: '',
+        recruiterName: '',
+        corporateWebsite: '',
+        corporateEmail: '',
+        contactNumber: '',
+        signUpPassword: ''
 	}
 
     onChangeEmailHandler = (event) => {
@@ -20,6 +26,30 @@ class LoginModal extends React.Component {
 
     onChangePasswordHandler = (event) => {
         this.setState({password: event.target.value});
+    }
+
+    onChangeCompanyNameHandler = (event) => {
+        this.setState({companyName: event.target.value});
+    }
+
+    onChangeRecruiterNameHandler = (event) => {
+        this.setState({recruiterName: event.target.value});
+    }
+
+    onChangeWebsiteHandler = (event) => {
+        this.setState({corporateWebsite: event.target.value});
+    }
+
+    onChangeEmailHandler = (event) => {
+        this.setState({corporateEmail: event.target.value});
+    }
+
+    onChangeContactHandler = (event) => {
+        this.setState({contactNumber: event.target.value});
+    }
+
+    onChangeSignUpPasswordHandler = (event) => {
+        this.setState({signUpPassword: event.target.value});
     }
 
     onSignInHandler =(event)=>{
@@ -42,6 +72,34 @@ class LoginModal extends React.Component {
             // debugger;
         })     
     }
+
+    onSignupHandler = event => {
+        const user = {
+            Name: this.state.recruiterName,
+            Email: this.state.corporateEmail,
+            Password: this.state.signUpPassword,
+            Organization: this.state.companyName,
+            Website: this.state.corporateWebsite,
+            Contact: this.state.contactNumber
+        }
+        fetch(`http://localhost:8081/signup`, {body: JSON.stringify(user), method: "POST", mode:"cors"})
+            .then(res => {
+                // debugger;
+                return res.json();
+            }).then(result => {
+                console.log(result);
+                this.props.hideLogin();
+                this.props.setIsLoggedIn(true);
+                global.isLoggedIn = true;
+                // debugger;
+            }).catch( e => {
+                console.log(e)
+                global.isLoggedIn = false;
+                // debugger;
+            })
+
+    }
+
     showSignUp= ()=>{
       this.setState({showSignUp:true})
     };
