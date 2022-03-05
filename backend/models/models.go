@@ -4,7 +4,7 @@ type Recruiter struct {
 	ID           uint   `gorm:"primary_key; AUTO_ Increment "`
 	Name         string `gorm:"Not null "`
 	Email        string `gorm:"unique; Not null "`
-	Password     string `gorm:"unique; Not null "`
+	Password     string `gorm:"Not null "`
 	Organization string
 	Website      string
 	Contact      string `gorm:"unique; Not null "`
