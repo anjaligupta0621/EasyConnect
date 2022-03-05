@@ -30,10 +30,10 @@ func GetJobs(w http.ResponseWriter, r *http.Request) {
 	}
 	var jobs []models.Job
 	db.Table("jobs").Where("Recruiter_ID = ?", recruiter_id.Recruiter_ID).Find(&jobs)
+
+	//jobsList := make([], 0)
 	if jobs != nil {
-		for i := 0; i < len(jobs); i++ {
-			json.NewEncoder(w).Encode(jobs[i])
-		}
+		json.NewEncoder(w).Encode(jobs)
 	} else {
 		json.NewEncoder(w).Encode("No Jobs found!")
 	}
