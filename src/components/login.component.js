@@ -27,10 +27,8 @@ class LoginModal extends React.Component {
         let data ={
             Email :this.state.email,
             Password: this.state.password
-        }
-
-       
-        fetch(`http://localhost:8081/users`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        }    
+        fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
             // debugger;
             return res.json();
@@ -42,8 +40,7 @@ class LoginModal extends React.Component {
         }).catch( e => {
             global.isLoggedIn = false;
             // debugger;
-        })
-       
+        })     
     }
     showSignUp= ()=>{
       this.setState({showSignUp:true})
