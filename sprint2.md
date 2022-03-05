@@ -184,4 +184,30 @@ postJob:
 ### Testing /getJobById
 <img width="1438" alt="Screen Shot 2022-03-04 at 8 21 36 PM" src="https://user-images.githubusercontent.com/94247770/156862023-8571d5af-8df1-4a5c-b99f-e4daa491f2e4.png">
 
-## API Testing
+## Backend Unit Testing
+Created the Unit test cases to check the robustness of our API.
+
+### /Login Unit test cases
+ Created a file named "endpoints_test.go" where we have a Unit test cases named "TestGetusers" which check three scenarios:
+ * Validity of http request.
+ * Unsuccessful Login attempt with incorrect emailId or password.
+ * Succcessful login attempt with correct emailId and Password.
+ 
+### /signup Unit test cases
+ Created a file named "endpoints_test.go" where we have a Unit test cases named "TestPutSserData" which check three scenarios:
+ * Validity of http request.
+ * Successful addtion of new recruiter.
+ * Unsuccessful addition of duplicate recruiter.
+ * 
+ ### /postJob Unit test cases
+ Created a file named "JobEndpoints_test.go" where we have a Unit test cases named "TestAddJob" which check two scenarios:
+ * Validity of http request.
+ * Successful addtion of new job.
+ 
+ ### /getJobById Unit test cases
+ Created a file named "JobEndpoints_test.go" where we have a Unit test cases named "TestGetJobs" which check two scenarios:
+ * Validity of http request.
+ * Successful Fetching of jobs mapped to recruiter Id.
+
+ 
+
