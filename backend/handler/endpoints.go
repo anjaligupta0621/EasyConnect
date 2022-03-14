@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/anjaligupta0621/EasyConnect/backend/models"
@@ -54,6 +55,11 @@ func PutUserData(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 
-	db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
-	json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
+	result := db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
+	if result.Error != nil {
+		fmt.Println(result.Error)
+		json.NewEncoder(w).Encode("Recruiter already exists")
+	} else {
+		json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
+	}
 }
