@@ -36,7 +36,7 @@ The platform will allow recruiters to post different jobs, and shortlist candida
   * Frontend and Backend Unit Testing.
 
 ## Authors
-  * Shashank Kumar
-  * Richa Gupta
-  * Anjali Gupta
-  * Gaurav Pathak
+  * Shashank Kumar- Frontend
+  * Richa Gupta-Backend
+  * Anjali Gupta-Frontend
+  * Gaurav Pathak-Frontend/Backend
