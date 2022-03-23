@@ -21,12 +21,15 @@ describe('Login page', () => {
        // cy.contains('Sign In')
       
     })
+
     it('displays logout button',() => {
       cy.get('li>a').contains('Sign Out')
     })
+
     it('shows chat component',() => {
       cy.get('a').contains('Sign Out')
     })
+    
     it('Post Job',() => {
         cy.get('li').contains('Post Job Description').click({force:true})
     })

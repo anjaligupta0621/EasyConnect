@@ -19,7 +19,7 @@ const Navbar =(props) => {
     }
 
     const gotoHome = () => {
-        // debugger;
+        debugger;
         this.props.history.push('/home');
     }
    
