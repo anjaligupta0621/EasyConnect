@@ -1,11 +1,12 @@
 import { React, useState } from "react";
+import { Redirect, Route, NavLink } from "react-router-dom";
 import '../css/login-modal-wizard.css';
 import '../css/main.css';
 import '../css/styles.css';
 import '../css/menu.css';
-import '../css/select-drop.css';
 import '../css/toggle.css';
 import './jobDetails.component.css';
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -57,7 +58,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
         console.log(JSON.stringify(data));
         fetch(`http://localhost:8081/postJob`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
-            console.log("Job Added Succesfully")
+            console.log("Job Added Succesfully");
             return res.json();
         })
         .then(result => {

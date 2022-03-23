@@ -4,7 +4,6 @@ import '../css/styles.css';
 import '../css/main.css';
 import '../css/menu.css';
 import '../css/login-modal-wizard.css';
-import '../css/select-drop.css';
 import './header.component.css';
 // import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -33,7 +32,7 @@ const Header = (props) => {
                 <div className="viewas">
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src={recruiterLogo}/> &nbsp;view as Recruiter </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a className="dropdown-item" href="/user"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a className="dropdown-item" href="#"> <img src={jobseekerLogo}/> &nbsp;view as Job seeker</a> </div>
                     </div>
                 </div>
             </div>

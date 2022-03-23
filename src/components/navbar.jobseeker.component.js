@@ -1,9 +1,5 @@
 import React from 'react'
 import './navbar.jobseeker.component.css';
-import { Navigate } from "react-router-dom";
-import logo from '../img/logo.png';
-import LoginModal from './login.component';
-
 
 const NavbarJobseeker = () => {
 
