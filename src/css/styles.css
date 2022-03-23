@@ -159,6 +159,7 @@ h4 {
 	font-size: 90px;
 	color: rgba(0,0,0,.03);
 	margin: 10px 0px;
+	padding:0;
 	text-align: left;
 	transition: all 500ms ease;
 	-webkit-transition: all 500ms ease;

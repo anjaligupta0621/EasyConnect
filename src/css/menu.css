@@ -249,6 +249,7 @@ background-color: #269abc !important;
 	background-color: #f9a11f !important;
 	width: 260px;
 	border: none;
+	outline: none!important;
 	height: 45px;
 	vertical-align: middle;
 	border-radius: 0px;

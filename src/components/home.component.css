@@ -13,8 +13,18 @@
   padding: 0;
   overflow: hidden;
 }
+.home-cards > .col-lg-12 {
+  padding: 0 10px;
+  height:100%;
+}
+.home-cards > .col-lg-12 .col-lg-9 {
+  padding: 0 10px;
+}
 .home-cards:hover {
   background-color: #00454b;
+}
+.home-component{
+  background: #00454b;
 }
 @media only screen and (min-width: 769px) and (max-width: 1199px) {
   .home-grid-container {
