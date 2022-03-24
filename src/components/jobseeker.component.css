@@ -68,3 +68,55 @@
 .jobseeker-main .main-logo{
     background: url('../img/logo-2-seek.svg') no-repeat center / cover;
 }
+.carousel-inner .header-text h3 {
+    font-size: 26px;
+    font-weight: 700;
+}
+.right-body-main-container {
+    padding: 10px;
+}
+.xs_padding {
+    padding-left: 15px;
+}
+.showing {
+    display: block;
+    padding-bottom: 20px;
+}
+.job_titles {
+    color: #269ECA;
+    font-size: 12px;
+    font-weight: bold;
+}
+.jobs {
+    padding: 10px 0px;
+    border-bottom: thin solid #e1e1e1;
+}
+.jobs a {
+    color: #383838 !important;
+}
+
+.job_title {
+    color: #269ECA;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+}
+.job_title span {
+    color: #269ECA;
+    font-size: 14px;
+}
+.companyname {
+    font-size: 12pt;
+}
+
+.where {
+    color: #666;
+    font-size: 12pt;
+    white-space: nowrap;
+}
+
+.apply {
+    color: #269ECA;
+    display: block;
+    margin-bottom: 10px;
+}
