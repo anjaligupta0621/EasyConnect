@@ -39,6 +39,24 @@ func GetJobs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func GetAllJobs(w http.ResponseWriter, r *http.Request) {
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	var jobs []models.Job
+	db.Table("jobs").Find(&jobs)
+
+	if jobs != nil {
+		json.NewEncoder(w).Encode(jobs)
+	} else {
+		json.NewEncoder(w).Encode("No Jobs found!")
+	}
+}
+
 func AddJob(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
