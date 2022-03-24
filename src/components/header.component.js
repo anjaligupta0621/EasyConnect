@@ -41,7 +41,7 @@ const Header = (props) => {
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {" "}
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/user">
                 {" "}
                 <img src={jobseekerLogo} /> &nbsp;view as Job seeker
               </a>{" "}
