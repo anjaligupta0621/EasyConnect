@@ -14,5 +14,6 @@ func HandleRequests() {
 	rtr.HandleFunc("/signup", handler.PutUserData).Methods("POST")
 	rtr.HandleFunc("/getJobById", handler.GetJobs).Methods("POST")
 	rtr.HandleFunc("/postJob", handler.AddJob).Methods("POST")
+	rtr.HandleFunc("/home", handler.HomeHandler).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }

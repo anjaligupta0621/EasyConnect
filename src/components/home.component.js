@@ -7,6 +7,7 @@ import "../css/styles.css";
 import "../css/login-modal-wizard.css";
 import "./home.component.css";
 import LoginModal from "./login.component.js";
+import Loader from "./loader.component";
 
 import Header from "./header.component.js";
 import logolarge from "../img/logo-large.png";
@@ -17,6 +18,7 @@ class Home extends React.PureComponent {
 	state = {
 		showModal: false,
 		isLoggedIn: false,
+		showLoader:false
 	};
 
 	showLoginDialog = () => {
@@ -36,6 +38,10 @@ class Home extends React.PureComponent {
 		this.setState({
 			showModal: false,
 		});
+		this.setState({showLoader: true});
+        setTimeout(() => {
+            this.setState({showLoader: false});
+        }, 2000);
 	};
 
 	setIsLoggedIn = (isLoggedIn) => {
@@ -65,7 +71,7 @@ class Home extends React.PureComponent {
 						setIsLoggedIn={this.setIsLoggedIn}
 					/>
 				) : null}
-
+				<Loader showLoader={this.state.showLoader}></Loader>
 				<Header
 					showLogin={this.showLoginDialog}
 					isLoggedIn={this.state.isLoggedIn}

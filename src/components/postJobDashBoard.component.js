@@ -35,7 +35,7 @@ class PostJobDashBoard extends React.Component{
 render() {
     return (
         
-        <div >
+        <div className="job-details-component">
             <Header />
 
             <div className="main-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">

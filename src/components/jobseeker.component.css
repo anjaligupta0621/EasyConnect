@@ -68,3 +68,6 @@
 .jobseeker-main .main-logo{
     background: url('../img/logo-2-seek.svg') no-repeat center / cover;
 }
+.jobseeker-main .top-select{
+  border-color: #00bcd4;
+}
