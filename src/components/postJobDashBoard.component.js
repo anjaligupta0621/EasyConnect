@@ -10,14 +10,15 @@ class PostJobDashBoard extends React.Component{
 	state = {
 		jobs: [],
 		status: 'Closed',
-		applicants: 0
+		applicants: 0,
+		recruiterID: localStorage.getItem('recruiterId')
 	}
 
 
 	componentDidMount() {
 
 		var raw = JSON.stringify({
-			"Recruiter_ID": 7
+			"Recruiter_ID": 8
 		});
 
 		

@@ -61,11 +61,15 @@ class LoginModal extends React.Component {
         fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
             // debugger;
+            localStorage.setItem('token',1);
+            console.log(localStorage.getItem('token'));
             return res.json();
         }).then(result => {
             this.props.hideLogin();
             this.props.setIsLoggedIn(true);
             global.isLoggedIn = true;
+            localStorage.setItem('recruiterID',result.ID);
+            console.log(localStorage.getItem('recruiterID'));
             // debugger;
         }).catch( e => {
             global.isLoggedIn = false;
