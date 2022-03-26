@@ -6,12 +6,15 @@ import recruiterLogo from "../img/recruiter.png";
 import jobseekerLogo from "../img/jobseeker.png";
 import carousel1 from "../img/carousel3.png";
 import NavbarJobseeker from "./navbar.jobseeker.component.js";
+import Pagination from "./Pagination.component";
 import axios from "axios";
 
 class Jobseekerheader extends React.Component{
 
     state = {
-        jobs: []
+        jobs: [],
+        currentPage: 1,
+        jobsPerPage: 10
     }
 
     componentDidMount() {
@@ -25,6 +28,13 @@ class Jobseekerheader extends React.Component{
     }
 
     render(){
+        
+        const indexOfLastJob = this.state.currentPage * this.state.jobsPerPage;
+        const indexOfFirstJob = indexOfLastJob - this.state.jobsPerPage;
+        const currentJobs = this.state.jobs.slice(indexOfFirstJob,indexOfLastJob);
+
+        const paginate = (pageNumber) => {this.setState({currentPage: pageNumber})};
+
         return (
             <div className="body-outer jobseeker-main">
                 <header>
@@ -211,7 +221,7 @@ class Jobseekerheader extends React.Component{
                                                 <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
                                                     <div className="clearfix"></div>
                                                     <div className="showing"> Show: <b>all jobs</b></div>
-                                                    {this.state.jobs.map((item) => (
+                                                    {currentJobs.map((item) => (
                                                         <div className="jobs" key={item.JobID}>
                                                             <a target="_blank" className="job_title">{item.Role_Name} <span>new</span></a>
                                                             <p className="companyname"> Arogya Yoga Mandiram - <span className="where">Bangalore, Karnataka</span></p>
@@ -219,8 +229,10 @@ class Jobseekerheader extends React.Component{
                                                             <p className="summary">{item.Responsibilities}</p>
                                                         </div>  
                                                     ))}
+                                                    <Pagination jobsPerPage={this.state.jobsPerPage} totalJobs={this.state.jobs.length} paginate={paginate} />
                                                 </div>
                                             </div>
+                                            
 
                                         </div>
                                     </div>
