@@ -34,23 +34,31 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+	if login.Email == "" || login.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	var recruiter_ models.Recruiter
-	hashedPwd := utils.Hasher([]byte(login.Password))
 
-	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, hashedPwd).Find(&recruiter_)
+	//hashedPwd, _ := utils.HashPassword(login.Password)
 
-	err3 := hashedPwd == recruiter_.Password
+	db.Table("recruiters").Where("Email = ?", login.Email).Find(&recruiter_)
 
-	//exectedPassword := recruiter_.Password
-	if recruiter_.Email == "" || !err3 {
+	if recruiter_.Email == "" {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	utils.GetJWTToken(recruiter_.Email, w)
-	json.NewEncoder(w).Encode(recruiter_)
+	err3 := utils.CheckPasswordHash(login.Password, recruiter_.Password)
 
-	//HomeHandler(w, r)
+	if !err3 {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	} else {
+		utils.GetJWTToken(recruiter_.Email, w)
+		json.NewEncoder(w).Encode(recruiter_)
+	}
+
 }
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	//Code to verify redirection at different comps
@@ -85,11 +93,12 @@ func PutUserData(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		panic(err2)
 	}
+	recPwd, _ := utils.HashPassword(recruiter.Password)
 
-	err1 := db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: utils.Hasher([]byte(recruiter.Password)), Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
+	err1 := db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recPwd, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
 
 	if err1.Error != nil {
-		fmt.Println(err)
+		fmt.Println(err1)
 		w.WriteHeader(http.StatusBadRequest)
 	} else {
 		utils.GetJWTToken(recruiter.Email, w)

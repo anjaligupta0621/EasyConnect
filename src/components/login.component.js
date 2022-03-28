@@ -84,11 +84,11 @@ class LoginModal extends React.Component {
     event.preventDefault();
 
     let data = {
-      Name: this.state.name,
-      Email: this.state.email,
-      Password: this.state.password,
-      Organization: this.state.organization,
-      Website: this.state.Website,
+      Name: this.state.recruiterName,
+      Email: this.state.corporateEmail,
+      Password: this.state.signUpPassword,
+      Organization: this.state.companyName,
+      Website: this.state.corporateWebsite,
       Contact: this.state.contactNumber,
       Jobs: [],
     };
