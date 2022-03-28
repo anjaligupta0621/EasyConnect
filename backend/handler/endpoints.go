@@ -36,16 +36,18 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var login models.Login
 	err2 := decoder.Decode(&login)
 	if err2 != nil {
-		panic(err2)
+		w.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
 	var recruiter_ models.Recruiter
 	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&recruiter_)
 	expectedPassword := login.Password
 
-	//else {
-	// 	json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
-	// }
+	if recruiter_.Email == "" || expectedPassword != recruiter_.Password {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	expirationTime := time.Now().Add(5 * time.Minute)
 
 	claims := &Claims{
@@ -57,23 +59,19 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, err := token.SignedString(jwtKey)
+	tokenString, err3 := token.SignedString(jwtKey)
 
-	if err != nil {
+	if err3 != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	if recruiter_.Email == "" || expectedPassword != recruiter_.Password {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	} else {
-		http.SetCookie(w, &http.Cookie{
-			Name:    "token",
-			Value:   tokenString,
-			Expires: expirationTime,
-		})
-		json.NewEncoder(w).Encode(recruiter_)
-	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:    "token",
+		Value:   tokenString,
+		Expires: expirationTime,
+	})
+	json.NewEncoder(w).Encode(recruiter_)
 
 	//HomeHandler(w, r)
 }
@@ -137,4 +135,111 @@ func PutUserData(w http.ResponseWriter, r *http.Request) {
 	} else {
 		json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
 	}
+}
+func Refresh(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	tokenStr := cookie.Value
+
+	claims := &Claims{}
+
+	tkn, err := jwt.ParseWithClaims(tokenStr, claims,
+		func(t *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		})
+
+	if err != nil {
+		if err == jwt.ErrSignatureInvalid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if !tkn.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	// if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 30*time.Second {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	return
+	// }
+
+	expirationTime := time.Now().Add(time.Minute * 5)
+
+	claims.ExpiresAt = expirationTime.Unix()
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	http.SetCookie(w,
+		&http.Cookie{
+			Name:    "refresh_token",
+			Value:   tokenString,
+			Expires: expirationTime,
+		})
+
+}
+func LogOut(w http.ResponseWriter, r *http.Request) {
+	// For JWT, log out is easy. Just destroy the cookie
+
+	// see https://golang.org/pkg/net/http/#Cookie
+	// Setting MaxAge<0 means delete cookie now.
+	cookie, err := r.Cookie("token")
+	if err != nil {
+		if err == http.ErrNoCookie {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	tokenStr := cookie.Value
+
+	claims := &Claims{}
+
+	tkn, err := jwt.ParseWithClaims(tokenStr, claims,
+		func(t *jwt.Token) (interface{}, error) {
+			return jwtKey, nil
+		})
+
+	if err != nil {
+		if err == jwt.ErrSignatureInvalid {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	if !tkn.Valid {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	webCookies := http.Cookie{
+		Name:     "token",
+		Value:    "",
+		Path:     "/",
+		Expires:  time.Unix(0, 0),
+		HttpOnly: true,
+	}
+
+	http.SetCookie(w, &webCookies)
+
+	w.Write([]byte("Old cookie deleted. Logged out!\n"))
+
 }
