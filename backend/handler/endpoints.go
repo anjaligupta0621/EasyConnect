@@ -36,16 +36,18 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var login models.Login
 	err2 := decoder.Decode(&login)
 	if err2 != nil {
-		panic(err2)
+		w.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
 	var recruiter_ models.Recruiter
 	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&recruiter_)
 	expectedPassword := login.Password
 
-	//else {
-	// 	json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
-	// }
+	if recruiter_.Email == "" || expectedPassword != recruiter_.Password {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	expirationTime := time.Now().Add(5 * time.Minute)
 
 	claims := &Claims{
@@ -57,23 +59,19 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
-	tokenString, err := token.SignedString(jwtKey)
+	tokenString, err3 := token.SignedString(jwtKey)
 
-	if err != nil {
+	if err3 != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	if recruiter_.Email == "" || expectedPassword != recruiter_.Password {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	} else {
-		http.SetCookie(w, &http.Cookie{
-			Name:    "token",
-			Value:   tokenString,
-			Expires: expirationTime,
-		})
-		json.NewEncoder(w).Encode(recruiter_)
-	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:    "token",
+		Value:   tokenString,
+		Expires: expirationTime,
+	})
+	json.NewEncoder(w).Encode(recruiter_)
 
 	//HomeHandler(w, r)
 }
