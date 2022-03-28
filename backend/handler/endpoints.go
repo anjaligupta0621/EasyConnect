@@ -7,16 +7,9 @@ import (
 	"time"
 
 	"github.com/anjaligupta0621/EasyConnect/backend/models"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/anjaligupta0621/EasyConnect/backend/utils"
 	"github.com/jinzhu/gorm"
 )
-
-var jwtKey = []byte("my_secret_key")
-
-type Claims struct {
-	Email string `json:"username"`
-	jwt.StandardClaims
-}
 
 func setupCorsResponse(w *http.ResponseWriter, req *http.Request) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
@@ -33,47 +26,39 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	decoder := json.NewDecoder(r.Body)
+
 	var login models.Login
+
 	err2 := decoder.Decode(&login)
 	if err2 != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+	if login.Email == "" || login.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	var recruiter_ models.Recruiter
-	db.Table("recruiters").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&recruiter_)
-	expectedPassword := login.Password
 
-	if recruiter_.Email == "" || expectedPassword != recruiter_.Password {
+	//hashedPwd, _ := utils.HashPassword(login.Password)
+
+	db.Table("recruiters").Where("Email = ?", login.Email).Find(&recruiter_)
+
+	if recruiter_.Email == "" {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	expirationTime := time.Now().Add(5 * time.Minute)
+	err3 := utils.CheckPasswordHash(login.Password, recruiter_.Password)
 
-	claims := &Claims{
-		Email: recruiter_.Email,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: expirationTime.Unix(),
-		},
-	}
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-
-	tokenString, err3 := token.SignedString(jwtKey)
-
-	if err3 != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+	if !err3 {
+		w.WriteHeader(http.StatusUnauthorized)
 		return
+	} else {
+		utils.GetJWTToken(recruiter_.Email, w)
+		json.NewEncoder(w).Encode(recruiter_)
 	}
 
-	http.SetCookie(w, &http.Cookie{
-		Name:    "token",
-		Value:   tokenString,
-		Expires: expirationTime,
-	})
-	json.NewEncoder(w).Encode(recruiter_)
-
-	//HomeHandler(w, r)
 }
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	//Code to verify redirection at different comps
@@ -91,26 +76,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	tokenStr := cookie.Value
 
-	claims := &Claims{}
-
-	tkn, err := jwt.ParseWithClaims(tokenStr, claims,
-		func(t *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
-		})
-
-	if err != nil {
-		if err == jwt.ErrSignatureInvalid {
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	if !tkn.Valid {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	utils.JWTTokenCheck(tokenStr, w)
 
 }
 func PutUserData(w http.ResponseWriter, r *http.Request) {
@@ -127,16 +93,21 @@ func PutUserData(w http.ResponseWriter, r *http.Request) {
 	if err2 != nil {
 		panic(err2)
 	}
+	recPwd, _ := utils.HashPassword(recruiter.Password)
 
-	result := db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recruiter.Password, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
-	if result.Error != nil {
-		fmt.Println(result.Error)
-		json.NewEncoder(w).Encode("Recruiter already exists")
+	err1 := db.Create(&models.Recruiter{Name: recruiter.Name, Email: recruiter.Email, Password: recPwd, Organization: recruiter.Organization, Website: recruiter.Website, Contact: recruiter.Contact})
+
+	if err1.Error != nil {
+		fmt.Println(err1)
+		w.WriteHeader(http.StatusBadRequest)
 	} else {
-		json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + recruiter.Name)
+		utils.GetJWTToken(recruiter.Email, w)
+		json.NewEncoder(w).Encode(recruiter)
+
 	}
+
 }
-func Refresh(w http.ResponseWriter, r *http.Request) {
+func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie("token")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -149,54 +120,10 @@ func Refresh(w http.ResponseWriter, r *http.Request) {
 
 	tokenStr := cookie.Value
 
-	claims := &Claims{}
-
-	tkn, err := jwt.ParseWithClaims(tokenStr, claims,
-		func(t *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
-		})
-
-	if err != nil {
-		if err == jwt.ErrSignatureInvalid {
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	if !tkn.Valid {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
-
-	// if time.Unix(claims.ExpiresAt, 0).Sub(time.Now()) > 30*time.Second {
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	return
-	// }
-
-	expirationTime := time.Now().Add(time.Minute * 5)
-
-	claims.ExpiresAt = expirationTime.Unix()
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString(jwtKey)
-
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-
-	http.SetCookie(w,
-		&http.Cookie{
-			Name:    "refresh_token",
-			Value:   tokenString,
-			Expires: expirationTime,
-		})
+	utils.JWTTokenUpdate(tokenStr, w)
 
 }
 func LogOut(w http.ResponseWriter, r *http.Request) {
-	// For JWT, log out is easy. Just destroy the cookie
-
 	// see https://golang.org/pkg/net/http/#Cookie
 	// Setting MaxAge<0 means delete cookie now.
 	cookie, err := r.Cookie("token")
@@ -210,25 +137,7 @@ func LogOut(w http.ResponseWriter, r *http.Request) {
 	}
 	tokenStr := cookie.Value
 
-	claims := &Claims{}
-
-	tkn, err := jwt.ParseWithClaims(tokenStr, claims,
-		func(t *jwt.Token) (interface{}, error) {
-			return jwtKey, nil
-		})
-
-	if err != nil {
-		if err == jwt.ErrSignatureInvalid {
-			w.WriteHeader(http.StatusUnauthorized)
-			return
-		}
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	if !tkn.Valid {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
+	utils.JWTTokenCheck(tokenStr, w)
 
 	webCookies := http.Cookie{
 		Name:     "token",
