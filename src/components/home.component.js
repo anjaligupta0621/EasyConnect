@@ -14,6 +14,22 @@ import logolarge from "../img/logo-large.png";
 import bannerArrow from "../img/banner-arrow.png";
 import shadowImage from "../img/steps-shadow.png";
 
+const SignoutModal = () => (
+	<div>
+	<div id="loginModal" className="modal-login suppress-bg">
+	  <div className="modal-content-login">
+		<span className="closecv" onClick={this.props.hideLogin}>
+		  <img src={closelogo} width="26" height="27" alt="close" />
+		</span>	
+		<div className="modal-body w-100">
+		  <h1>Are you sure you want to sign out?</h1>
+		  <div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+);
 class Home extends React.PureComponent {
 	state = {
 		showModal: false,
@@ -29,7 +45,10 @@ class Home extends React.PureComponent {
 
 	signOut = () => {
 		// debugger;
-		alert("shahsank");
+		this.setState({showLoader: true});
+        setTimeout(() => {
+            this.setState({showLoader: false});
+        }, 3000);
 		this.setIsLoggedIn(false);
 		global.isLoggedIn = false;
 	};
@@ -52,7 +71,7 @@ class Home extends React.PureComponent {
 			isLoggedIn: isLoggedIn,
 		});
 	};
-
+	
 	render() {
 		const mystyle = {
 			padding: "0px",

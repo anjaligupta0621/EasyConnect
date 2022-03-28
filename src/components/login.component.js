@@ -130,7 +130,6 @@ class LoginModal extends React.Component {
   render() {
     return (
       <div>
-        
         <div id="loginModal" className="modal-login suppress-bg">
           <div className="modal-content-login">
             <span className="closecv" onClick={this.props.hideLogin}>

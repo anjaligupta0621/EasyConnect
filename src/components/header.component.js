@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./navbar.component.js";
 import recruiterLogo from "../img/recruiter.png";
 import jobseekerLogo from "../img/jobseeker.png";
-
+import userLogo from "../img/userLogo.svg";
 import { withRouter } from "react-router-dom";
 
 const Header = (props) => {
@@ -23,6 +23,12 @@ const Header = (props) => {
     // debugger;
     props.history.push("/home");
   };
+  const Results = () => (
+    <div className="user-profile-section">
+      <img alt="user" src={userLogo} className="user-dp" />
+      <label className="user-name-container">Welcome! User Name</label>
+    </div>
+  );
 
   return (
     <header>
@@ -48,6 +54,7 @@ const Header = (props) => {
             </div>
           </div>
         </div>
+        {props.isLoggedIn ? <Results /> : null}
       </div>
       <nav className="navbar navbar-inverse">
         <div className="container-fluid">
@@ -104,7 +111,7 @@ const Header = (props) => {
                   />
                 ) : (
                   // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
-                  <a href="\">Sign Out</a>
+                  <a href="\" onClick={props.signOut}>Sign Out</a>
                 )}
               </li>
             </ul>

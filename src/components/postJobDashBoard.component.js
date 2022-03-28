@@ -3,7 +3,7 @@ import '../css/styles.css';
 import Header from "./header.component";
 import './postJobDashBoard.component.css';
 import { Link } from "react-router-dom";
-import addJobButton from '../img/add-job-btn.png';
+import addJobButton from '../img/add-job-btn.svg';
 
 class PostJobDashBoard extends React.Component{
 
