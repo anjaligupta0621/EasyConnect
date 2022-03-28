@@ -5,7 +5,6 @@ import "../css/utils.css";
 import "../css/suppress.css";
 import closelogo from "../img/close.png";
 
-
 class LoginModal extends React.Component {
   state = {
     showSignUp: false,
@@ -84,28 +83,39 @@ class LoginModal extends React.Component {
   onSignupHandler = (event) => {
     event.preventDefault();
 
-        let data ={
-            Email :this.state.email,
-            Password: this.state.password
-        }    
-        fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
-        .then(res => {
-            // debugger;
-            localStorage.setItem('token',1);
-            console.log(localStorage.getItem('token'));
-            return res.json();
-        }).then(result => {
-            this.props.hideLogin();
-            this.props.setIsLoggedIn(true);
-            global.isLoggedIn = true;
-            localStorage.setItem('recruiterID',result.ID);
-            console.log(localStorage.getItem('recruiterID'));
-            // debugger;
-        }).catch( e => {
-            global.isLoggedIn = false;
-            // debugger;
-        })     
-    }
+    let data = {
+      Name: this.state.name,
+      Email: this.state.email,
+      Password: this.state.password,
+      Organization: this.state.organization,
+      Website: this.state.Website,
+      Contact: this.state.contactNumber,
+      Jobs: [],
+    };
+    fetch(`http://localhost:8081/signup`, {
+      body: JSON.stringify(data),
+      method: "POST",
+      mode: "cors",
+    })
+      .then((res) => {
+        // debugger;
+        localStorage.setItem("token", 1);
+        console.log(localStorage.getItem("token"));
+        return res.json();
+      })
+      .then((result) => {
+        this.props.hideLogin();
+        this.props.setIsLoggedIn(true);
+        global.isLoggedIn = true;
+        localStorage.setItem("recruiterID", result.ID);
+        console.log(localStorage.getItem("recruiterID"));
+        // debugger;
+      })
+      .catch((e) => {
+        global.isLoggedIn = false;
+        // debugger;
+      });
+  };
 
   showSignUp = () => {
     this.setState({ showSignUp: true });

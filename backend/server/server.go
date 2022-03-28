@@ -19,5 +19,6 @@ func HandleRequests() {
 	rtr.HandleFunc("/candidateLogin", handler.GetCandidate).Methods("POST")
 	rtr.HandleFunc("/candidateSignup", handler.PutCandidateData).Methods("POST")
 	rtr.HandleFunc("/logout", handler.LogOut).Methods("POST")
+	rtr.HandleFunc("/refreshAccessToken", handler.RefreshToken).Methods("POST")
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }

@@ -29,6 +29,7 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidates").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&candidate_)
 
 	if candidate_.Email != "" {
+		utils.GetJWTToken(candidate_.Email, w)
 		json.NewEncoder(w).Encode(candidate_)
 	} else {
 		json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
@@ -56,6 +57,7 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(result.Error)
 		json.NewEncoder(w).Encode("Candidate already exists")
 	} else {
+		utils.GetJWTToken(candidate.Email, w)
 		json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + candidate.Name)
 	}
 }
