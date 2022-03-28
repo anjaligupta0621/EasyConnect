@@ -68,6 +68,9 @@
 .jobseeker-main .main-logo{
     background: url('../img/logo-2-seek.svg') no-repeat center / cover;
 }
+.jobseeker-main .top-select{
+  border-color: #00bcd4;
+}
 .carousel-inner .header-text h3 {
     font-size: 26px;
     font-weight: 700;

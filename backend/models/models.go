@@ -7,7 +7,7 @@ type Recruiter struct {
 	Password     string `gorm:"Not null "`
 	Organization string
 	Website      string
-	Contact      string `gorm:"unique; Not null "`
+	Contact      string `gorm:" Not null "`
 	Jobs         []Job  `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
 

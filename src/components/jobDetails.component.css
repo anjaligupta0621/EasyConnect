@@ -16,3 +16,61 @@
     -moz-transition: all 500ms ease;
     padding: 0px 20px;
 }
+/* Custom css for radio button */
+.radio-container {
+    display: block;
+    position: relative;
+    padding-left: 25px!important;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .radio-container .checkmark {
+      position: absolute;
+      top: 11px;
+      left: 0;
+      height: 16px;
+      width: 16px;
+      background-color: #eee;
+      border-radius: 50%;
+      border: 1px solid #999;
+  }
+  
+  .radio-container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  .radio-container input:checked ~ .checkmark {
+    background-color: #f27c21;
+    border:none;
+  }
+  
+  .radio-container .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .radio-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .radio-container .checkmark:after {
+      top: 4px;
+      left: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+  }
+  
