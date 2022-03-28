@@ -13,9 +13,13 @@ import recruiterLogo from "../img/recruiter.png";
 import jobseekerLogo from "../img/jobseeker.png";
 import userLogo from "../img/userLogo.svg";
 import { withRouter } from "react-router-dom";
+import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
   const postJob = () => {
+    props.showLogin();
+  };
+  const shortlistCandidate = () => {
     props.showLogin();
   };
 
@@ -94,9 +98,15 @@ const Header = (props) => {
                   <button onClick={postJob}>Post Job Description</button>
                 </li>
               )}
-              <li>
-                <a href="#">Shortlist Candidates</a>
-              </li>
+              {props.isLoggedIn || global.isLoggedIn ? (
+                <li>
+                  <Link to="/shortListCandidate">ShortList Candidate</Link>
+                </li>
+              ) : (
+                <li>
+                  <button onClick={shortlistCandidate}>ShortList Candidate</button>
+                </li>
+              )}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>

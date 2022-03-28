@@ -32,4 +32,15 @@ type Job struct {
 	Salary_End       string
 	Active           string `gorm:"Not null"`
 	RecruiterID      uint
+	Candidates       []*Candidtate `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+}
+
+type Candidtate struct {
+	UserID   uint   `gorm:"primary_key; AUTO_ Increment "`
+	Name     string `gorm:"Not null "`
+	Email    string `gorm:"unique; Not null "`
+	Password string `gorm:"Not null "`
+	Username string `gorm:"unique; Not null "`
+	Contact  string `gorm:"unique; Not null "`
+	Jobs     []*Job `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }

@@ -19,4 +19,5 @@ func CreateDB() {
 	// Migrate the schema
 	db.AutoMigrate(&models.Recruiter{})
 	db.AutoMigrate(&models.Job{})
+	db.AutoMigrate(&models.Candidtate{})
 }

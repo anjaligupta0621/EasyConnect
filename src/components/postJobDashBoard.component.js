@@ -10,14 +10,15 @@ class PostJobDashBoard extends React.Component{
 	state = {
 		jobs: [],
 		status: 'Closed',
-		applicants: 0
+		applicants: 0,
+		recruiterID: localStorage.getItem('recruiterId')
 	}
 
 
 	componentDidMount() {
 
 		var raw = JSON.stringify({
-			"Recruiter_ID": 7
+			"Recruiter_ID": 8
 		});
 
 		
@@ -35,7 +36,7 @@ class PostJobDashBoard extends React.Component{
 render() {
     return (
         
-        <div className="job-details-component">
+        <div className="post-Job">
             <Header />
 
             <div className="main-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">

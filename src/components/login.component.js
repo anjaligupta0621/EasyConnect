@@ -84,40 +84,28 @@ class LoginModal extends React.Component {
   onSignupHandler = (event) => {
     event.preventDefault();
 
-    const user = {
-      Name: this.state.recruiterName,
-      Email: this.state.corporateEmail,
-      Password: this.state.signUpPassword,
-      Organization: this.state.companyName,
-      Website: this.state.corporateWebsite,
-      Contact: this.state.contactNumber,
-    };
-    console.log(JSON.stringify(user));
-    fetch(`http://localhost:8081/signup`, {
-      body: JSON.stringify(user),
-      method: "POST",
-      mode: "cors",
-    })
-      .then((res) => {
-        console.log("User Added Succesfully");
-        return res.json();
-      })
-      .then((result) => {
-        this.setState({
-          email: user.Email,
-          password: user.Password,
-          companyName: "",
-          recruiterName: "",
-          corporateWebsite: "",
-          corporateEmail: "",
-          contactNumber: "",
-          signUpPassword: "",
-        });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+        let data ={
+            Email :this.state.email,
+            Password: this.state.password
+        }    
+        fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        .then(res => {
+            // debugger;
+            localStorage.setItem('token',1);
+            console.log(localStorage.getItem('token'));
+            return res.json();
+        }).then(result => {
+            this.props.hideLogin();
+            this.props.setIsLoggedIn(true);
+            global.isLoggedIn = true;
+            localStorage.setItem('recruiterID',result.ID);
+            console.log(localStorage.getItem('recruiterID'));
+            // debugger;
+        }).catch( e => {
+            global.isLoggedIn = false;
+            // debugger;
+        })     
+    }
 
   showSignUp = () => {
     this.setState({ showSignUp: true });
