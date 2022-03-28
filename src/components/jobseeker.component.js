@@ -8,13 +8,17 @@ import carousel1 from "../img/carousel3.png";
 import NavbarJobseeker from "./navbar.jobseeker.component.js";
 import Pagination from "./Pagination.component";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+import LoginModal from "./login.component";
+import ApplyJobModal from "./applyJobModal.component";
 
 class Jobseekerheader extends React.Component{
 
     state = {
         jobs: [],
         currentPage: 1,
-        jobsPerPage: 10
+        jobsPerPage: 10,
+        showModal: false
     }
 
     componentDidMount() {
@@ -27,6 +31,21 @@ class Jobseekerheader extends React.Component{
             .catch(err => console.log(err))
     }
 
+    hideLoginDialog = () => {
+		this.setState({
+			showModal: false,
+		});
+	};
+
+	setIsLoggedIn = (isLoggedIn) => {
+		// debugger;
+		this.props.log(true);
+		// debugger;
+		this.setState({
+			isLoggedIn: isLoggedIn,
+		});
+	};
+
     render(){
         
         const indexOfLastJob = this.state.currentPage * this.state.jobsPerPage;
@@ -35,8 +54,19 @@ class Jobseekerheader extends React.Component{
 
         const paginate = (pageNumber) => {this.setState({currentPage: pageNumber})};
 
+        const applyJob = (event) => {
+            event.preventDefault();
+            this.setState({showModal:true});
+        }
+
         return (
             <div className="body-outer jobseeker-main">
+                {this.state.showModal ? (
+					<ApplyJobModal
+						hideLogin={this.hideLoginDialog}
+						setIsLoggedIn={this.setIsLoggedIn}
+					/>
+				) : null}
                 <header>
                     <div className="top-select">
                         <div className="viewas">
@@ -224,6 +254,9 @@ class Jobseekerheader extends React.Component{
                                                     {currentJobs.map((item) => (
                                                         <div className="jobs" key={item.JobID}>
                                                             <a target="_blank" className="job_title">{item.Role_Name} <span>new</span></a>
+                                                            <Button 
+                                                                onClick={(event) => applyJob(event)}
+                                                                style={{'float':'right'}}>Apply</Button>
                                                             <p className="companyname"> Arogya Yoga Mandiram - <span className="where">Bangalore, Karnataka</span></p>
                                                             <p> <i className="fa fa-dollar"></i> {item.Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item.Salary_End} per hour </p>
                                                             <p className="summary">{item.Responsibilities}</p>
