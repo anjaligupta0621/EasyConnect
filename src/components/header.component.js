@@ -1,32 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "../css/styles.css";
 import "../css/main.css";
 import "../css/menu.css";
 import "../css/login-modal-wizard.css";
 import "./header.component.css";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar from "./navbar.component.js";
+import LoginModal from "./login.component";
 import recruiterLogo from "../img/recruiter.png";
 import jobseekerLogo from "../img/jobseeker.png";
-
-import { withRouter } from "react-router-dom";
 import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
-  const postJob = () => {
-    props.showLogin();
-  };
+    let navigate = useNavigate();
+    const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
   const shortlistCandidate = () => {
     props.showLogin();
   };
 
   const gotoHome = () => {
-    // debugger;
     props.history.push("/home");
   };
+
+  const checkLogin = () => {
+    if (localStorage.getItem('recruiterID', null) !== null) {
+        setIsLoggedInLocal(true);
+        return true;
+    }
+    return false;
+  }
+
+    const hideLoginDialog = () => {
+        setShowModal(false);
+    };
+
+    const signout = () => {
+        localStorage.removeItem('recruiterID');
+        setIsLoggedInLocal(false);
+    }
 
   return (
     <header>
@@ -45,10 +61,10 @@ const Header = (props) => {
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {" "}
-              <a className="dropdown-item" href="/user">
+              <Link to ="/user" className="dropdown-item" >
                 {" "}
                 <img src={jobseekerLogo} /> &nbsp;view as Job seeker
-              </a>{" "}
+              </Link>{" "}
             </div>
           </div>
         </div>
@@ -82,16 +98,20 @@ const Header = (props) => {
               <li className="active">
                 <Link to="/">Home</Link>
               </li>
-              {props.isLoggedIn || global.isLoggedIn ? (
                 <li>
-                  <Link to="/jobDashboard">Post Job Description</Link>
+                {
+                    isLoggedInLocal || checkLogin() ?
+                    <Link to={'/jobDashBoard/'}
+                    >
+                        Post Job Description
+                    </Link> : 
+                    <Link to={''} onClick={() => {setShowModal(true)}}
+                    >
+                        Post Job Description
+                    </Link>
+                }
                 </li>
-              ) : (
-                <li>
-                  <button onClick={postJob}>Post Job Description</button>
-                </li>
-              )}
-              {props.isLoggedIn || global.isLoggedIn ? (
+              {localStorage.getItem('recruiterID', null) !== null ? (
                 <li>
                   <Link to="/shortListCandidate">ShortList Candidate</Link>
                 </li>
@@ -103,24 +123,30 @@ const Header = (props) => {
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
-                {!props.isLoggedIn && !global.isLoggedIn ? (
+                {!isLoggedInLocal ? (
                   <input
                     name=""
                     type="submit"
                     value="Sign In"
                     className="sign-in-bt-top"
                     id="btnlogin"
-                    onClick={props.showLogin}
+                    onClick={() => {setShowModal(true)}}
                   />
                 ) : (
-                  // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
-                  <a href="\">Sign Out</a>
+                  <a onClick={signout} href={"/"}>Sign Out</a>
                 )}
               </li>
             </ul>
           </div>
         </div>
       </nav>
+
+      {showModal ? (
+            <LoginModal
+                hideLogin={hideLoginDialog}
+                setIsLoggedIn={() => setIsLoggedInLocal(true)}
+            />
+        ) : null}
     </header>
   );
 };

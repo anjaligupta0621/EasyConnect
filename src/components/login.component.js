@@ -58,7 +58,7 @@ class LoginModal extends React.Component {
             Email :this.state.email,
             Password: this.state.password
         }    
-        fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        return fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
         .then(res => {
             // debugger;
             localStorage.setItem('token',1);
@@ -70,10 +70,8 @@ class LoginModal extends React.Component {
             global.isLoggedIn = true;
             localStorage.setItem('recruiterID',result.ID);
             console.log(localStorage.getItem('recruiterID'));
-            // debugger;
         }).catch( e => {
             global.isLoggedIn = false;
-            // debugger;
         })     
     }
 
@@ -318,7 +316,7 @@ class LoginModal extends React.Component {
                                             className="text-input"/>
                                     </div>
                                  <div className="text-white padding-0-15">
-                                 Don't have an account? <a onClick={this.showSignUp} href="#" className="signup-bottom">Sign Up</a>
+                                 Don't have an account? <a onClick={this.showSignUp} className="signup-bottom">Sign Up</a>
                                  </div>
                                        
                                 </div>
