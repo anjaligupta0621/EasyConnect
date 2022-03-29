@@ -14,7 +14,6 @@ class PostJobDashBoard extends React.Component{
 		recruiterID: localStorage.getItem('recruiterId')
 	}
 
-
 	componentDidMount() {
 
 		var raw = JSON.stringify({
@@ -25,7 +24,6 @@ class PostJobDashBoard extends React.Component{
 		fetch(`http://localhost:8081/getJobById`, { body: raw, method: "POST", mode:"cors"})
         .then(response => response.json())
 		.then(result => {
-			// console.log(result)
 			this.setState({jobs: result})
 			console.log(this.state.jobs)
 		})

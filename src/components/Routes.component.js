@@ -11,9 +11,9 @@ function RouterContainer(props) {
             <Routes>
                 <Route path="/jobDashBoard" element={<PostJobDashBoard islog ={props.isLog} log={props.setIsLog} />} />
                 <Route path="/postJob" element={<PostJob />} />
-                <Route path="/" element={<Home islog ={props.isLog} log={props.setIsLog}/>} />
                 <Route path="/user" element={<Jobseekerheader />} />
                 <Route path="/shortListCandidate" element={<ShortListCandidate />} />
+                <Route path="/" element={<Home islog ={props.isLog} log={props.setIsLog}/>} />
             </Routes>
         </Router>
     );
