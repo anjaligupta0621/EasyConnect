@@ -19,14 +19,6 @@ const Header = (props) => {
   const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const shortlistCandidate = () => {
-    props.showLogin();
-  };
-
-  const gotoHome = () => {
-    props.history.push("/home");
-  };
-
   const checkLogin = () => {
     if (localStorage.getItem("recruiterID", null) !== null) {
       setIsLoggedInLocal(true);
