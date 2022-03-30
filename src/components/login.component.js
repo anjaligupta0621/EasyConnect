@@ -86,110 +86,117 @@ class LoginModal extends React.Component {
   //   event.preventDefault();
   // };
 
-    state = {
-		showSignUp: false,
-        email:"",
-        password:"",
-        companyName: '',
-        recruiterName: '',
-        corporateWebsite: '',
-        corporateEmail: '',
-        contactNumber: '',
-        signUpPassword: ''
-	}
+  state = {
+    showSignUp: false,
+    email: "",
+    password: "",
+    companyName: "",
+    recruiterName: "",
+    corporateWebsite: "",
+    corporateEmail: "",
+    contactNumber: "",
+    signUpPassword: "",
+  };
 
-    onChangeEmailHandler = (event) => {
-        this.setState({email: event.target.value});
-    }
+  onChangeEmailHandler = (event) => {
+    this.setState({ email: event.target.value });
+  };
 
-    onChangePasswordHandler = (event) => {
-        this.setState({password: event.target.value});
-    }
+  onChangePasswordHandler = (event) => {
+    this.setState({ password: event.target.value });
+  };
 
-    onChangeCompanyNameHandler = (event) => {
-        this.setState({companyName: event.target.value});
-    }
+  onChangeCompanyNameHandler = (event) => {
+    this.setState({ companyName: event.target.value });
+  };
 
-    onChangeRecruiterNameHandler = (event) => {
-        this.setState({recruiterName: event.target.value});
-    }
+  onChangeRecruiterNameHandler = (event) => {
+    this.setState({ recruiterName: event.target.value });
+  };
 
-    onChangeWebsiteHandler = (event) => {
-        this.setState({corporateWebsite: event.target.value});
-    }
+  onChangeWebsiteHandler = (event) => {
+    this.setState({ corporateWebsite: event.target.value });
+  };
 
-    onChangeSignUpEmailHandler = (event) => {
-        this.setState({corporateEmail: event.target.value});
-    }
+  onChangeSignUpEmailHandler = (event) => {
+    this.setState({ corporateEmail: event.target.value });
+  };
 
-    onChangeContactHandler = (event) => {
-        this.setState({contactNumber: event.target.value});
-    }
+  onChangeContactHandler = (event) => {
+    this.setState({ contactNumber: event.target.value });
+  };
 
-    onChangeSignUpPasswordHandler = (event) => {
-        this.setState({signUpPassword: event.target.value});
-    }
+  onChangeSignUpPasswordHandler = (event) => {
+    this.setState({ signUpPassword: event.target.value });
+  };
 
-    onSignInHandler =(event)=>{
-
-        let data ={
-            Email :this.state.email,
-            Password: this.state.password
-        }    
-        return fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
-        .then(res => {
-            return res.json();
-        }).then(result => {
-            this.props.hideLogin();
-            this.props.setIsLoggedIn(true);
-            localStorage.setItem('recruiterID',result.ID);
-            console.log(localStorage.getItem('recruiterID'));
-        }).catch( e => {
-           console.log("Exception Occur in User Login");
-        })     
-    }
-
-    onSignupHandler = event => {
-
-        event.preventDefault();
-        
-        const user = {
-            Name: this.state.recruiterName,
-            Email: this.state.corporateEmail,
-            Password: this.state.signUpPassword,
-            Organization: this.state.companyName,
-            Website: this.state.corporateWebsite,
-            Contact: this.state.contactNumber
-        }
-        console.log(JSON.stringify(user));
-        fetch(`http://localhost:8081/signup`, {body: JSON.stringify(user), method: "POST", mode:"cors"})
-            .then(res => {
-                console.log("User Added Succesfully")
-                return res.json();
-            })
-            .then(result => {
-                this.setState({
-                    email: user.Email,
-                    password: user.Password,
-                    companyName: '',
-                    recruiterName: '',
-                    corporateWebsite: '',
-                    corporateEmail: '',
-                    contactNumber: '',
-                    signUpPassword: '', 
-                })
-                this.hideSignUp();
-            })
-            .catch( e =>{
-                console.log(e);
-            })
-
-    }
-
-    showSignUp= ()=>{
-      this.setState({showSignUp:true})
+  onSignInHandler = (event) => {
+    let data = {
+      Email: this.state.email,
+      Password: this.state.password,
     };
- 
+    return fetch(`http://localhost:8081/login`, {
+      body: JSON.stringify(data),
+      method: "POST",
+      mode: "cors",
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((result) => {
+        this.props.hideLogin();
+        this.props.setIsLoggedIn(true);
+        localStorage.setItem("recruiterID", result.Token);
+        localStorage.setItem("userName", result.Recruiter.Email);
+        console.log(localStorage.getItem("recruiterID"));
+      })
+      .catch((e) => {
+        console.log("Exception Occur in User Login");
+      });
+  };
+
+  // onSignupHandler = (event) => {
+  //   event.preventDefault();
+
+  //   const user = {
+  //     Name: this.state.recruiterName,
+  //     Email: this.state.corporateEmail,
+  //     Password: this.state.signUpPassword,
+  //     Organization: this.state.companyName,
+  //     Website: this.state.corporateWebsite,
+  //     Contact: this.state.contactNumber,
+  //   };
+  //   console.log(JSON.stringify(user));
+  //   fetch(`http://localhost:8081/signup`, {
+  //     body: JSON.stringify(user),
+  //     method: "POST",
+  //     mode: "cors",
+  //   })
+  //     .then((res) => {
+  //       console.log("User Added Succesfully");
+  //       return res.json();
+  //     })
+  //     .then((result) => {
+  //       this.setState({
+  //         email: user.Email,
+  //         password: user.Password,
+  //         companyName: "",
+  //         recruiterName: "",
+  //         corporateWebsite: "",
+  //         corporateEmail: "",
+  //         contactNumber: "",
+  //         signUpPassword: "",
+  //       });
+  //       this.hideSignUp();
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // };
+
+  showSignUp = () => {
+    this.setState({ showSignUp: true });
+  };
 
   onSignupHandler = (event) => {
     event.preventDefault();
