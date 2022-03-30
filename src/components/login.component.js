@@ -189,30 +189,7 @@ class LoginModal extends React.Component {
     showSignUp= ()=>{
       this.setState({showSignUp:true})
     };
-    return fetch(`http://localhost:8081/login`, {
-      body: JSON.stringify(data),
-      method: "POST",
-      mode: "cors",
-    })
-      .then((res) => {
-        // debugger;
-        localStorage.setItem("token", 1);
-        console.log(localStorage.getItem("token"));
-        return res.json();
-      })
-      .then((result) => {
-        this.props.hideLogin();
-        this.props.setIsLoggedIn(true);
-        global.isLoggedIn = true;
-        localStorage.setItem("recruiterID", result.Token);
-        localStorage.setItem("userName", result.Recruiter.Email);
-
-        console.log(localStorage.getItem("recruiterID"));
-      })
-      .catch((e) => {
-        global.isLoggedIn = false;
-      });
-  };
+ 
 
   onSignupHandler = (event) => {
     event.preventDefault();
