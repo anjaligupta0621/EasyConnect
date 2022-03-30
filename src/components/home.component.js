@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import "../css/main.css";
@@ -6,6 +5,7 @@ import "../css/menu.css";
 import "../css/styles.css";
 import "../css/login-modal-wizard.css";
 import "./home.component.css";
+
 import LoginModal from "./login.component.js";
 import Loader from "./loader.component";
 
@@ -36,6 +36,7 @@ class Home extends React.PureComponent {
 		isLoggedIn: false,
 		showLoader:false
 	};
+
 
 	showLoginDialog = () => {
 		this.setState({
@@ -72,6 +73,7 @@ class Home extends React.PureComponent {
 		});
 	};
 	
+
 	render() {
 		const mystyle = {
 			padding: "0px",
@@ -84,6 +86,9 @@ class Home extends React.PureComponent {
 		};
 		return (
 			<div className="home-component">
+
+				<Header />
+
 				{this.state.showModal ? (
 					<LoginModal
 						hideLogin={this.hideLoginDialog}
@@ -97,6 +102,7 @@ class Home extends React.PureComponent {
 					signOut={this.signOut}
 					setIsLoggedIn={this.setIsLoggedIn}
 				/>
+
 				<div id="banner" className="text-center">
 					<h1>
 						<img src={logolarge} alt="Easy Connect" />
@@ -111,7 +117,7 @@ class Home extends React.PureComponent {
 					</p>
 
 					<div className="col-lg-12 steps home-grid-container">
-						<a href="#section1" className="home-cards">
+						<a  className="home-cards">
 							<div className="col-lg-12 step1">
 								<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 step-no">
 									01
@@ -125,7 +131,7 @@ class Home extends React.PureComponent {
 							</div>
 						</a>
 
-						<a href="#section2" className="home-cards">
+						<a  className="home-cards">
 							<div className="col-lg-12 step1">
 								<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 step-no">
 									02
@@ -140,7 +146,7 @@ class Home extends React.PureComponent {
 							</div>
 						</a>
 
-						<a href="#section3" className="home-cards">
+						<a  className="home-cards">
 							<div className="col-lg-12 step1">
 								<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 step-no">
 									03
@@ -155,7 +161,7 @@ class Home extends React.PureComponent {
 							</div>
 						</a>
 
-						<a href="#section4" className="home-cards">
+						<a  className="home-cards">
 							<div className="col-lg-12 step1">
 								<div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 step-no">
 									04
@@ -172,7 +178,7 @@ class Home extends React.PureComponent {
 					</div>
 
 					<div className="banner-arrow text-center">
-						<a href="#section1">
+						<a>
 							<img src={bannerArrow} alt="" />
 						</a>
 					</div>

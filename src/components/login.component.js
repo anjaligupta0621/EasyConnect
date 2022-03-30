@@ -83,6 +83,28 @@ class LoginModal extends React.Component {
   onSignupHandler = (event) => {
     event.preventDefault();
 
+
+        let data ={
+            Email :this.state.email,
+            Password: this.state.password
+        }    
+        return fetch(`http://localhost:8081/login`, {body: JSON.stringify(data), method: "POST", mode:"cors"})
+        .then(res => {
+            // debugger;
+            localStorage.setItem('token',1);
+            console.log(localStorage.getItem('token'));
+            return res.json();
+        }).then(result => {
+            this.props.hideLogin();
+            this.props.setIsLoggedIn(true);
+            global.isLoggedIn = true;
+            localStorage.setItem('recruiterID',result.ID);
+            console.log(localStorage.getItem('recruiterID'));
+        }).catch( e => {
+            global.isLoggedIn = false;
+        })     
+    }
+
     let data = {
       Name: this.state.recruiterName,
       Email: this.state.corporateEmail,
@@ -116,6 +138,7 @@ class LoginModal extends React.Component {
         // debugger;
       });
   };
+
 
   showSignUp = () => {
     this.setState({ showSignUp: true });
@@ -355,6 +378,45 @@ class LoginModal extends React.Component {
                           </div>
                         </div>
 
+
+                    <div className="modal-body w-100">
+                            <h1>Recruiter Login</h1>
+                                <div>
+                                    <label htmlFor="email" className="col-lg-12">Corporate Email ID</label>
+                                    <div className="col-lg-12">
+                                        <input 
+                                        name="emailId" 
+                                        type="email" 
+                                        id="email" 
+                                        value={this.state.email}
+                                        onChange={(event) => this.onChangeEmailHandler(event)} 
+                                        className="text-input"/>
+                                    </div>
+                                
+                                    <label htmlFor="pass" className="col-lg-12">Enter Password <a href="#">Forgot Password?</a></label>
+                                    <div className="col-lg-12">
+                                        <input 
+                                        name="Password" 
+                                        type="password" 
+                                        id="password" 
+                                        value={this.state.password}
+                                        onChange={(event) => this.onChangePasswordHandler(event)} 
+                                        className="text-input" />
+                                    </div>
+                                
+                                    <div className="col-lg-12 login bg-transparent">
+                                        <input 
+                                            type="submit" 
+                                            value="LOG IN" 
+                                            onClick={(event) => this.onSignInHandler(event)}
+                                            className="text-input"/>
+                                    </div>
+                                 <div className="text-white padding-0-15">
+                                 Don't have an account? <a onClick={this.showSignUp} className="signup-bottom">Sign Up</a>
+                                 </div>
+                                       
+                                </div>
+
                         <div className="col-lg-12" style={{ padding: "0px" }}>
                           <button
                             type="button"
@@ -366,6 +428,7 @@ class LoginModal extends React.Component {
                           >
                             submit
                           </button>
+
                         </div>
 
                         <div className="clearfix"></div>
