@@ -36,8 +36,6 @@ const Header = (props) => {
       Token:localStorage.getItem("recruiterID"),
       UserName:localStorage.getItem("userName")
     };
-    
-   
     return fetch(`http://localhost:8081/logout`, {
       body: JSON.stringify(reqHeader),
       method: "POST",
