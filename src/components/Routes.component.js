@@ -9,11 +9,11 @@ function RouterContainer(props) {
     return (
         <Router>   
             <Routes>
-                <Route path="/jobDashBoard" element={<PostJobDashBoard islog ={props.isLog} log={props.setIsLog} />} />
+                <Route path="/jobDashBoard" element={<PostJobDashBoard  />} />
                 <Route path="/postJob" element={<PostJob />} />
                 <Route path="/user" element={<Jobseekerheader />} />
                 <Route path="/shortListCandidate" element={<ShortListCandidate />} />
-                <Route path="/" element={<Home islog ={props.isLog} log={props.setIsLog}/>} />
+                <Route path="/" element={<Home/>} />
             </Routes>
         </Router>
     );
