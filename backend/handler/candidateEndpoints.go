@@ -10,6 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// Candidate Login API Handler
 func GetCandidate(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
@@ -29,13 +30,14 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidates").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&candidate_)
 
 	if candidate_.Email != "" {
-		utils.GetJWTToken(candidate_.Email, w)
+		// utils.GetJWTToken(candidate_.Email, w)
 		json.NewEncoder(w).Encode(candidate_)
 	} else {
 		json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
 	}
 }
 
+// Candidate Registration APi Handler
 func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
@@ -55,7 +57,7 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	result := db.Create(&models.Candidtate{Name: candidate.Name, Email: candidate.Email, Password: candidate.Password, Username: username, Contact: candidate.Contact})
 	if result.Error != nil {
 		fmt.Println(result.Error)
-		json.NewEncoder(w).Encode("Candidate already exists")
+		// json.NewEncoder(w).Encode("Candidate already exists")
 	} else {
 		utils.GetJWTToken(candidate.Email, w)
 		json.NewEncoder(w).Encode("New Recruiter Successfully Added: " + candidate.Name)
