@@ -20,6 +20,7 @@ func Router() *mux.Router {
 	return router
 }
 
+// Recruting Login API Test case
 func TestGetUsers(t *testing.T) {
 	login := &models.Login{
 		Email:    "dummy@dummy.com",
@@ -46,6 +47,7 @@ func TestGetUsers(t *testing.T) {
 
 }
 
+// Recruting Registration API Test case
 func TestPutUserData(t *testing.T) {
 	recruiter := &models.Recruiter{
 		Name:         "test",
