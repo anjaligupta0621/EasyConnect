@@ -8,13 +8,8 @@ import RouterContainer from './components/Routes.component';
 
 
 function App(props) {
-  const [username, setUsername] = useState("");
-  const [isLog, setIsLog] = useState("false");
-  const [user, setUser] = useState();
-  
-  console.log("value of isLog --> " + isLog);
   return (
-    <RouterContainer setIsLog={setIsLog} isLog={isLog} />
+    <RouterContainer/>
   );
 }
 
