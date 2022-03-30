@@ -15,9 +15,9 @@ import jobseekerLogo from "../img/jobseeker.png";
 import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
-    let navigate = useNavigate();
-    const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+  let navigate = useNavigate();
+  const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const shortlistCandidate = () => {
     props.showLogin();
@@ -28,21 +28,58 @@ const Header = (props) => {
   };
 
   const checkLogin = () => {
-    if (localStorage.getItem('recruiterID', null) !== null) {
-        setIsLoggedInLocal(true);
-        return true;
+    if (localStorage.getItem("recruiterID", null) !== null) {
+      setIsLoggedInLocal(true);
+      return true;
     }
     return false;
-  }
+  };
 
-    const hideLoginDialog = () => {
-        setShowModal(false);
+  const hideLoginDialog = () => {
+    setShowModal(false);
+  };
+
+  const signout = () => {
+    const reqHeader={
+      Token:localStorage.getItem("recruiterID"),
+      UserName:localStorage.getItem("userName")
     };
-
-    const signout = () => {
-        localStorage.removeItem('recruiterID');
+    
+   
+    return fetch(`http://localhost:8081/logout`, {
+      body: JSON.stringify(reqHeader),
+      method: "POST",
+      mode: "cors",
+    })
+      .then((res) => {
+        // debugger;
+        localStorage.removeItem("recruiterID");
+        localStorage.removeItem("userName");
         setIsLoggedInLocal(false);
-    }
+        return res.json();
+      })
+      .then((result) => {
+        this.props.setIsLoggedIn(false);
+        global.isLoggedIn = false;
+        setIsLoggedInLocal(false);
+        localStorage.removeItem("recruiterID");
+        localStorage.removeItem("userName");
+
+        console.log(result);
+      })
+      .catch((e) => {
+        global.isLoggedIn = false;
+      });
+  };
+  // const signOut=(e)=>{
+  //   props.signOut(e);
+  // }
+  // const Results = () => (
+  //   <div className="user-profile-section">
+  //     <img alt="user" src={userLogo} className="user-dp" />
+  //     <label className="user-name-container">Welcome! User Name</label>
+  //   </div>
+  // );
 
   return (
     <header>
@@ -61,7 +98,7 @@ const Header = (props) => {
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               {" "}
-              <Link to ="/user" className="dropdown-item" >
+              <Link to="/user" className="dropdown-item">
                 {" "}
                 <img src={jobseekerLogo} /> &nbsp;view as Job seeker
               </Link>{" "}
@@ -98,34 +135,35 @@ const Header = (props) => {
               <li className="active">
                 <Link to="/">Home</Link>
               </li>
-                <li>
-                {
-                    isLoggedInLocal || checkLogin() ?
-                    <Link to={'/jobDashBoard/'}
-                    >
-                        Post Job Description
-                    </Link> : 
-                    <Link to={''} onClick={() => {setShowModal(true)}}
-                    >
-                        Post Job Description
-                    </Link>
-                }
-                </li>
-              
-                <li>
-                {
-                   isLoggedInLocal || checkLogin() ?
-                  <Link to="/shortListCandidate">
-                      ShortList Candidate
-                      </Link>
-              : 
-                
-              <Link to={''} onClick={() => {setShowModal(true)}}
-              >
-                  ShortList Candidate
-              </Link>
-                }
-                </li>
+              <li>
+                {isLoggedInLocal || checkLogin() ? (
+                  <Link to={"/jobDashBoard/"}>Post Job Description</Link>
+                ) : (
+                  <Link
+                    to={""}
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
+                  >
+                    Post Job Description
+                  </Link>
+                )}
+              </li>
+
+              <li>
+                {isLoggedInLocal || checkLogin() ? (
+                  <Link to="/shortListCandidate">ShortList Candidate</Link>
+                ) : (
+                  <Link
+                    to={""}
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
+                  >
+                    ShortList Candidate
+                  </Link>
+                )}
+              </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
@@ -136,10 +174,16 @@ const Header = (props) => {
                     value="Sign In"
                     className="sign-in-bt-top"
                     id="btnlogin"
-                    onClick={() => {setShowModal(true)}}
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
                   />
                 ) : (
-                  <a onClick={signout} href={"/"}>Sign Out</a>
+                  <a onClick={signout} >
+                    Sign Out
+                  </a>
+                  // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
+                  // <Link to="/" onClick={(e)=>signout(e)}>Sign Out</Link>
                 )}
               </li>
             </ul>
@@ -148,11 +192,11 @@ const Header = (props) => {
       </nav>
 
       {showModal ? (
-            <LoginModal
-                hideLogin={hideLoginDialog}
-                setIsLoggedIn={() => setIsLoggedInLocal(true)}
-            />
-        ) : null}
+        <LoginModal
+          hideLogin={hideLoginDialog}
+          setIsLoggedIn={() => setIsLoggedInLocal(true)}
+        />
+      ) : null}
     </header>
   );
 };

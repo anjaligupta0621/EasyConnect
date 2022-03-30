@@ -1,5 +1,6 @@
 package models
 
+// Recruiter Model with gorm mapping
 type Recruiter struct {
 	ID           uint   `gorm:"primary_key; AUTO_ Increment "`
 	Name         string `gorm:"Not null "`
@@ -11,6 +12,25 @@ type Recruiter struct {
 	Jobs         []Job  `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
 
+// User token model with gorm mapping
+type Usertoken struct {
+	Email string `gorm:"unique Not null "`
+	Token string `gorm:"unique; Not null "`
+}
+
+//user Token manager model
+type TokenManager struct {
+	Token    string
+	UserName string
+}
+
+// Custom response model for login signup of recruiter
+type RecruiterResponse struct {
+	Recruiter Recruiter
+	Token     string
+}
+
+// Used for login of rec/candi
 type Login struct {
 	Email    string
 	Password string
@@ -19,6 +39,8 @@ type Login struct {
 type Person struct {
 	RecruiterID uint
 }
+
+// Job model with gorm mapping
 type Job struct {
 	JobID            uint   `gorm:"primary_key; AUTO_ Increment"`
 	Role_Name        string `gorm:"Not null"`
