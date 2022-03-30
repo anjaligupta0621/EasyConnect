@@ -12,9 +12,6 @@ import Navbar from "./navbar.component.js";
 import LoginModal from "./login.component";
 import recruiterLogo from "../img/recruiter.png";
 import jobseekerLogo from "../img/jobseeker.png";
-
-import userLogo from "../img/userLogo.svg";
-import { withRouter } from "react-router-dom";
 import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
@@ -29,12 +26,6 @@ const Header = (props) => {
   const gotoHome = () => {
     props.history.push("/home");
   };
-  const Results = () => (
-    <div className="user-profile-section">
-      <img alt="user" src={userLogo} className="user-dp" />
-      <label className="user-name-container">Welcome! User Name</label>
-    </div>
-  );
 
   const checkLogin = () => {
     if (localStorage.getItem('recruiterID', null) !== null) {
@@ -77,7 +68,6 @@ const Header = (props) => {
             </div>
           </div>
         </div>
-        {props.isLoggedIn ? <Results /> : null}
       </div>
       <nav className="navbar navbar-inverse">
         <div className="container-fluid">
@@ -121,15 +111,21 @@ const Header = (props) => {
                     </Link>
                 }
                 </li>
-              {localStorage.getItem('recruiterID', null) !== null ? (
+              
                 <li>
-                  <Link to="/shortListCandidate">ShortList Candidate</Link>
+                {
+                   isLoggedInLocal || checkLogin() ?
+                  <Link to="/shortListCandidate">
+                      ShortList Candidate
+                      </Link>
+              : 
+                
+              <Link to={''} onClick={() => {setShowModal(true)}}
+              >
+                  ShortList Candidate
+              </Link>
+                }
                 </li>
-              ) : (
-                <li>
-                  <button onClick={shortlistCandidate}>ShortList Candidate</button>
-                </li>
-              )}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>
@@ -143,11 +139,7 @@ const Header = (props) => {
                     onClick={() => {setShowModal(true)}}
                   />
                 ) : (
-
                   <a onClick={signout} href={"/"}>Sign Out</a>
-
-                  // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
-                  <a href="\" onClick={props.signOut}>Sign Out</a>
                 )}
               </li>
             </ul>

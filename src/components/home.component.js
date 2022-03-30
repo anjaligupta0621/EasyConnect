@@ -6,73 +6,17 @@ import "../css/styles.css";
 import "../css/login-modal-wizard.css";
 import "./home.component.css";
 
-import LoginModal from "./login.component.js";
-import Loader from "./loader.component";
-
 import Header from "./header.component.js";
 import logolarge from "../img/logo-large.png";
 import bannerArrow from "../img/banner-arrow.png";
+
 import shadowImage from "../img/steps-shadow.png";
 
-const SignoutModal = () => (
-	<div>
-	<div id="loginModal" className="modal-login suppress-bg">
-	  <div className="modal-content-login">
-		<span className="closecv" onClick={this.props.hideLogin}>
-		  <img src={closelogo} width="26" height="27" alt="close" />
-		</span>	
-		<div className="modal-body w-100">
-		  <h1>Are you sure you want to sign out?</h1>
-		  <div>
-		  </div>
-		</div>
-	  </div>
-	</div>
-  </div>
-);
 class Home extends React.PureComponent {
 	state = {
 		showModal: false,
 		isLoggedIn: false,
-		showLoader:false
 	};
-
-
-	showLoginDialog = () => {
-		this.setState({
-			showModal: true,
-		});
-	};
-
-	signOut = () => {
-		// debugger;
-		this.setState({showLoader: true});
-        setTimeout(() => {
-            this.setState({showLoader: false});
-        }, 3000);
-		this.setIsLoggedIn(false);
-		global.isLoggedIn = false;
-	};
-
-	hideLoginDialog = () => {
-		this.setState({
-			showModal: false,
-		});
-		this.setState({showLoader: true});
-        setTimeout(() => {
-            this.setState({showLoader: false});
-        }, 2000);
-	};
-
-	setIsLoggedIn = (isLoggedIn) => {
-		// debugger;
-		this.props.log(true);
-		// debugger;
-		this.setState({
-			isLoggedIn: isLoggedIn,
-		});
-	};
-	
 
 	render() {
 		const mystyle = {
@@ -86,23 +30,7 @@ class Home extends React.PureComponent {
 		};
 		return (
 			<div className="home-component">
-
 				<Header />
-
-				{this.state.showModal ? (
-					<LoginModal
-						hideLogin={this.hideLoginDialog}
-						setIsLoggedIn={this.setIsLoggedIn}
-					/>
-				) : null}
-				<Loader showLoader={this.state.showLoader}></Loader>
-				<Header
-					showLogin={this.showLoginDialog}
-					isLoggedIn={this.state.isLoggedIn}
-					signOut={this.signOut}
-					setIsLoggedIn={this.setIsLoggedIn}
-				/>
-
 				<div id="banner" className="text-center">
 					<h1>
 						<img src={logolarge} alt="Easy Connect" />
