@@ -169,11 +169,9 @@ const Header = (props) => {
                     }}
                   />
                 ) : (
-                  <a onClick={signout} >
+                  <Link to ="/" onClick={signout} >
                     Sign Out
-                  </a>
-                  // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
-                  // <Link to="/" onClick={(e)=>signout(e)}>Sign Out</Link>
+                  </Link>
                 )}
               </li>
             </ul>

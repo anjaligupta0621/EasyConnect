@@ -5,95 +5,33 @@ import "../css/utils.css";
 import "../css/suppress.css";
 import closelogo from "../img/close.png";
 
-class LoginModal extends React.Component {
-//   state = {
-//     showSignUp: false,
-//     email: "",
-//     password: "",
-//     companyName: "",
-//     recruiterName: "",
-//     corporateWebsite: "",
-//     corporateEmail: "",
-//     contactNumber: "",
-//     signUpPassword: "",
-//   };
+class UserLoginModal extends React.Component {
 
-//   onChangeEmailHandler = (event) => {
-//     this.setState({ email: event.target.value, signinErr: false });
-//   };
-
-//   onChangePasswordHandler = (event) => {
-//     this.setState({ password: event.target.value, signinErr: false });
-//   };
-
-//   onChangeCompanyNameHandler = (event) => {
-//     this.setState({ companyName: event.target.value });
-//   };
-
-//   onChangeRecruiterNameHandler = (event) => {
-//     this.setState({ recruiterName: event.target.value });
-//   };
-
-//   onChangeWebsiteHandler = (event) => {
-//     this.setState({ corporateWebsite: event.target.value });
-//   };
-
-//   onChangeSignUpEmailHandler = (event) => {
-//     this.setState({ corporateEmail: event.target.value });
-//   };
-
-//   onChangeContactHandler = (event) => {
-//     this.setState({ contactNumber: event.target.value });
-//   };
-
-//   onChangeSignUpPasswordHandler = (event) => {
-//     this.setState({ signUpPassword: event.target.value });
-//   };
-
-  state = {
+state = {
     showSignUp: false,
-    email: "",
-    password: "",
-    companyName: "",
-    recruiterName: "",
-    corporateWebsite: "",
-    corporateEmail: "",
-    contactNumber: "",
-    signUpPassword: "",
-  };
+    name: "",
+    email:"",
+    password:"",
+    contactNumber: ''
+}
 
-  onChangeEmailHandler = (event) => {
-    this.setState({ email: event.target.value });
-  };
+onChangeEmailHandler = (event) => {
+    this.setState({email: event.target.value});
+}
 
-  onChangePasswordHandler = (event) => {
-    this.setState({ password: event.target.value });
-  };
+onChangePasswordHandler = (event) => {
+    this.setState({password: event.target.value});
+}
 
-  onChangeCompanyNameHandler = (event) => {
-    this.setState({ companyName: event.target.value });
-  };
+onChangeNameHandler = (event) => {
+    this.setState({name: event.target.value});
+}
 
-  onChangeRecruiterNameHandler = (event) => {
-    this.setState({ recruiterName: event.target.value });
-  };
+onChangeContactHandler = (event) => {
+    this.setState({contactNumber: event.target.value});
+}
 
-  onChangeWebsiteHandler = (event) => {
-    this.setState({ corporateWebsite: event.target.value });
-  };
-
-  onChangeSignUpEmailHandler = (event) => {
-    this.setState({ corporateEmail: event.target.value });
-  };
-
-  onChangeContactHandler = (event) => {
-    this.setState({ contactNumber: event.target.value });
-  };
-
-  onChangeSignUpPasswordHandler = (event) => {
-    this.setState({ signUpPassword: event.target.value });
-  };
-
+onChangeSignUpPasswordHandler
   onSignInHandler = (event) => {
     let data = {
       Email: this.state.email,
@@ -110,56 +48,18 @@ class LoginModal extends React.Component {
       .then((result) => {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
-        localStorage.setItem("recruiterID", result.Token);
-        localStorage.setItem("userName", result.Recruiter.Email);
-        console.log(localStorage.getItem("recruiterID"));
+        localStorage.setItem("userID", result.Token);
+        //localStorage.setItem("userName", result.Recruiter.Email);
+        console.log(localStorage.getItem("userID"));
       })
       .catch((e) => {
         console.log("Exception Occur in User Login");
       });
   };
 
-  // onSignupHandler = (event) => {
-  //   event.preventDefault();
-
-  //   const user = {
-  //     Name: this.state.recruiterName,
-  //     Email: this.state.corporateEmail,
-  //     Password: this.state.signUpPassword,
-  //     Organization: this.state.companyName,
-  //     Website: this.state.corporateWebsite,
-  //     Contact: this.state.contactNumber,
-  //   };
-  //   console.log(JSON.stringify(user));
-  //   fetch(`http://localhost:8081/signup`, {
-  //     body: JSON.stringify(user),
-  //     method: "POST",
-  //     mode: "cors",
-  //   })
-  //     .then((res) => {
-  //       console.log("User Added Succesfully");
-  //       return res.json();
-  //     })
-  //     .then((result) => {
-  //       this.setState({
-  //         email: user.Email,
-  //         password: user.Password,
-  //         companyName: "",
-  //         recruiterName: "",
-  //         corporateWebsite: "",
-  //         corporateEmail: "",
-  //         contactNumber: "",
-  //         signUpPassword: "",
-  //       });
-  //       this.hideSignUp();
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
-  showSignUp = () => {
-    this.setState({ showSignUp: true });
+  
+  showUserSignUp = () => {
+    this.setState({ showUserSignUp: true });
   };
 
   onSignupHandler = (event) => {
@@ -169,8 +69,6 @@ class LoginModal extends React.Component {
       Name: this.state.recruiterName,
       Email: this.state.corporateEmail,
       Password: this.state.signUpPassword,
-      Organization: this.state.companyName,
-      Website: this.state.corporateWebsite,
       Contact: this.state.contactNumber,
     };
     console.log(JSON.stringify(user));
@@ -187,45 +85,41 @@ class LoginModal extends React.Component {
         this.setState({
           email: user.Email,
           password: user.Password,
-          companyName: "",
-          recruiterName: "",
-          corporateWebsite: "",
-          corporateEmail: "",
-          contactNumber: "",
-          signUpPassword: "",
           showSignUp: false,
+          name: "",
+          contactNumber: ''
         });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         global.isLoggedIn = true;
-        localStorage.setItem("recruiterID", result.Token);
-        localStorage.setItem("userName", result.Recruiter.Email);
+        localStorage.setItem("userID", result.Token);
+        //localStorage.setItem("userName", result.Recruiter.Email);
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  showSignUp = () => {
-    this.setState({ showSignUp: true });
+  showUserSignUp = () => {
+    this.setState({ showUserSignUp: true });
   };
 
   hideSignUp = () => {
-    this.setState({ showSignUp: false });
+    this.setState({ showUserSignUp: false });
   };
 
   render() {
     return (
       <div>
-        <div id="loginModal" className="modal-login suppress-bg">
-          <div className="modal-content-login">
+        <div id="loginModal" className="modal-login suppress-bg login-modal-user">
+          <div className="modal-content-login-user">
             <span className="closecv" onClick={this.props.hideLogin}>
               <img src={closelogo} width="26" height="27" alt="close" />
             </span>
 
             <div
               className="modal-header"
-              style={{ display: this.state.showSignUp ? "block" : "none" }}
+              style={{ display: this.state.showUserSignUp ? "block" : "none" }}
             >
               <div id="registration_form" className="overlay-main">
                 <a
@@ -263,7 +157,7 @@ class LoginModal extends React.Component {
                               className="col-lg-12 legend"
                               style={{ padding: "0px" }}
                             >
-                              Name of the Company
+                              Name of the User
                             </div>
                             <div
                               className="col-lg-12"
@@ -275,7 +169,7 @@ class LoginModal extends React.Component {
                                 id="name"
                                 value={this.companyName}
                                 onChange={(event) =>
-                                  this.onChangeCompanyNameHandler(event)
+                                  this.onChangeNameHandler(event)
                                 }
                                 className="text-inputs"
                               />
@@ -290,7 +184,7 @@ class LoginModal extends React.Component {
                               className="col-lg-12 legend"
                               style={{ padding: "0px" }}
                             >
-                              Name of the Recruiter
+                              Email ID of User
                             </div>
                             <div
                               className="col-lg-12"
@@ -302,65 +196,10 @@ class LoginModal extends React.Component {
                                 id="name"
                                 value={this.recruiterName}
                                 onChange={(event) =>
-                                  this.onChangeRecruiterNameHandler(event)
+                                  this.onChangeEmailHandler(event)
                                 }
                                 className="text-inputs"
                               />
-                            </div>
-                          </div>
-
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                            style={{ padding: "0px" }}
-                          >
-                            <div
-                              className="col-lg-12 legend"
-                              style={{ padding: "0px" }}
-                            >
-                              Corporate Website
-                            </div>
-                            <div
-                              className="col-lg-12"
-                              style={{ padding: "0px" }}
-                            >
-                              <input
-                                name="name"
-                                type="name"
-                                id="name"
-                                value={this.corporateWebsite}
-                                onChange={(event) =>
-                                  this.onChangeWebsiteHandler(event)
-                                }
-                                className="text-inputs"
-                              />
-                            </div>
-                          </div>
-
-                          <div
-                            className="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                            style={{ padding: "0px" }}
-                          >
-                            <div
-                              className="col-lg-12 legend"
-                              style={{ padding: "0px" }}
-                            >
-                              Corporate email ID
-                            </div>
-                            <div
-                              className="col-lg-12"
-                              style={{ padding: "0px" }}
-                            >
-                              <input
-                                name="Email"
-                                type="email"
-                                id="email"
-                                value={this.corporateEmail}
-                                onChange={(event) =>
-                                  this.onChangeSignUpEmailHandler(event)
-                                }
-                                className="text-inputs"
-                              />
-                              <span id="emailError"></span>
                             </div>
                           </div>
 
@@ -468,10 +307,10 @@ class LoginModal extends React.Component {
             </div>
 
             <div className="modal-body w-100">
-              <h1>Recruiter Login</h1>
+              <h1>User Login</h1>
               <div>
                 <label htmlFor="email" className="col-lg-12">
-                  Corporate Email ID
+                  User Email ID
                 </label>
                 <div className="col-lg-12">
                   <input
@@ -508,7 +347,7 @@ class LoginModal extends React.Component {
                 </div>
                 <div className="text-white padding-0-15">
                   Don't have an account?{" "}
-                  <a onClick={this.showSignUp} className="signup-bottom">
+                  <a onClick={this.showUserSignUp} className="signup-bottom">
                     Sign Up
                   </a>
                 </div>
@@ -521,4 +360,4 @@ class LoginModal extends React.Component {
   }
 }
 
-export default LoginModal;
+export default UserLoginModal;
