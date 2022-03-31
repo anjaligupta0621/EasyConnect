@@ -9,10 +9,9 @@ import NavbarJobseeker from "./navbar.jobseeker.component.js";
 import Pagination from "./Pagination.component";
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import LoginModal from "./login.component";
-import ApplyJobModal from "./applyJobModal.component";
+import JobSeekerHeader from "./jobSeekerHeader.component";
 
-class Jobseekerheader extends React.Component{
+class Jobseeker extends React.Component{
 
     state = {
         jobs: [],
@@ -61,41 +60,7 @@ class Jobseekerheader extends React.Component{
 
         return (
             <div className="body-outer jobseeker-main">
-                {this.state.showModal ? (
-					<ApplyJobModal
-						hideLogin={this.hideLoginDialog}
-						setIsLoggedIn={this.setIsLoggedIn}
-					/>
-				) : null}
-                <header>
-                    <div className="top-select">
-                        <div className="viewas">
-                            <div className="dropdown">
-                                <button
-                                    className="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <img src={recruiterLogo} /> &nbsp;View as Job seeker{" "}
-                                </button>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton"
-                                >
-                                    {" "}
-                                    <a className="dropdown-item" href="/">
-                                        {" "}
-                                        <img src={jobseekerLogo} /> &nbsp;View as Recruiter
-                                    </a>{" "}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <NavbarJobseeker />
-                </header>
+                <JobSeekerHeader />
                 <section>
                     <div className="jobSeekermain-wrapper">
                         <div className="jobSeekerbody-area">
@@ -279,4 +244,4 @@ class Jobseekerheader extends React.Component{
     }
 };
 
-export default Jobseekerheader;
+export default Jobseeker;

@@ -1,0 +1,24 @@
+.modal-content-login-user {
+    position: relative;
+    background-color: #323754;
+    background-repeat: repeat;
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 700px;
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.login-modal-user .login input {
+    color: #fff !important;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-color: #00bcd4;
+    border: none;
+}

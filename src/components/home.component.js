@@ -5,9 +5,6 @@ import "../css/menu.css";
 import "../css/styles.css";
 import "../css/login-modal-wizard.css";
 import "./home.component.css";
-import LoginModal from "./login.component.js";
-import Loader from "./loader.component";
-import Cookies from "js-cookie";
 
 import Header from "./header.component.js";
 import logolarge from "../img/logo-large.png";
