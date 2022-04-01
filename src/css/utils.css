@@ -34,6 +34,9 @@
 .margin-left-0 {
   margin-left: 0 !important;
 }
+.margin-right-10{
+  margin-right: 10px !important;
+}
 .margin-right-0 {
   margin-right: 0 !important;
 }
@@ -54,4 +57,9 @@
 }
 .border-radius-3 {
   border-radius: 3px;
+}
+.d-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
