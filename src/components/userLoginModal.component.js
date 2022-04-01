@@ -12,7 +12,8 @@ state = {
     name: "",
     email:"",
     password:"",
-    contactNumber: ''
+    contactNumber: '',
+    signUpPassword: ""
 }
 
 onChangeEmailHandler = (event) => {
@@ -31,18 +32,23 @@ onChangeContactHandler = (event) => {
     this.setState({contactNumber: event.target.value});
 }
 
-onChangeSignUpPasswordHandler
+onChangeSignUpPasswordHandler = (event) => {
+  this.setState({signUpPassword: event.target.value});
+}
+
+
   onSignInHandler = (event) => {
     let data = {
       Email: this.state.email,
       Password: this.state.password,
     };
-    return fetch(`http://localhost:8081/login`, {
+    return fetch(`http://localhost:8081/candidateLogin`, {
       body: JSON.stringify(data),
       method: "POST",
       mode: "cors",
     })
       .then((res) => {
+        console.log("User Logged In")
         return res.json();
       })
       .then((result) => {
@@ -72,7 +78,7 @@ onChangeSignUpPasswordHandler
       Contact: this.state.contactNumber,
     };
     console.log(JSON.stringify(user));
-    fetch(`http://localhost:8081/signup`, {
+    fetch(`http://localhost:8081/candidateSignup`, {
       body: JSON.stringify(user),
       method: "POST",
       mode: "cors",
@@ -248,7 +254,7 @@ onChangeSignUpPasswordHandler
                                 name="name"
                                 type="password"
                                 id="password"
-                                value={this.password}
+                                value={this.signUpPassword}
                                 onChange={(event) =>
                                   this.onChangeSignUpPasswordHandler(event)
                                 }

@@ -95,6 +95,7 @@ class LoginModal extends React.Component {
   };
 
   onSignInHandler = (event) => {
+    // event.preventDefault();
     let data = {
       Email: this.state.email,
       Password: this.state.password,
@@ -111,11 +112,13 @@ class LoginModal extends React.Component {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         localStorage.setItem("recruiterID", result.Token);
+        localStorage.setItem("ID",result.Recruiter.ID);
         localStorage.setItem("userName", result.Recruiter.Email);
         console.log(localStorage.getItem("recruiterID"));
+        console.log(localStorage.getItem("ID"));
       })
       .catch((e) => {
-        console.log("Exception Occur in User Login");
+        console.log(e);
       });
   };
 

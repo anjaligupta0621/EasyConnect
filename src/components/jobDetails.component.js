@@ -51,7 +51,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
             Salary_Start: values.salaryFrom,
             Salary_End: values.salaryTo,
             Active: String(values.isPartAllowed),
-            RecruiterID: 7,
+            RecruiterID: parseInt(localStorage.getItem("ID")),
         };
 
         console.log(JSON.stringify(data));
@@ -65,7 +65,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                 return res.json();
             })
             .then((result) => {
-                window.location.assign("http://localhost:3000/jobDashboard");
+                window.location.assign("http://localhost:3000/jobDashBoard");
             })
             .catch((e) => {
                 console.log(e);

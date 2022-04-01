@@ -27,7 +27,7 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var candidate_ models.Candidtate
-	db.Table("candidates").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&candidate_)
+	db.Table("candidtates").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&candidate_)
 
 	if candidate_.Email != "" {
 		// utils.GetJWTToken(candidate_.Email, w)
