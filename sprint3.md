@@ -36,10 +36,28 @@ type Jobs struct {
         RecruiterID      uint
 }
 ```
+* Third Schema named "Candidate" was created in the database.
+```yaml
+type Candidate struct {
+        Email            string   
+        Password        string 
+        Contact         string 
+        Name             string
+        
+}
+```
+* Fourth Schema named "Candidate_Job" was created in the database.
+```yaml
+type Candidate struct {
+        Email            string   
+        JobID            unit
+        
+}
+```
 
 ## Api Documentation
 ### Api Authentication
-In order to successfully authenticate the request you must provide the token to validate the API.We are using http request for operations.
+In order to successfully authenticate the request you must provide the token to validate the API. We are using the JWT authrntication to authenticate our API.
 
 ### Api End Points
 Queries begin with the same root Url for all the request. Currently using the http client for the request.
@@ -49,6 +67,10 @@ The exposed endpoints are -
 * /signup
 * /getJobById
 * /postJob
+* /candidateSignUp
+* /candidateLogin
+* /applyJobs
+* /getAllJobs
 
 #### /check
 Send a request to check whether the server is running or not.
@@ -168,6 +190,57 @@ postJob:
 ```yaml
     "New Job Successfully Added"
 ```
+
+#### **POST /candidateLogin**
+* Send a request to authenticate the JobSeeker. If the jobSeeker present in the Database then it login successful.
+* Requested URL is http://localhost:8081/candidateLogin
+* Example here with JSON Parameters which we need to pass in body: 
+```yaml
+Request URL: http://localhost:8081/login
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:8081
+Referrer Policy: strict-origin-when-cross-origin
+Json Parameter
+{
+    "Email" : "123456@ufl.edu",
+    "Password" : "12345678"
+}
+```
+* Returns the JobSeeker Details In response along with the token which we use to authenticate the user and session handling.
+```yaml
+{
+    "Email" : "123456@ufl.edu",
+    "Password" : "12345678",
+    "Token": "bkbka1233Nw@bjk"
+}
+```
+
+#### POST /CandidateSignUp
+* Send a request to Add the JobSeeker. If the JobSeeker present in the Database then returns otherwise add the JobSeeker in Database.
+* Requested URL is http://localhost:8081/candidateSignUp 
+* Example with JSON Parameters which we need to pass in body: 
+```yaml
+Request URL: http://localhost:8081/signUp
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:8081
+Referrer Policy: strict-origin-when-cross-origin
+Sign Up Json sample Parameter Demo:
+{
+   "Name": "Richa",
+   "Email" : "123@ufl.edu",
+   "Password" : "12345678",
+   "Contact" : ""
+ }
+```
+* Returns the JobSeeker Details In response.
+```yaml
+{
+"Response": "JobSeeker Added Successfully"
+}
+```
+
 ## API Development
 * We developed all the Rest APi's for login, signUp, postJob, getJobs using the golang.
 * Display the jobs on postJob dashboard was done on the basis of the jobs posted by recruiter.

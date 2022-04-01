@@ -106,6 +106,11 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(errToken)
 		w.WriteHeader(http.StatusBadRequest)
 	}
+	db.Table("candidates").Where("email = ?", candidate.Email).Find(&candidate)
+	if candidate.Email == "" {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	// Creating custome response
 	response := models.CandidateResponse{
 		Candidate: candidate,
@@ -113,11 +118,5 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(response)
-	if result.Error != nil {
-		fmt.Println(result.Error)
-		// json.NewEncoder(w).Encode("Candidate already exists")
-	} else {
-		utils.GetJWTToken(candidate.Email, w)
-		json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate.Name)
-	}
+	json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate.Name)
 }
