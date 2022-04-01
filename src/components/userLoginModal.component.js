@@ -9,11 +9,16 @@ class UserLoginModal extends React.Component {
   state = {
     showSignUp: false,
     name: "",
-    email: "",
-    password: "",
-    contactNumber: "",
+    email:"",
+    password:"",
+    contactNumber: '',
     signUpPassword: "",
-  };
+    isLoggedIn: false
+}
+
+onChangeEmailHandler = (event) => {
+    this.setState({email: event.target.value});
+}
 
   onChangeEmailHandler = (event) => {
     this.setState({ email: event.target.value });
@@ -47,9 +52,11 @@ class UserLoginModal extends React.Component {
     })
       .then((res) => {
         console.log("User Logged In");
+        // console.log(res.json());
         return res.json();
       })
       .then((result) => {
+        console.log("Result");
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         localStorage.setItem("userID", result.Token);
@@ -57,7 +64,7 @@ class UserLoginModal extends React.Component {
         console.log(localStorage.getItem("userID"));
       })
       .catch((e) => {
-        console.log("Exception Occur in User Login");
+        console.log(e);
       });
   };
 
