@@ -26,7 +26,7 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 
-	var candidate_ models.Candidtate
+	var candidate_ models.Candidate
 	db.Table("candidtates").Where("Email = ? AND Password = ?", login.Email, login.Password).Find(&candidate_)
 
 	if candidate_.Email != "" {
@@ -47,14 +47,14 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	decoder := json.NewDecoder(r.Body)
-	var candidate models.Candidtate
+	var candidate models.Candidate
 	err2 := decoder.Decode(&candidate)
 	if err2 != nil {
 		panic(err2)
 	}
 
 	username := utils.GetUsernameFromEmail(candidate.Email)
-	result := db.Create(&models.Candidtate{Name: candidate.Name, Email: candidate.Email, Password: candidate.Password, Username: username, Contact: candidate.Contact})
+	result := db.Create(&models.Candidate{Name: candidate.Name, Email: candidate.Email, Password: candidate.Password, Username: username, Contact: candidate.Contact})
 	if result.Error != nil {
 		fmt.Println(result.Error)
 		// json.NewEncoder(w).Encode("Candidate already exists")
