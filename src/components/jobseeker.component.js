@@ -84,12 +84,6 @@ class Jobseeker extends React.Component{
 
             this.setState({jobs:filterAndUpdateJobs});
 
-            // this.setState({applied: !this.state.applied, clickedJob: clickedId});}
-
-            // this.setState({clickedJob: clickedId, jobIsApplied: [
-            //     ...this.state.jobIsApplied,
-            //     this.state.jobIsApplied[clickedId] = true
-            // ]})}
         }
         else {
             this.setState({showModal: true});
@@ -265,7 +259,7 @@ class Jobseeker extends React.Component{
                                                 <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
                                                     <div className="clearfix"></div>
                                                     <div className="showing"> Show: <b>all jobs</b></div>
-                                                    {currentJobs.map((item) => (
+                                                    {currentJobs.sort((a,b) => b[1].JobID - a[1].JobID).map((item) => (
                                     
                                                         <div className="jobs" key={item[1].JobID}>
                                 
