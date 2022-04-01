@@ -31,5 +31,7 @@ func HandleRequests() {
 	// Refresh Token API
 	rtr.HandleFunc("/refreshAccessToken", handler.RefreshToken).Methods("POST")
 
+	rtr.HandleFunc("/applyForJob", handler.ApplyForJob).Methods("POST")
+
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }
