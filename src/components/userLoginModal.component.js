@@ -53,7 +53,7 @@ class UserLoginModal extends React.Component {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         localStorage.setItem("userID", result.Token);
-        //localStorage.setItem("userName", result.Recruiter.Email);
+        localStorage.setItem("userName", result.Candidate.Email);
         console.log(localStorage.getItem("userID"));
       })
       .catch((e) => {
@@ -95,7 +95,8 @@ class UserLoginModal extends React.Component {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         global.isLoggedIn = true;
-        localStorage.setItem("userID", result.Token);
+        localStorage.setItem("userID", result.Candidate.Token);
+        localStorage.setItem("userName", result.Candidate.Email);
         //localStorage.setItem("userName", result.Recruiter.Email);
       })
       .catch((e) => {

@@ -36,8 +36,8 @@ const Header = (props) => {
       mode: "cors",
     })
       .then((res) => {
-        localStorage.removeItem("userID");
-        localStorage.removeItem("userName");
+        // localStorage.removeItem("userID");
+        // localStorage.removeItem("userName");
         setIsLoggedInUser(false);
         return res.json();
       })
