@@ -119,5 +119,5 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(response)
-	json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
+	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
 }

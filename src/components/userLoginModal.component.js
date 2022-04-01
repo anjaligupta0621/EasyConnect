@@ -61,10 +61,6 @@ class UserLoginModal extends React.Component {
       });
   };
 
-  showUserSignUp = () => {
-    this.setState({ showUserSignUp: true });
-  };
-
   onSignupHandler = (event) => {
     event.preventDefault();
 
@@ -74,17 +70,20 @@ class UserLoginModal extends React.Component {
       Password: this.state.signUpPassword,
       Contact: this.state.contactNumber,
     };
-    console.log(JSON.stringify(user));
+    //console.log(JSON.stringify(user));
+    debugger;
     fetch(`http://localhost:8081/candidateSignup`, {
       body: JSON.stringify(user),
       method: "POST",
       mode: "cors",
     })
       .then((res) => {
+          //debugger;
         console.log("User Added Succesfully");
         return res.json();
       })
       .then((result) => {
+          //debugger;
         this.setState({
           email: user.Email,
           password: user.Password,
@@ -94,7 +93,7 @@ class UserLoginModal extends React.Component {
         });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
-        global.isLoggedIn = true;
+        //global.isLoggedIn = true;
         localStorage.setItem("userID", result.Candidate.Token);
         localStorage.setItem("userName", result.Candidate.Email);
         //localStorage.setItem("userName", result.Recruiter.Email);
@@ -105,11 +104,11 @@ class UserLoginModal extends React.Component {
   };
 
   showUserSignUp = () => {
-    this.setState({ showUserSignUp: true });
+    this.setState({ showSignUp: true });
   };
 
   hideSignUp = () => {
-    this.setState({ showUserSignUp: false });
+    this.setState({ showSignUp: false });
   };
 
   render() {
@@ -126,7 +125,7 @@ class UserLoginModal extends React.Component {
 
             <div
               className="modal-header"
-              style={{ display: this.state.showUserSignUp ? "block" : "none" }}
+              style={{ display: this.state.showSignUp ? "block" : "none" }}
             >
               <div id="registration_form" className="overlay-main">
                 <a
@@ -174,7 +173,7 @@ class UserLoginModal extends React.Component {
                                 name="name"
                                 type="name"
                                 id="name"
-                                value={this.companyName}
+                                value={this.name}
                                 onChange={(event) =>
                                   this.onChangeNameHandler(event)
                                 }
@@ -201,7 +200,7 @@ class UserLoginModal extends React.Component {
                                 name="name"
                                 type="name"
                                 id="name"
-                                value={this.recruiterName}
+                                value={this.email}
                                 onChange={(event) =>
                                   this.onChangeEmailHandler(event)
                                 }
