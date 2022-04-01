@@ -13,7 +13,8 @@ state = {
     email:"",
     password:"",
     contactNumber: '',
-    signUpPassword: ""
+    signUpPassword: "",
+    isLoggedIn: false
 }
 
 onChangeEmailHandler = (event) => {
@@ -48,18 +49,21 @@ onChangeSignUpPasswordHandler = (event) => {
       mode: "cors",
     })
       .then((res) => {
-        console.log("User Logged In")
+        console.log("User Logged In");
+        // console.log(res.json());
         return res.json();
       })
       .then((result) => {
+        console.log("Result");
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
-        localStorage.setItem("userID", result.Token);
+        // Uncomment below when token is received
+        // localStorage.setItem("userID", result.Token);
         //localStorage.setItem("userName", result.Recruiter.Email);
-        console.log(localStorage.getItem("userID"));
+        // console.log(localStorage.getItem("userID"));
       })
       .catch((e) => {
-        console.log("Exception Occur in User Login");
+        console.log(e);
       });
   };
 
