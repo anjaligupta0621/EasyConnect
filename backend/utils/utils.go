@@ -30,12 +30,12 @@ type Claims struct {
 }
 
 func GetUsernameFromEmail(email string) string {
-	i := strings.Index(email, "@")
+	i := strings.Split(email, "@")
 
-	if i > -1 {
-		return email[:i-1]
-	}
-	return ""
+	// if i > -1 {
+	// 	return email[:i-1]
+	// }
+	return i[0]
 }
 
 // Util method for sha hashing

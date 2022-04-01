@@ -6,36 +6,34 @@ import "../css/suppress.css";
 import closelogo from "../img/close.png";
 
 class UserLoginModal extends React.Component {
-
-state = {
+  state = {
     showSignUp: false,
     name: "",
-    email:"",
-    password:"",
-    contactNumber: '',
-    signUpPassword: ""
-}
+    email: "",
+    password: "",
+    contactNumber: "",
+    signUpPassword: "",
+  };
 
-onChangeEmailHandler = (event) => {
-    this.setState({email: event.target.value});
-}
+  onChangeEmailHandler = (event) => {
+    this.setState({ email: event.target.value });
+  };
 
-onChangePasswordHandler = (event) => {
-    this.setState({password: event.target.value});
-}
+  onChangePasswordHandler = (event) => {
+    this.setState({ password: event.target.value });
+  };
 
-onChangeNameHandler = (event) => {
-    this.setState({name: event.target.value});
-}
+  onChangeNameHandler = (event) => {
+    this.setState({ name: event.target.value });
+  };
 
-onChangeContactHandler = (event) => {
-    this.setState({contactNumber: event.target.value});
-}
+  onChangeContactHandler = (event) => {
+    this.setState({ contactNumber: event.target.value });
+  };
 
-onChangeSignUpPasswordHandler = (event) => {
-  this.setState({signUpPassword: event.target.value});
-}
-
+  onChangeSignUpPasswordHandler = (event) => {
+    this.setState({ signUpPassword: event.target.value });
+  };
 
   onSignInHandler = (event) => {
     let data = {
@@ -48,7 +46,7 @@ onChangeSignUpPasswordHandler = (event) => {
       mode: "cors",
     })
       .then((res) => {
-        console.log("User Logged In")
+        console.log("User Logged In");
         return res.json();
       })
       .then((result) => {
@@ -63,7 +61,6 @@ onChangeSignUpPasswordHandler = (event) => {
       });
   };
 
-  
   showUserSignUp = () => {
     this.setState({ showUserSignUp: true });
   };
@@ -72,8 +69,8 @@ onChangeSignUpPasswordHandler = (event) => {
     event.preventDefault();
 
     const user = {
-      Name: this.state.recruiterName,
-      Email: this.state.corporateEmail,
+      Name: this.state.name,
+      Email: this.state.email,
       Password: this.state.signUpPassword,
       Contact: this.state.contactNumber,
     };
@@ -93,7 +90,7 @@ onChangeSignUpPasswordHandler = (event) => {
           password: user.Password,
           showSignUp: false,
           name: "",
-          contactNumber: ''
+          contactNumber: "",
         });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
@@ -117,7 +114,10 @@ onChangeSignUpPasswordHandler = (event) => {
   render() {
     return (
       <div>
-        <div id="loginModal" className="modal-login suppress-bg login-modal-user">
+        <div
+          id="loginModal"
+          className="modal-login suppress-bg login-modal-user"
+        >
           <div className="modal-content-login-user">
             <span className="closecv" onClick={this.props.hideLogin}>
               <img src={closelogo} width="26" height="27" alt="close" />

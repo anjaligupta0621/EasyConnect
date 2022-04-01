@@ -30,6 +30,13 @@ type RecruiterResponse struct {
 	Token     string
 }
 
+// Custom response model for login signup of candidate
+
+type CandidateResponse struct {
+	Candidate Candidate
+	Token     string
+}
+
 // Used for login of rec/candi
 type Login struct {
 	Email    string
