@@ -6,27 +6,27 @@ https://drive.google.com/file/d/1_EVGk6AFDZtBuQJx9vvPnt3Dmdr0FPX8/view
 
 ## Database Schema
 * A database named "RecruiterDetails" was created using SqlLite.
-* A schema named "Recruiters" was created in this database.
+* A schema named "Recruiter" was created in this database.
 ```yaml
-type Recruiters struct {
-        ID           uint   
-        Name         string
-        Email        string 
-        Password     string 
-        Organization string
-        Website      string
-        Contact      string 
-        Jobs         []Job  
+type Recruiter struct {
+        ID              uint   
+        Name            string
+        Email           string 
+        Password        string 
+        Organization    string
+        Website         string
+        Contact         string 
+        Jobs            []Job
 }
 ```
 * Second Schema named "Jobs" was created in the database.
 ```yaml
-type Jobs struct {
+type Job struct {
         JobID            uint   
         Role_Name        string 
         Role_Type        string 
         Type             string
-         Location         string
+         Location        string
         Start_Date       string
         Posted_Date      string
         Responsibilities string 
@@ -34,24 +34,52 @@ type Jobs struct {
         Salary_End       string
         Active           string 
         RecruiterID      uint
+        Candidates      []Candidate
+        CandidateCount   uint
 }
 ```
 * Third Schema named "Candidate" was created in the database.
 ```yaml
 type Candidate struct {
-        Email            string   
+        UserID          uint
+        Email           string   
         Password        string 
         Contact         string 
-        Name             string
+        Name            string
+        Jobs           []Job
+        JobsApplied     uint
+}
+```
+* Fourth Schema named "Candidates_Jobs" was created automatically in the database due to many to many relationship between Candidate and Job.
+```yaml
+type Candidate struct {
+        UserID           uint   
+        JobID            uint
         
 }
 ```
-* Fourth Schema named "Candidate_Job" was created in the database.
+## Data Transfer Objects
+### Token Manager
+* A struct named "TokenManager" was created to handle JWT authentication and provide response tokens for session management.
 ```yaml
-type Candidate struct {
-        Email            string   
-        JobID            unit
-        
+type TokenManager struct {
+	Token    string
+	UserName string
+}
+```
+### Communication Handlers
+* A struct named "RecruiterResponse" was created to handle session for Recruiter.
+```yaml
+type RecruiterResponse struct {
+	Recruiter Recruiter
+	Token     string
+}
+```
+* A struct named "CandidateResponse" was created to handle session for Candidate.
+```yaml
+type CandidateResponse struct {
+	Candidate Candidate
+	Token     string
 }
 ```
 
