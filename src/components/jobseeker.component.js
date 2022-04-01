@@ -28,12 +28,13 @@ class Jobseeker extends React.Component{
     componentDidMount() {
         axios.post('http://localhost:8081/getAllJobs')
             .then(res => {
-                // console.log(res.data);
-                let jobIsApplied = [];
-                // for (let i = 0; i<res.data.length; i++) {
-                //     jobIsApplied.push(false);
-                // }
-                this.setState({jobs:res.data});
+                const processedJobs = [];
+
+                for (let i = 0; i<res.data.length; i++) {
+                    processedJobs.push([res.data[i].JobID, res.data[i], false])
+                }
+                console.log(processedJobs)
+                this.setState({jobs:processedJobs});
                 console.log(this.state.jobs);
             })
             .catch(err => console.log(err))
@@ -55,12 +56,41 @@ class Jobseeker extends React.Component{
 	};
 
     applyJob = (clickedId) => {
+        console.log("inside applyJob");
+        console.log(clickedId);  
+
         if (this.state.isLoggedIn){
-            this.setState({applied: !this.state.applied, clickedJob: clickedId});}
+            console.log("inside isLoggedIn");
+            let filterAndUpdateJobs = this.state.jobs;
+            
+            // console.log(filterAndUpdateJobs)
+            
+            for (let i = 0; i < filterAndUpdateJobs.length; i++) {
+                // traversing list of lists
+
+                if(filterAndUpdateJobs[i][0] === clickedId){
+                    // matching job id found and hence update its 3rd element to True/False
+                    //console.log(filterAndUpdateJobs[i][j][2])
+                    if(filterAndUpdateJobs[i][2] === false) {
+                        filterAndUpdateJobs[i][2] = true
+                    } else {
+                        filterAndUpdateJobs[i][2] = false
+                    }
+                    break
+                }
+            }
+            
+            console.log(filterAndUpdateJobs);
+
+            this.setState({jobs:filterAndUpdateJobs});
+
+            // this.setState({applied: !this.state.applied, clickedJob: clickedId});}
+
             // this.setState({clickedJob: clickedId, jobIsApplied: [
             //     ...this.state.jobIsApplied,
             //     this.state.jobIsApplied[clickedId] = true
             // ]})}
+        }
         else {
             this.setState({showModal: true});
         }
@@ -71,7 +101,7 @@ class Jobseeker extends React.Component{
         const indexOfLastJob = this.state.currentPage * this.state.jobsPerPage;
         const indexOfFirstJob = indexOfLastJob - this.state.jobsPerPage;
         const currentJobs = this.state.jobs.slice(indexOfFirstJob,indexOfLastJob);
-
+        console.log(this.state.isLoggedIn);
         const paginate = (pageNumber) => {this.setState({currentPage: pageNumber})};
 
 
@@ -237,17 +267,18 @@ class Jobseeker extends React.Component{
                                                     <div className="showing"> Show: <b>all jobs</b></div>
                                                     {currentJobs.map((item) => (
                                     
-                                                        <div className="jobs" key={item.JobID}>
+                                                        <div className="jobs" key={item[1].JobID}>
                                 
-                                                            <a target="_blank" className="job_title">{item.Role_Name} <span>new</span></a>
+                                                            <a target="_blank" className="job_title">{item[1].Role_Name} <span>new</span></a>
                                                             <Button 
-                                                                onClick={() => this.applyJob(item.JobID)}
+                                                                onClick={() => this.applyJob(item[1].JobID)}
+                                                                disabled={item[2]}
                                                                 style={{'float':'right'}}>
-                                                                    {this.state.applied && this.state.clickedJob === item.JobID ? "Applied" : "Easy Apply"}
+                                                                    {item[2]  ? "Applied" : "Easy Apply"}
                                                             </Button>
                                                             <p className="companyname"> Arogya Yoga Mandiram - <span className="where">Bangalore, Karnataka</span></p>
-                                                            <p> <i className="fa fa-dollar"></i> {item.Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item.Salary_End} per hour </p>
-                                                            <p className="summary">{item.Responsibilities}</p>
+                                                            <p> <i className="fa fa-dollar"></i> {item[1].Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item[1].Salary_End} per hour </p>
+                                                            <p className="summary">{item[1].Responsibilities}</p>
                                                         </div>  
                                                     ))}
                                                     <Pagination jobsPerPage={this.state.jobsPerPage} totalJobs={this.state.jobs.length} paginate={paginate} />
