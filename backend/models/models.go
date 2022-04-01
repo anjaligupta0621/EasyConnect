@@ -9,7 +9,7 @@ type Recruiter struct {
 	Organization string
 	Website      string
 	Contact      string `gorm:" Not null "`
-	Jobs         []Job  `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+	Jobs         []Job  `gorm:"foreignKey:RecruiterID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
 
 // User token model with gorm mapping
@@ -54,15 +54,14 @@ type Job struct {
 	Salary_End       string
 	Active           string `gorm:"Not null"`
 	RecruiterID      uint
-	Candidates       []*Candidtate `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+	Candidates       []*Candidate `gorm:"many2many:candidates_jobs;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
-
-type Candidtate struct {
+type Candidate struct {
 	UserID   uint   `gorm:"primary_key; AUTO_ Increment "`
 	Name     string `gorm:"Not null "`
 	Email    string `gorm:"unique; Not null "`
 	Password string `gorm:"Not null "`
 	Username string `gorm:"unique; Not null "`
 	Contact  string `gorm:"unique; Not null "`
-	Jobs     []*Job `gorm:"foreignKey:JobID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
+	Jobs     []*Job `gorm:"many2many:candidates_jobs;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
