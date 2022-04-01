@@ -79,6 +79,11 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(errToken)
 			w.WriteHeader(http.StatusBadRequest)
 		}
+
+		var jobs []models.Job
+		db.Table("jobs").Where("Recruiter_ID = ?", recruiter_.ID).Find(&jobs)
+		fmt.Println(jobs)
+		recruiter_.Jobs = jobs
 		// Creating custom Response
 		response := models.RecruiterResponse{
 			Recruiter: recruiter_,

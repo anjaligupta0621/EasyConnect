@@ -90,7 +90,7 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	username := utils.GetUsernameFromEmail(candidate.Email)
 
 	// fmt.Print(username)
-	result := db.Create(&models.Candidate{Name: candidate.Name, Email: candidate.Email, Password: userPwd, Username: username, Contact: candidate.Contact})
+	result := db.Create(&models.Candidate{Name: candidate.Name, Email: candidate.Email, Password: userPwd, Username: username, Contact: candidate.Contact, JobsApplied: 0})
 	// Checking for error
 	if result.Error != nil {
 		// fmt.Println(result)
