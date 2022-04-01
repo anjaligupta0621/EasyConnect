@@ -149,13 +149,14 @@ func PutUserData(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 	// Creating custome response
-	db.Table("candidates").Where("email = ?", recruiter.Email).Find(&recruiter)
+	var recruiter_ models.Recruiter
+	db.Table("recruiters").Where("email = ?", recruiter.Email).Find(&recruiter_)
 	if recruiter.Email == "" {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	response := models.RecruiterResponse{
-		Recruiter: recruiter,
+		Recruiter: recruiter_,
 		Token:     jwtToken,
 	}
 
