@@ -26,9 +26,9 @@ const Header = (props) => {
   };
 
   const signout = () => {
-    const reqHeader={
-      Token:localStorage.getItem("userID"),
-      UserName:localStorage.getItem("userName")
+    const reqHeader = {
+      Token: localStorage.getItem("userID"),
+      UserName: localStorage.getItem("userName"),
     };
     return fetch(`http://localhost:8081/logout`, {
       body: JSON.stringify(reqHeader),
@@ -58,30 +58,27 @@ const Header = (props) => {
   return (
     <header>
       <div className="top-select">
-                        <div className="viewas">
-                            <div className="dropdown">
-                                <button
-                                    className="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <img src={recruiterLogo} /> &nbsp;View as Job seeker{" "}
-                                </button>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton"
-                                >
-                                    {" "}
-                                    <a className="dropdown-item" href="/">
-                                        {" "}
-                                        <img src={jobseekerLogo} /> &nbsp;View as Recruiter
-                                    </a>{" "}
-                                </div>
-                            </div>
-                        </div>
+        <div className="viewas">
+          <div className="dropdown">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img src={recruiterLogo} /> &nbsp;View as Job seeker{" "}
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {" "}
+              <a className="dropdown-item" href="/">
+                {" "}
+                <img src={jobseekerLogo} /> &nbsp;View as Recruiter
+              </a>{" "}
+            </div>
+          </div>
+        </div>
       </div>
       <nav className="navbar navbar-inverse">
         <div className="container-fluid">
@@ -123,11 +120,11 @@ const Header = (props) => {
                     className="sign-in-bt-top"
                     id="btnlogin"
                     onClick={() => {
-                        setShowUserModal(true);
+                      setShowUserModal(true);
                     }}
                   />
                 ) : (
-                  <Link to ="/user" onClick={signout} >
+                  <Link to="/user" onClick={signout}>
                     Sign Out
                   </Link>
                   // <input name="" type="submit" value="Sign Out" className="sign-in-bt-top" id="btnlogout" onClick={props.signOut} />
