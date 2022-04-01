@@ -32,7 +32,7 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var candidate_ models.Candidate
-	db.Table("candidtates").Where("Email = ?", login.Email).Find(&candidate_)
+	db.Table("candidates").Where("Email = ?", login.Email).Find(&candidate_)
 
 	if candidate_.Email == "" {
 		w.WriteHeader(http.StatusUnauthorized)
