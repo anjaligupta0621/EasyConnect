@@ -21,7 +21,9 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	decoder := json.NewDecoder(r.Body)
+
 	var login models.Login
+
 	err2 := decoder.Decode(&login)
 	if err2 != nil {
 		panic(err2)
@@ -32,7 +34,7 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var candidate_ models.Candidate
-	db.Table("candidtates").Where("Email = ?", login.Email).Find(&candidate_)
+	db.Table("candidates").Where("email = ?", login.Email).Find(&candidate_)
 
 	if candidate_.Email == "" {
 		w.WriteHeader(http.StatusUnauthorized)
@@ -62,12 +64,6 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 		}
 		json.NewEncoder(w).Encode(response)
 	}
-	if candidate_.Email != "" {
-		// utils.GetJWTToken(candidate_.Email, w)
-		json.NewEncoder(w).Encode(candidate_)
-	} else {
-		json.NewEncoder(w).Encode("Unsuccessful Login Attempt!")
-	}
 }
 
 // Candidate Registration APi Handler
@@ -93,9 +89,10 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 
 	username := utils.GetUsernameFromEmail(candidate.Email)
 
+	// fmt.Print(username)
 	result := db.Create(&models.Candidate{Name: candidate.Name, Email: candidate.Email, Password: userPwd, Username: username, Contact: candidate.Contact})
 	// Checking for error
-	if result != nil {
+	if result.Error != nil {
 		// fmt.Println(result)
 		w.WriteHeader(http.StatusBadRequest)
 		return
