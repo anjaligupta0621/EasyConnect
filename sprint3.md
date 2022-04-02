@@ -508,9 +508,16 @@ All User Interface pages are scree size responsive. Attaching the various screen
 * <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
 
 * Posted Job Screenshot
-* <<---Anjali Gupta
+<img width="1440" alt="Screen Shot 2022-04-01 at 10 48 25 PM" src="https://user-images.githubusercontent.com/61660321/161363628-4a43d78c-8f4b-4afd-a51b-02c9c92e2497.png">
+        
+
 * JobSeeker View Screenshot
-* <<---Anjali Gupta
+        
+<img width="1440" alt="Screen Shot 2022-04-01 at 11 02 52 PM" src="https://user-images.githubusercontent.com/61660321/161363654-85e1df21-37a4-407a-a969-b1e283c0b7d5.png">
+        
+ <img width="1440" alt="Screen Shot 2022-04-01 at 11 03 04 PM" src="https://user-images.githubusercontent.com/61660321/161363666-e2ad5a01-3528-4b38-a14f-a886d2e8f953.png">
+
+ 
 
 ## Cypress Testing
 To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
@@ -535,6 +542,7 @@ To check the workflow of project and end to end Integration, we used the automat
 ### Testing Switch between Recruiter Mode and Candidate Mode
 
 <img width="1282" alt="Screen Shot 2022-04-01 at 9 43 47 PM" src="https://user-images.githubusercontent.com/16004962/161360752-d2c3b6a1-5eb6-42b8-b9e1-ced8f9465f0e.png">
+
 
 ### Testing Apply Jobs Module
 
