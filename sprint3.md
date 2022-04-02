@@ -52,10 +52,9 @@ type Candidate struct {
 ```
 * Fourth Schema named "Candidates_Jobs" was created automatically in the database due to many to many relationship between Candidate and Job.
 ```yaml
-type Candidate struct {
+type Candidates_Jobs struct {
         UserID           uint   
-        JobID            uint
-        
+        JobID            uint  
 }
 ```
 ## Data Transfer Objects
@@ -63,23 +62,23 @@ type Candidate struct {
 * A struct named "TokenManager" was created to handle JWT authentication and provide response tokens for session management.
 ```yaml
 type TokenManager struct {
-	Token    string
-	UserName string
+        Token    string
+        UserName string
 }
 ```
 ### Communication Handlers
 * A struct named "RecruiterResponse" was created to handle session for Recruiter.
 ```yaml
 type RecruiterResponse struct {
-	Recruiter Recruiter
-	Token     string
+        Recruiter Recruiter
+        Token     string
 }
 ```
 * A struct named "CandidateResponse" was created to handle session for Candidate.
 ```yaml
 type CandidateResponse struct {
-	Candidate Candidate
-	Token     string
+        Candidate Candidate
+        Token     string
 }
 ```
 
@@ -93,12 +92,14 @@ The exposed endpoints are -
 * /check
 * /login
 * /signup
+* /logout
+* /refreshAccessToken
 * /getJobById
 * /postJob
 * /candidateSignUp
 * /candidateLogin
-* /applyJobs
 * /getAllJobs
+* /applyForJob
 
 #### /check
 Send a request to check whether the server is running or not.
@@ -115,15 +116,41 @@ Remote Address: [::1]:8081
 Referrer Policy: strict-origin-when-cross-origin
 Json Parameter
 {
-    "Email" : "123456@ufl.edu",
-    "Password" : "12345678"
+    "Email" : "rec1gupta@ufl.edu",
+    "Password" : "password"
 }
 ```
-* Returns the recruiter Details In response.
+* Returns the recruiter Details and a token in a response which is stored locally to handle the session at the browser side.
 ```yaml
 {
-    "Email" : "123456@ufl.edu",
-    "Password" : "12345678"
+    "Recruiter": {
+        "ID": 1,
+        "Name": "Rec1 Gupta",
+        "Email": "rec1gupta@ufl.edu",
+        "Password": "$2a$14$T9CdeDqP6LdP0rUx8Yvh8.ryoEaZ6LaI0dHc3QjQ6yr8TG9SG0oTm",
+        "Organization": "UF",
+        "Website": "",
+        "Contact": "9999999991",
+        "Jobs": [
+            {
+                "JobID": 1,
+                "Role_Name": "Senior Engineer",
+                "Role_Type": "SDE",
+                "Type": "Remote",
+                "Location": "USA",
+                "Start_Date": "31/08/21",
+                "Posted_Date": "01/08/21",
+                "Responsibilities": "Testing job number 4",
+                "Salary_Start": "90000",
+                "Salary_End": "150000",
+                "Active": "False",
+                "RecruiterID": 1,
+                "Candidates": null,
+                "CandidateCount": 1
+            }
+        ]
+    },
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InJlYzFndXB0YUB1ZmwuZWR1IiwiZXhwIjoxNjQ4ODkxNzk3fQ.E3UNUVoYXGfuTLzUOh0KNXmgiCVfe0nJhzj6OQ_e5fA"
 }
 ```
 
@@ -139,18 +166,28 @@ Remote Address: [::1]:8081
 Referrer Policy: strict-origin-when-cross-origin
 Sign Up Json sample Parameter Demo:
 {
-   "Name": "Richa Gupta",
-   "Email" : "12344@ufl.edu",
-   "Password" : "12345678",
+   "Name": "Rec1 Gupta",
+   "Email" : "rec1gupta@ufl.edu",
+   "Password" : "password",
    "Organization" : "UF",
    "Website" : "",
-   "Contact" : ""
+   "Contact" : "9999999991"
  }
 ```
-* Returns the recruiter Details In response.
+* Returns the recruiter Details and a token in a response which is stored locally to handle the session at the browser side.
 ```yaml
 {
-"Response": "User Added Successfully"
+    "Recruiter": {
+        "ID": 1,
+        "Name": "Rec1 Gupta",
+        "Email": "rec1gupta@ufl.edu",
+        "Password": "$2a$14$T9CdeDqP6LdP0rUx8Yvh8.ryoEaZ6LaI0dHc3QjQ6yr8TG9SG0oTm",
+        "Organization": "UF",
+        "Website": "",
+        "Contact": "9999999991",
+        "Jobs": null
+    },
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InJlYzFndXB0YUB1ZmwuZWR1IiwiZXhwIjoxNjQ4ODkxNDQ1fQ.6SjkP2lLo29QuzS-9Qy3MS9qX3wL5j26unxxI8elXOU"
 }
 ```
 
@@ -173,20 +210,7 @@ getJobs:
 * Returns all Jobs of a particular User.
 * Return List of Jobs as shown below:
 ```yaml
-{
-   "JobID":2,
-   "Role_Name":"Senior Engineer",
-   "Role_Type":"SDE",
-   "Type":"On-site",
-   "Location":"USA",
-   "Start_Date":"0001-01-01T00:00:00Z",
-   "Posted_Date":"0001-01-01T00:00:00Z",
-   "Responsibilities":"Testing job number 2",
-   "Salary_Start":"120000",
-   "Salary_End":"180000",
-   "Active":"True",
-   "RecruiterID":1
-}
+[{"JobID":1,"Role_Name":"Senior Engineer","Role_Type":"SDE","Type":"Remote","Location":"USA","Start_Date":"31/08/21","Posted_Date":"01/08/21","Responsibilities":"Testing job number 4","Salary_Start":"90000","Salary_End":"150000","Active":"False","RecruiterID":1,"Candidates":null,"CandidateCount":0}]
 ```
 #### POST /postJob
 * Send a request to add the Job Posted by recruiter.
@@ -203,15 +227,16 @@ postJob:
 {
     "Role_Name" : "Senior Engineer",
     "Role_Type" : "SDE",
-    "Type" : "On-site",
+    "Type" : "Remote",
     "Location" : "USA",
-    "Start_Date" : "11/04/22",
-    "Posted_Date" : "01/08/22",
-    "Responsibilities" : "Testing job number 2",
-    "Salary_Start" : "120000",
-    "Salary_End" : "180000",
-    "Active" : "True",
-    "RecruiterID" : 1
+    "Start_Date" : "31/08/21",
+    "Posted_Date" : "01/08/21",
+    "Responsibilities" : "Testing job number 4",
+    "Salary_Start" : "90000",
+    "Salary_End" : "150000",
+    "Active" : "False",
+    "RecruiterID" : 1,
+    "CandidateCount" : 0
  }
 ```
 * Return A String shown below:
@@ -231,16 +256,24 @@ Remote Address: [::1]:8081
 Referrer Policy: strict-origin-when-cross-origin
 Json Parameter
 {
-    "Email" : "123456@ufl.edu",
-    "Password" : "12345678"
+    "Email" : "candgupta@ufl.edu",
+    "Password" : "password"
 }
 ```
 * Returns the JobSeeker Details In response along with the token which we use to authenticate the user and session handling.
 ```yaml
 {
-    "Email" : "123456@ufl.edu",
-    "Password" : "12345678",
-    "Token": "bkbka1233Nw@bjk"
+    "Candidate": {
+        "UserID": 1,
+        "Name": "Cand Gupta",
+        "Email": "candgupta@ufl.edu",
+        "Password": "$2a$14$hhoKlCtAUrMsmW0b6J7di.ydFNymLk0R4OgitJSOV9wh0uYEk3mju",
+        "Username": "candgupta",
+        "Contact": "3528889007",
+        "Jobs": null,
+        "JobsApplied": 1
+    },
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNhbmRndXB0YUB1ZmwuZWR1IiwiZXhwIjoxNjQ4ODkxNTExfQ.RXRxhAvfmnt-XGbsl9jhBiw0CxUcxuhAzzPH68e0Vzc"
 }
 ```
 
@@ -256,17 +289,51 @@ Remote Address: [::1]:8081
 Referrer Policy: strict-origin-when-cross-origin
 Sign Up Json sample Parameter Demo:
 {
-   "Name": "Richa",
-   "Email" : "123@ufl.edu",
-   "Password" : "12345678",
-   "Contact" : ""
- }
+   "Name": "Cand Gupta",
+   "Email" : "candgupta@ufl.edu",
+   "Password" : "password",
+   "Contact" : "3528889007",
+   "JobsApplied" : 0
+}
 ```
-* Returns the JobSeeker Details In response.
+* Returns the JobSeeker Details and a token in response to handle JWT and session on browsing side.
+* Also returns a string ""New Candidate Successfully Added: <Candidate Name>" on successful addtion.
 ```yaml
 {
-"Response": "JobSeeker Added Successfully"
+    "Candidate": {
+        "UserID": 1,
+        "Name": "Cand Gupta",
+        "Email": "candgupta@ufl.edu",
+        "Password": "$2a$14$hhoKlCtAUrMsmW0b6J7di.ydFNymLk0R4OgitJSOV9wh0uYEk3mju",
+        "Username": "candgupta",
+        "Contact": "3528889007",
+        "Jobs": null,
+        "JobsApplied": 0
+    },
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNhbmRndXB0YUB1ZmwuZWR1IiwiZXhwIjoxNjQ4ODkxNDg0fQ.38c27f3rqN7sUtUhx_M0tiDGEQyHSN4cFq2IKxoSRuM"
 }
+"New Candidate Successfully Added: Cand Gupta"
+```
+#### POST /Logout
+* Send a request to logout the recruiter/candidate.
+* Requested URL is http://localhost:8081/logout 
+* Example with JSON Parameters which we need to pass in body: 
+```yaml
+Request URL: http://localhost:8081/logout
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:8081
+Referrer Policy: strict-origin-when-cross-origin
+getAllJobs Json sample Parameter Demo:
+postJob:
+{
+    "Token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNhbmRndXB0YUB1ZmwuZWR1IiwiZXhwIjoxNjQ4ODkxNTExfQ.RXRxhAvfmnt-XGbsl9jhBiw0CxUcxuhAzzPH68e0Vzc",
+    "User_Name" : "candgupta",
+ }
+```
+* Return A String shown below:
+```yaml
+    "User logged out successfully."
 ```
 
 ## API Development
@@ -313,6 +380,28 @@ Created the Unit test cases to check the robustness of our API.
  Created a file named "JobEndpoints_test.go" where we have a Unit test cases named "TestGetJobs" which check two scenarios:
  * Validity of http request.
  * Successful Fetching of jobs mapped to recruiter Id.
+
+ ### /getAllJobs Unit test cases
+ Created a file named "JobEndpoints_test.go" where we have a Unit test cases named "TestGetAllJobs" which check two scenarios:
+ * Validity of http request.
+ * Successful Fetching of all jobs.
+ 
+ ### /candidateLogin Unit test cases
+ Created a file named "candidateEndpoints_test.go" where we have a Unit test cases named "TestCandidateLogin" which check three scenarios:
+ * Validity of http request.
+ * Unsuccessful Login attempt with incorrect emailId or password.
+ * Succcessful login attempt with correct emailId and Password.
+ 
+### /candidateSignup Unit test cases
+ Created a file named "candidateEndpoints_test.go" where we have a Unit test cases named "TestCandidateSignup" which check three scenarios:
+ * Validity of http request.
+ * Successful addtion of new candidate.
+ * Unsuccessful addition of duplicate candidate. 
+
+ ### /applyForJob Unit test cases
+ Created a file named "JobEndpoints_test.go" where we have a Unit test cases named "TestApplyForJob" which check two scenarios:
+ * Validity of http request.
+ * Successful Applying to jobs.
 
 # FrontEnd Documentation
 ## Technologies: ReactJS, CSS, HTML, Bootstrap
