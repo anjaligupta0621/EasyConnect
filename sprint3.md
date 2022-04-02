@@ -1,6 +1,6 @@
 
 # Complete video demo of the project progress:
-https://drive.google.com/file/d/1_EVGk6AFDZtBuQJx9vvPnt3Dmdr0FPX8/view
+https://drive.google.com/file/d/1Lj-myuztrokd5iDBIAp3AZVHnssUh-Oa/view?usp=sharing
 
 # Backend Documentation
 
