@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 
-describe('Candidate SignUp page', () => {
+describe('Test JobSeeker SignUp', () => {
   
     it('SignUp in JobSeeker', () => {
       const username = "shanky11"
@@ -23,9 +23,7 @@ describe('Candidate SignUp page', () => {
 
       
     })
-    it('displays logout button',() => {
-       cy.get('li>a').contains('Sign Out')
-    })
+
     // it('shows chat component',() => {
     //   cy.get('a').contains('Sign Out')
     // })

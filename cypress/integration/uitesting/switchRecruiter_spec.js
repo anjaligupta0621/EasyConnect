@@ -15,7 +15,7 @@ describe('Switch to Recruiter Page and Login', () => {
     })
 
     it('Logs in Recruiter ', () => {
-        const username = "anjali.gupta@ufl.edu"
+        const username = "richaa.gupta@ufl.edu"
         const password ="check1"
     
         cy.visit('http://localhost:3000/')
