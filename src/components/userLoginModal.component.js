@@ -170,7 +170,7 @@ class UserLoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="name1"
                                 type="name"
                                 id="name"
                                 value={this.name}
@@ -197,7 +197,7 @@ class UserLoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="email"
                                 type="name"
                                 id="name"
                                 value={this.email}
@@ -224,7 +224,7 @@ class UserLoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="contact"
                                 type="text"
                                 id="name"
                                 value={this.contactNumber}
@@ -251,7 +251,7 @@ class UserLoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="password"
                                 type="password"
                                 id="password"
                                 value={this.signUpPassword}
@@ -279,7 +279,7 @@ class UserLoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="passwordcheck"
                                 type="password"
                                 id="password"
                                 className="text-inputs"
@@ -351,7 +351,7 @@ class UserLoginModal extends React.Component {
                     className="text-input"
                   />
                 </div>
-                <div className="text-white padding-0-15">
+                <div className="text-white padding-0-15 backtoSignUp">
                   Don't have an account?{" "}
                   <a onClick={this.showUserSignUp} className="signup-bottom">
                     Sign Up
