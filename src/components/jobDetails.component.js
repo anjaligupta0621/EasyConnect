@@ -101,7 +101,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                             <h3>Role Name</h3>
                                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <input
-                                                    name="role name"
+                                                    name="role_name"
                                                     onChange={handleChange("roleName")}
                                                     type="text"
                                                     placeholder="Junior Business Development Manager"
@@ -365,7 +365,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                     the excitement of the role (<span>example 2</span>)*
                                                 </h5>
                                                 <textarea
-                                                    name=""
+                                                    name="responsibilities"
                                                     cols=""
                                                     rows=""
                                                     onChange={handleChange("responsibilities")}
@@ -387,6 +387,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                 <h5>From</h5>
                                                 <input
                                                     type="text"
+                                                    name="salaryFrom"
                                                     onChange={handleChange("salaryFrom")}
                                                     className="textbox280"
                                                 />
@@ -399,6 +400,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                 <h5>To</h5>
                                                 <input
                                                     type="text"
+                                                    name="salaryTo"
                                                     onChange={handleChange("salaryTo")}
                                                     className="textbox280"
                                                 />

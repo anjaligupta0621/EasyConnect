@@ -15,6 +15,7 @@ import jobseekerLogo from "../img/jobseeker.png";
 import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
+ 
   let navigate = useNavigate();
   const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
   const [showModal, setShowModal] = useState(false);

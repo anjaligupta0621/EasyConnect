@@ -39,7 +39,7 @@ render() {
 
             <div className="main-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div className="body-area col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
-				<h1>Dashboard <Link to="/postJob"><img src={addJobButton} alt=""/> Post Job</Link></h1>
+				<h1>Dashboard <Link to="/postJob" className="postJob-anchor"><img src={addJobButton} alt=""/> Post Job</Link></h1>
 				<table className="responsive-table">
 					<thead>
 					  <tr>
