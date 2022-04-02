@@ -51,13 +51,6 @@ render() {
 					  </tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th className="hdr-postdt">Posting Date</th>
-							<th>Role</th>
-							<th>Status</th>
-							<th><span className="hidden-xs">No. of</span> Applicants</th>
-							<th>Deadline</th>
-						</tr>
 						</tbody>
 						<tbody>
 							{this.state.jobs.map((item) => (
@@ -65,13 +58,7 @@ render() {
 								<td className="no-display">{item.Posted_Date}</td>
 								<td className="full-width">{item["Role_Name"]}<a href="#">  (View)</a></td>
 								<td >
-									<div className="toggle_bt">
-										<div className="onoffswitch">
-											{/* <input type="checkbox" checked="" className="onoffswitch-checkbox" id="onoffswitch1"> */}
-											<label htmlFor="onoffswitch1" className="onoffswitch-label"><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
-			
-										</div>
-									</div>
+									<span>Open</span>
 								</td>
 								<td>{this.state.applicants}</td>
 								<td>{item.Posted_Date}</td>
