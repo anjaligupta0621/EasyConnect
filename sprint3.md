@@ -333,7 +333,7 @@ postJob:
 ```
 * Return A String shown below:
 ```yaml
-    "User logged out successfully."
+    "message: Successfully Logged out!"
 ```
 #### POST /getAllJobs
 * Send a request to get the list of jobs posted by all recruiters (useful for candidate to see all available jobs).
@@ -421,6 +421,11 @@ getJobs:
 ### Testing /applyForJob
 
 <img width="1440" alt="Screen Shot 2022-04-01 at 9 51 58 PM" src="https://user-images.githubusercontent.com/94247770/161361402-1357bf41-853d-45f5-93f2-24e3fecf8227.png">
+
+### Testing /logout
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 10 17 51 PM" src="https://user-images.githubusercontent.com/94247770/161361901-b9a9b32c-0e24-467e-a0db-4079829b5c9b.png">
+
 
 
 ## Backend Unit Testing
