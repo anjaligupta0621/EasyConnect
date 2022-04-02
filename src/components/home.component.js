@@ -49,7 +49,7 @@ class Home extends React.PureComponent {
         <Header />
         <div id="banner" className="text-center">
           <h1 className="d-flex-center">
-          <span class="main-logo margin-right-10"></span>
+          <span className="main-logo margin-right-10"></span>
             Easy <span>Connect</span>
           </h1>
           <p className="caption1">

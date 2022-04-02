@@ -28,7 +28,7 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                             <h3>Name of the Organization</h3>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <input 
-                                    name="organization name" 
+                                    name="organization_name" 
                                     onChange={handleChange('organization')}
                                     type="text" 
                                     disabvalue="University of Florida" />
@@ -41,7 +41,7 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                             <h3>Name of the Website</h3>
                             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <input 
-                                name="organization website" 
+                                name="organization_website" 
                                 type="text" 
                                 onChange={handleChange('orgWebsite')}
                                  />
@@ -53,7 +53,7 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                     <div id="organization-description" className="margin-top-60">
                         <h3>Description of the Organization</h3>
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <textarea onChange={handleChange('orgDescription')} name="" cols="" rows=""  placeholder="Write a short description about your organization"></textarea>
+                            <textarea onChange={handleChange('orgDescription')} name="orgDescription" cols="" rows=""  placeholder="Write a short description about your organization"></textarea>
                             <p>Max characters 1000</p>
                         </div>
                     </div>
