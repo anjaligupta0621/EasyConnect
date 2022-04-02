@@ -46,7 +46,7 @@ class Jobseeker extends React.Component{
 		});
 	};
 
-	setIsLoggedIn = (isLoggedIn) => {
+	setIsLoggedInUser = (isLoggedIn) => {
 		// debugger;
 		// this.props.log(true);
 		// debugger;
@@ -55,12 +55,64 @@ class Jobseeker extends React.Component{
 		});
 	};
 
+    signout = () => {
+        const reqHeader = {
+          Token: localStorage.getItem("userID"),
+          UserName: localStorage.getItem("userName"),
+        };
+        return fetch(`http://localhost:8081/logout`, {
+          body: JSON.stringify(reqHeader),
+          method: "POST",
+          mode: "cors",
+        })
+          .then((res) => {
+            // localStorage.removeItem("userID");
+            // localStorage.removeItem("userName");
+            this.setIsLoggedInUser(false);
+            return res.json();
+          })
+          .then((result) => {
+            this.props.setIsLoggedIn(false);
+            global.isLoggedIn = false;
+            this.setIsLoggedInUser(false);
+            localStorage.removeItem("userID");
+            localStorage.removeItem("userName");
+    
+            console.log(result);
+          })
+          .catch((e) => {
+            global.isLoggedIn = false;
+          });
+      };
+
     applyJob = (clickedId) => {
         console.log("inside applyJob");
         console.log(clickedId);  
 
-        if (this.state.isLoggedIn){
+        const user = {
+            UserID: parseInt(localStorage.getItem("ID")),
+            JobID: clickedId
+        }
+
+    
             console.log("inside isLoggedIn");
+            fetch(`http://localhost:8081/applyForJob`, {
+                body: JSON.stringify(user),
+                method: "POST",
+                mode: "cors",
+                })
+                .then((res) => {
+                    console.log("Applied!");
+                    // console.log(res.json());
+                    return res.json();
+                })
+                .then((result) => {
+                    console.log("Result");
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+
             let filterAndUpdateJobs = this.state.jobs;
             
             // console.log(filterAndUpdateJobs)
@@ -83,11 +135,6 @@ class Jobseeker extends React.Component{
             console.log(filterAndUpdateJobs);
 
             this.setState({jobs:filterAndUpdateJobs});
-
-        }
-        else {
-            this.setState({showModal: true});
-        }
     }
 
     render(){
@@ -102,8 +149,12 @@ class Jobseeker extends React.Component{
         return (
             <div className="body-outer jobseeker-main">
                 <JobSeekerHeader />
-                {this.state.showModal && <UserLoginModal hideLogin={this.hideLoginDialog}
-          setIsLoggedIn={() => this.setIsLoggedIn(true)}/>}
+                {this.state.showModal ? (
+                    <UserLoginModal
+                    hideLogin={this.hideLoginDialog}
+                    setIsLoggedIn={() => this.setIsLoggedInUser(true)}
+                    />
+                ) : null}
                 <section>
                     <div className="jobSeekermain-wrapper">
                         <div className="jobSeekerbody-area">
@@ -270,7 +321,7 @@ class Jobseeker extends React.Component{
                                                                 style={{'float':'right'}}>
                                                                     {item[2]  ? "Applied" : "Easy Apply"}
                                                             </Button>
-                                                            <p className="companyname"> Arogya Yoga Mandiram - <span className="where">Bangalore, Karnataka</span></p>
+                                                            <p className="companyname"> Amazon - <span className="where">USA</span></p>
                                                             <p> <i className="fa fa-dollar"></i> {item[1].Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item[1].Salary_End} per hour </p>
                                                             <p className="summary">{item[1].Responsibilities}</p>
                                                         </div>  

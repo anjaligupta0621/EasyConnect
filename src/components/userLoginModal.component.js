@@ -61,7 +61,9 @@ onChangeEmailHandler = (event) => {
         this.props.setIsLoggedIn(true);
         localStorage.setItem("userID", result.Token);
         localStorage.setItem("userName", result.Candidate.Email);
+        localStorage.setItem("ID",result.Candidate.UserID);
         console.log(localStorage.getItem("userID"));
+        console.log(localStorage.getItem("ID"));
       })
       .catch((e) => {
         console.log(e);
@@ -76,6 +78,7 @@ onChangeEmailHandler = (event) => {
       Email: this.state.email,
       Password: this.state.signUpPassword,
       Contact: this.state.contactNumber,
+      JobsApplied: 0
     };
     //console.log(JSON.stringify(user));
     debugger;

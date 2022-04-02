@@ -52,6 +52,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
             Salary_End: values.salaryTo,
             Active: String(values.isPartAllowed),
             RecruiterID: parseInt(localStorage.getItem("ID")),
+            CandidateCount: 0
         };
 
         console.log(JSON.stringify(data));

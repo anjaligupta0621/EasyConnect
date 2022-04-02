@@ -10,7 +10,6 @@ class PostJobDashBoard extends React.Component{
 	state = {
 		jobs: [],
 		status: 'Closed',
-		applicants: 0,
 		recruiterID: localStorage.getItem("ID")
 	}
 
@@ -73,7 +72,7 @@ render() {
 										</div>
 									</div>
 								</td>
-								<td>{this.state.applicants}</td>
+								<td>{item.CandidateCount}</td>
 								<td>{item.Posted_Date}</td>
 							</tr>
 							))}
