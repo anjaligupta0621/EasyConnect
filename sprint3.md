@@ -507,9 +507,10 @@ All User Interface pages are scree size responsive. Attaching the various screen
 * Post Job Screenshot
 * <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
 
+* Posted Job Screenshot
+* <<---Anjali Gupta
 * JobSeeker View Screenshot
-
-
+* <<---Anjali Gupta
 
 ## Cypress Testing
 To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
@@ -535,16 +536,17 @@ To check the workflow of project and end to end Integration, we used the automat
 
 <img width="1282" alt="Screen Shot 2022-04-01 at 9 43 47 PM" src="https://user-images.githubusercontent.com/16004962/161360752-d2c3b6a1-5eb6-42b8-b9e1-ced8f9465f0e.png">
 
-###Testing Apply Jobs Module
+### Testing Apply Jobs Module
 
+<img width="1285" alt="Screen Shot 2022-04-01 at 10 24 43 PM" src="https://user-images.githubusercontent.com/16004962/161362126-ea0c4f29-a450-40fe-8642-766635ba0a8c.png">
 
 ## Setup and Install
   * FrontEnd: Install NodeJS, React Router DOM 
   * Backend: Install Golang, SQlite 3
+  * Testing: FrontEnd-Testing: Cypress, Backend-Testing: Unit Testing
 
 ## Authors
-  * Shashank Kumar
-  * Richa Gupta
-  * Anjali Gupta
-  * Gaurav Pathak
-
+  * Shashank Kumar Frontend/Backend
+  * Richa Gupta   Backend 
+  * Anjali Gupta  Frontend
+  * Gaurav Pathak Backend/Frontend
