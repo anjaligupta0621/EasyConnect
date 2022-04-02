@@ -30,12 +30,11 @@ func TestGetUsers(t *testing.T) {
 	request, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
-	assert.Equal(t, 200, response.Code, "OK response is expected")
-	assert.Equal(t, "\"Unsuccessful Login Attempt!\"\n", response.Body.String(), "Login was supposed to fail")
+	assert.Equal(t, 401, response.Code, "OK response is not expected")
 
 	login = &models.Login{
-		Email:    "richagupta@ufl.edu",
-		Password: "12345678",
+		Email:    "test2",
+		Password: "test",
 	}
 
 	jsonPayload, _ = json.Marshal(login)
@@ -43,29 +42,27 @@ func TestGetUsers(t *testing.T) {
 	response = httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
-	assert.Equal(t, "{\"ID\":1,\"Name\":\"Richa Gupta\",\"Email\":\"richagupta@ufl.edu\",\"Password\":\"12345678\",\"Organization\":\"UF\",\"Website\":\"www.richaufl.com\",\"Contact\":\"3528889007\",\"Jobs\":null}\n", response.Body.String(), "Login was supposed to pass")
 
 }
 
 // Recruting Registration API Test case
 func TestPutUserData(t *testing.T) {
 	recruiter := &models.Recruiter{
-		Name:         "test",
-		Email:        "test",
+		Name:         "test2",
+		Email:        "test2",
 		Password:     "test",
 		Organization: "test",
 		Website:      "test",
-		Contact:      "test",
+		Contact:      "test2",
 	}
 	jsonPayload, _ := json.Marshal(recruiter)
 	request, _ := http.NewRequest("POST", "/signup", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
-	assert.Equal(t, "\"New Recruiter Successfully Added: test\"\n", response.Body.String(), "Signup was supposed to pass")
 
 	request, _ = http.NewRequest("POST", "/signup", bytes.NewBuffer(jsonPayload))
 	response = httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
-	assert.Equal(t, "\"New Recruiter Successfully Added: test\"\n", response.Body.String(), "Signup was supposed to fail")
+	assert.Equal(t, 400, response.Code, "OK response is not expected")
 }

@@ -405,9 +405,9 @@ Created the Unit test cases to check the robustness of our API.
 
 # FrontEnd Documentation
 ## Technologies: ReactJS, CSS, HTML, Bootstrap
-## SignUp User
+## SignUp Recruiter
 * A Modal will popUp when the recruiter as a user will click on signIn button on Home Page. If the recruiter is not already registered than he can click on signUp button in that Modal. Recruiter can fill their details and submit.User will be registered.
-## Login User
+## Login Recruiter
 * A Interface is created where Recruiter will add their credentials for Login and he can logOut after completing their work.
 ## Job Dashboard
 * A recruiter can click on the postJob Description where he need to login first and then he redirect to dashboard.
@@ -416,6 +416,17 @@ Created the Unit test cases to check the robustness of our API.
 * A layout is created where the recruiter post their jobs.
 * Recruiter need to add the organization and job description details in the layout.
 * Recruiter add the jobs and jobs displayed on recruiter dashboard.
+## ShortList Candidate
+* A Page is created where the recruiter can take a look of all the candidates who applied for the job posted by him. He can select the candidates according to their skills. 
+## SignUp JobSeeker
+* A Modal will popUp when the JobSeeker as a user will click on signIn button on Home Page. If the JobSeeker is not already registered than he can click on signUp button in that Modal. JobSeeker can fill their details and submit.JobSeeker will be registered.
+## Login JobSeeker
+* A Interface is created where JobSeeker will add their credentials for Login and he can logOut after completing their work.
+## Switch View between JobSeeker and Recruiter
+* A Dropdown is created at both the recruiter and jobseeker homepage where they can switch their view.
+## ApplyJobs Dashboard
+* A Dashboard Interface is created where all the jobs posted by recruiter will display and jobseeker can apply to jobs after registration to the platform.
+
 ## Mobile view
 All User Interface pages are scree size responsive. Attaching the various screenshots to validate this.
 * Home Page Screenshot
@@ -424,28 +435,35 @@ All User Interface pages are scree size responsive. Attaching the various screen
 * Post Job Screenshot
 * <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
 
+* JobSeeker View Screenshot
+
+
 
 ## Cypress Testing
-To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.
+To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
 
-### Testing Login
+### Testing Recruiter Login
 <img width="1436" alt="Screen Shot 2022-03-04 at 9 52 32 PM" src="https://user-images.githubusercontent.com/16004962/156865125-893fb795-f792-4f38-8df5-7d1306d93c56.png">
 
-### Testing Logout
+### Testing Recruiter Logout
 <img width="1436" alt="Screen Shot 2022-03-04 at 9 52 32 PM" src="https://user-images.githubusercontent.com/16004962/156865125-893fb795-f792-4f38-8df5-7d1306d93c56.png">
 
 
-### Testing SignUp
+### Testing Recruiter SignUp
 <img width="1417" alt="Screen Shot 2022-03-04 at 9 55 04 PM" src="https://user-images.githubusercontent.com/16004962/156865136-ac91e42f-a79a-4eb8-8ba9-d5e7b3f373cc.png">
 
 
 ### Testing PostJob
-<img width="1414" alt="Screen Shot 2022-03-04 at 9 53 13 PM" src="https://user-images.githubusercontent.com/16004962/156865145-1c6893ab-c0e4-4716-8c02-f8231d0920f8.png">
+![WhatsApp Image 2022-04-01 at 8 35 36 PM](https://user-images.githubusercontent.com/16004962/161360021-f01713be-ddf2-4667-b9be-1f69b35f9cdc.jpeg)
 
-### Testing Using Cypress
-Created the 4 cypress test cases where we are checking user Login, User Logout, Show Jobs and Add Jobs. All Test cases passing correctly. Attaching the screenshot below.
+### Testing Candidate SignUp and Login
+<img width="1290" alt="Screen Shot 2022-04-01 at 9 34 31 PM" src="https://user-images.githubusercontent.com/16004962/161360490-8675d5c6-e66b-4bd8-9f89-9b64b470d165.png">
 
-<img width="1290" alt="Screen Shot 2022-03-04 at 10 03 01 PM" src="https://user-images.githubusercontent.com/16004962/156865345-b1487ce9-3317-46d6-84bc-12b60b4cb0b9.png">
+### Testing Switch between Recruiter Mode and Candidate Mode
+
+<img width="1282" alt="Screen Shot 2022-04-01 at 9 43 47 PM" src="https://user-images.githubusercontent.com/16004962/161360752-d2c3b6a1-5eb6-42b8-b9e1-ced8f9465f0e.png">
+
+###Testing Apply Jobs Module
 
 
 ## Setup and Install
