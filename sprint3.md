@@ -335,6 +335,46 @@ postJob:
 ```yaml
     "User logged out successfully."
 ```
+#### POST /getAllJobs
+* Send a request to get the list of jobs posted by all recruiters (useful for candidate to see all available jobs).
+* Requested URL is http://localhost:8081/getAllJobs 
+* Example (no JSON Parameters  need to be passed in body): 
+```yaml
+Request URL: http://localhost:8081/getAllJobs
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:8081
+Referrer Policy: strict-origin-when-cross-origin
+getAllJobs Json sample Parameter Demo:
+getJobs:
+```
+* Returns all Jobs.
+* Return List of Jobs as shown below:
+```yaml
+[{"JobID":1,"Role_Name":"Senior Engineer","Role_Type":"SDE","Type":"Remote","Location":"USA","Start_Date":"31/08/21","Posted_Date":"01/08/21","Responsibilities":"Testing job number 4","Salary_Start":"90000","Salary_End":"150000","Active":"False","RecruiterID":1,"Candidates":null,"CandidateCount":0}]
+```
+
+#### POST /applyForJob
+* Maps a candidate to a job which they are trying to apply to.
+* Requested URL is http://localhost:8081/applyForJob 
+* Example with JSON Parameters need to be passed in body: 
+```yaml
+Request URL: http://localhost:8081/applyForJob
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:8081
+Referrer Policy: strict-origin-when-cross-origin
+getAllJobs Json sample Parameter Demo:
+getJobs:
+{
+    "UserID" : 3,
+    "JobID" : 1
+}
+```
+* Returns string "Applied to job".
+```yaml
+"Applied to job"
+```
 
 ## API Development
 * We developed all the Rest APi's for login, signUp, postJob, getJobs using the golang.
@@ -345,16 +385,43 @@ postJob:
 ## API Testing
 ### Testing /login
 
-<img width="1440" alt="Screen Shot 2022-03-04 at 8 26 30 PM" src="https://user-images.githubusercontent.com/94247770/156861989-b2653fb2-8082-4121-ac67-14bccbe24bf0.png">
+<img width="1439" alt="Screen Shot 2022-04-01 at 9 48 17 PM" src="https://user-images.githubusercontent.com/94247770/161361309-fa9bd861-844a-479f-8fcb-cb950eab3bfc.png">
+
 
 ### Testing /signup
-<img width="1440" alt="Screen Shot 2022-03-04 at 8 26 03 PM" src="https://user-images.githubusercontent.com/94247770/156861997-e818aa8e-291b-4ebc-b9f1-8111d684b2b0.png">
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 47 26 PM" src="https://user-images.githubusercontent.com/94247770/161361321-e90b95e6-ea3d-4069-81ab-13271cc09a93.png">
+
 
 ### Testing /postJob
-<img width="1437" alt="Screen Shot 2022-03-04 at 8 24 58 PM" src="https://user-images.githubusercontent.com/94247770/156862011-633680bb-5b5c-45d1-b381-a3a73579d511.png">
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 48 40 PM" src="https://user-images.githubusercontent.com/94247770/161361339-46699a69-e444-4256-8269-01a5a8bb455a.png">
+
 
 ### Testing /getJobById
-<img width="1438" alt="Screen Shot 2022-03-04 at 8 21 36 PM" src="https://user-images.githubusercontent.com/94247770/156862023-8571d5af-8df1-4a5c-b99f-e4daa491f2e4.png">
+
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 49 17 PM" src="https://user-images.githubusercontent.com/94247770/161361348-611e4015-5113-4e2c-ae02-56e0c27f8054.png">
+
+### Testing /getAllJobs
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 49 38 PM" src="https://user-images.githubusercontent.com/94247770/161361382-c489540e-5b62-4326-bc0b-3466837b083f.png">
+
+
+### Testing /candidateSignup
+
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 51 19 PM" src="https://user-images.githubusercontent.com/94247770/161361390-6171fae0-bcbe-4565-8b1b-b79233cbe85a.png">
+
+### Testing /candidateLogin
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 51 42 PM" src="https://user-images.githubusercontent.com/94247770/161361395-e6b9f9b4-0bb6-4c92-bd9b-7c69172eb41f.png">
+
+
+### Testing /applyForJob
+
+<img width="1440" alt="Screen Shot 2022-04-01 at 9 51 58 PM" src="https://user-images.githubusercontent.com/94247770/161361402-1357bf41-853d-45f5-93f2-24e3fecf8227.png">
+
 
 ## Backend Unit Testing
 Created the Unit test cases to check the robustness of our API.
