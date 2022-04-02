@@ -10,6 +10,7 @@ import Pagination from "./Pagination.component";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 import JobSeekerHeader from "./jobSeekerHeader.component";
+import UserLoginModal from "./userLoginModal.component";
 
 class Jobseeker extends React.Component{
 
@@ -17,14 +18,23 @@ class Jobseeker extends React.Component{
         jobs: [],
         currentPage: 1,
         jobsPerPage: 10,
-        showModal: false
+        showModal: false,
+        applied: false,
+        clickedJob: null,
+        isLoggedIn: global.isLoggedIn,
+        jobIsApplied: []
     }
 
     componentDidMount() {
         axios.post('http://localhost:8081/getAllJobs')
             .then(res => {
-                // console.log(res.data);
-                this.setState({jobs:res.data})
+                const processedJobs = [];
+
+                for (let i = 0; i<res.data.length; i++) {
+                    processedJobs.push([res.data[i].JobID, res.data[i], false])
+                }
+                console.log(processedJobs)
+                this.setState({jobs:processedJobs});
                 console.log(this.state.jobs);
             })
             .catch(err => console.log(err))
@@ -36,31 +46,115 @@ class Jobseeker extends React.Component{
 		});
 	};
 
-	setIsLoggedIn = (isLoggedIn) => {
+	setIsLoggedInUser = (isLoggedIn) => {
 		// debugger;
-		this.props.log(true);
+		// this.props.log(true);
 		// debugger;
 		this.setState({
 			isLoggedIn: isLoggedIn,
 		});
 	};
 
+    signout = () => {
+        const reqHeader = {
+          Token: localStorage.getItem("userID"),
+          UserName: localStorage.getItem("userName"),
+        };
+        return fetch(`http://localhost:8081/logout`, {
+          body: JSON.stringify(reqHeader),
+          method: "POST",
+          mode: "cors",
+        })
+          .then((res) => {
+            // localStorage.removeItem("userID");
+            // localStorage.removeItem("userName");
+            this.setIsLoggedInUser(false);
+            return res.json();
+          })
+          .then((result) => {
+            this.props.setIsLoggedIn(false);
+            global.isLoggedIn = false;
+            this.setIsLoggedInUser(false);
+            localStorage.removeItem("userID");
+            localStorage.removeItem("userName");
+    
+            console.log(result);
+          })
+          .catch((e) => {
+            global.isLoggedIn = false;
+          });
+      };
+
+    applyJob = (clickedId) => {
+        console.log("inside applyJob");
+        console.log(clickedId);  
+
+        const user = {
+            UserID: parseInt(localStorage.getItem("ID")),
+            JobID: clickedId
+        }
+
+    
+            console.log("inside isLoggedIn");
+            fetch(`http://localhost:8081/applyForJob`, {
+                body: JSON.stringify(user),
+                method: "POST",
+                mode: "cors",
+                })
+                .then((res) => {
+                    console.log("Applied!");
+                    // console.log(res.json());
+                    return res.json();
+                })
+                .then((result) => {
+                    console.log("Result");
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+
+            let filterAndUpdateJobs = this.state.jobs;
+            
+            // console.log(filterAndUpdateJobs)
+            
+            for (let i = 0; i < filterAndUpdateJobs.length; i++) {
+                // traversing list of lists
+
+                if(filterAndUpdateJobs[i][0] === clickedId){
+                    // matching job id found and hence update its 3rd element to True/False
+                    //console.log(filterAndUpdateJobs[i][j][2])
+                    if(filterAndUpdateJobs[i][2] === false) {
+                        filterAndUpdateJobs[i][2] = true
+                    } else {
+                        filterAndUpdateJobs[i][2] = false
+                    }
+                    break
+                }
+            }
+            
+            console.log(filterAndUpdateJobs);
+
+            this.setState({jobs:filterAndUpdateJobs});
+    }
+
     render(){
         
         const indexOfLastJob = this.state.currentPage * this.state.jobsPerPage;
         const indexOfFirstJob = indexOfLastJob - this.state.jobsPerPage;
         const currentJobs = this.state.jobs.slice(indexOfFirstJob,indexOfLastJob);
-
+        console.log(this.state.isLoggedIn);
         const paginate = (pageNumber) => {this.setState({currentPage: pageNumber})};
 
-        const applyJob = (event) => {
-            event.preventDefault();
-            this.setState({showModal:true});
-        }
 
         return (
             <div className="body-outer jobseeker-main">
                 <JobSeekerHeader />
+                {this.state.showModal ? (
+                    <UserLoginModal
+                    hideLogin={this.hideLoginDialog}
+                    setIsLoggedIn={() => this.setIsLoggedInUser(true)}
+                    />
+                ) : null}
                 <section>
                     <div className="jobSeekermain-wrapper">
                         <div className="jobSeekerbody-area">
@@ -216,15 +310,20 @@ class Jobseeker extends React.Component{
                                                 <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
                                                     <div className="clearfix"></div>
                                                     <div className="showing"> Show: <b>all jobs</b></div>
-                                                    {currentJobs.map((item) => (
-                                                        <div className="jobs" key={item.JobID}>
-                                                            <a target="_blank" className="job_title">{item.Role_Name} <span>new</span></a>
+                                                    {currentJobs.sort((a,b) => b[1].JobID - a[1].JobID).map((item) => (
+                                    
+                                                        <div className="jobs" key={item[1].JobID}>
+                                
+                                                            <a target="_blank" className="job_title">{item[1].Role_Name} <span>new</span></a>
                                                             <Button 
-                                                                onClick={(event) => applyJob(event)}
-                                                                style={{'float':'right'}}>Apply</Button>
-                                                            <p className="companyname"> Arogya Yoga Mandiram - <span className="where">Bangalore, Karnataka</span></p>
-                                                            <p> <i className="fa fa-dollar"></i> {item.Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item.Salary_End} per hour </p>
-                                                            <p className="summary">{item.Responsibilities}</p>
+                                                                onClick={() => this.applyJob(item[1].JobID)}
+                                                                disabled={item[2]}
+                                                                style={{'float':'right'}}>
+                                                                    {item[2]  ? "Applied" : "Easy Apply"}
+                                                            </Button>
+                                                            <p className="companyname"> Amazon - <span className="where">USA</span></p>
+                                                            <p> <i className="fa fa-dollar"></i> {item[1].Salary_Start} &ndash; <i className="fa fa-dollar"></i> {item[1].Salary_End} per hour </p>
+                                                            <p className="summary">{item[1].Responsibilities}</p>
                                                         </div>  
                                                     ))}
                                                     <Pagination jobsPerPage={this.state.jobsPerPage} totalJobs={this.state.jobs.length} paginate={paginate} />
