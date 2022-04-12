@@ -2,3 +2,16 @@
 {
     background: #00454b;
 }
+.block-candidates-display {
+    background-color: #FFF;
+    padding: 20px;
+    border: thin solid #ccc;
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: all 200ms ease;
+    -webkit-transition: all 200ms ease;
+    -ms-transition: all 200ms ease;
+    -o-transition: all 200ms ease;
+    -moz-transition: all 200ms ease;
+}

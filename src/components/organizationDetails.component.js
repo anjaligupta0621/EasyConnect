@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from 'react';
 import '../css/styles.css';
 import './organizationDetails.component.css';
 
@@ -64,7 +64,6 @@ const OrganizationDetails = ({ nextStep, handleChange, values }) => {
                         className="submit-button"
                         onClick={ Continue } >Next
                     </button>
-
                     </div>
                 </form>
                 </div>
