@@ -2,6 +2,7 @@ package models
 
 type Job struct {
 	JobID            uint   `gorm:"primary_key; AUTO_ Increment"`
+	Organization     string `gorm:"Not null"`
 	Role_Name        string `gorm:"Not null"`
 	Role_Type        string `gorm:"Not null"`
 	Type             string

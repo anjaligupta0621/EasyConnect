@@ -72,7 +72,7 @@ func AddJob(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 
-	db.Create(&models.Job{JobID: job.JobID, Role_Name: job.Role_Name, Role_Type: job.Role_Type, Type: job.Type, Location: job.Location, Start_Date: job.Start_Date, Posted_Date: job.Posted_Date, Responsibilities: job.Responsibilities, Salary_Start: job.Salary_Start, Salary_End: job.Salary_End, Active: job.Active, RecruiterID: job.RecruiterID, CandidateCount: 0})
+	db.Create(&models.Job{JobID: job.JobID, Organization: job.Organization, Role_Name: job.Role_Name, Role_Type: job.Role_Type, Type: job.Type, Location: job.Location, Start_Date: job.Start_Date, Posted_Date: job.Posted_Date, Responsibilities: job.Responsibilities, Salary_Start: job.Salary_Start, Salary_End: job.Salary_End, Active: job.Active, RecruiterID: job.RecruiterID, CandidateCount: 0})
 	json.NewEncoder(w).Encode("New job Successfully Added")
 	//TBD
 }
