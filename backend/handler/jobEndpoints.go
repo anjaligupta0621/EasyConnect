@@ -72,7 +72,7 @@ func AddJob(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 
-	db.Create(&models.Job{JobID: job.JobID, Role_Name: job.Role_Name, Role_Type: job.Role_Type, Type: job.Type, Location: job.Location, Start_Date: job.Start_Date, Posted_Date: job.Posted_Date, Responsibilities: job.Responsibilities, Salary_Start: job.Salary_Start, Salary_End: job.Salary_End, Active: job.Active, RecruiterID: job.RecruiterID, CandidateCount: 0})
+	db.Create(&models.Job{JobID: job.JobID, Organization: job.Organization, Role_Name: job.Role_Name, Role_Type: job.Role_Type, Type: job.Type, Location: job.Location, Start_Date: job.Start_Date, Posted_Date: job.Posted_Date, Responsibilities: job.Responsibilities, Salary_Start: job.Salary_Start, Salary_End: job.Salary_End, Active: job.Active, RecruiterID: job.RecruiterID, CandidateCount: 0})
 	json.NewEncoder(w).Encode("New job Successfully Added")
 	//TBD
 }
@@ -107,6 +107,12 @@ func ApplyForJob(w http.ResponseWriter, r *http.Request) {
 
 	db.Table("candidates").Where("User_ID = ?", details.UserID).Find(&candidates)
 	db.Table("jobs").Where("Job_ID = ?", details.JobID).Find(&jobs)
+
+	sqlStatement := `
+	INSERT INTO candidates_jobs (job_job_id, candidate_user_id)
+	VALUES ($1, $2);`
+	db2 := db.Exec(sqlStatement, details.JobID, details.UserID)
+	defer db2.Close()
 
 	db.Model(&models.Candidate{}).Association("Jobs").Append(jobs)
 	db.Model(&models.Job{}).Association("Candidates").Append(candidates)
