@@ -81,3 +81,8 @@ type ApplyJob struct {
 	UserID uint
 	JobID  uint
 }
+
+type AppliedCandidateResponse struct {
+	Candidate Candidate
+	JobID     uint
+}

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/anjaligupta0621/EasyConnect/backend/models"
@@ -121,5 +122,52 @@ func ApplyForJob(w http.ResponseWriter, r *http.Request) {
 	db.Model(&models.Job{}).Where("Job_ID = ?", details.JobID).Update("Candidate_Count", jobs.CandidateCount+1)
 
 	json.NewEncoder(w).Encode("Applied to job")
-	//TBD
+}
+
+func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	var recruiterID uint
+	err = decoder.Decode(&recruiterID)
+	if err != nil {
+		panic(err)
+	}
+
+	var candidates models.Candidate
+	var jobIDs []uint
+	//var candIDs []uint
+	m := make(map[uint][]uint)
+
+	db.Table("jobs").Where("recruiter_id = ?", recruiterID).Select("job_id").Find(&jobIDs)
+
+	for i, id := range jobIDs {
+		var candIDs []uint
+		db.Table("candidates_jobs").Select("candidate_user_id").Where("job_job_id = ?", id).Find(&candIDs)
+		fmt.Println(i, id, candIDs)
+		m[id] = candIDs
+	}
+
+	setOfCandidates := make(map[uint]string)
+
+	for jobid, candArray := range m {
+		fmt.Println("Key:", jobid, "=>", "Element:", candArray)
+		for candid := range candArray {
+			setOfCandidates[uint(candid)] = "exist" //to remove duplicate candidates that may come from different job IDs.
+		}
+	}
+
+	keys := make([]uint, 0, len(setOfCandidates))
+	for k := range setOfCandidates {
+		keys = append(keys, k)
+	}
+
+	db.Table("candidates").Where("User_ID IN ?", keys).Find(&candidates)
+
+	json.NewEncoder(w).Encode(candidates)
 }
