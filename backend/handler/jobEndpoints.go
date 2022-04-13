@@ -108,6 +108,12 @@ func ApplyForJob(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidates").Where("User_ID = ?", details.UserID).Find(&candidates)
 	db.Table("jobs").Where("Job_ID = ?", details.JobID).Find(&jobs)
 
+	sqlStatement := `
+	INSERT INTO candidates_jobs (job_job_id, candidate_user_id)
+	VALUES ($1, $2);`
+	db2 := db.Exec(sqlStatement, details.JobID, details.UserID)
+	defer db2.Close()
+
 	db.Model(&models.Candidate{}).Association("Jobs").Append(jobs)
 	db.Model(&models.Job{}).Association("Candidates").Append(candidates)
 
