@@ -218,3 +218,41 @@ func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(candidates)
 }
+
+func GetCandidatesFromRoleType(w http.ResponseWriter, r *http.Request) {
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	var role string
+	err = decoder.Decode(&role)
+	if err != nil {
+		panic(err)
+	}
+
+	var candidates []models.Candidate
+	var jobs []models.Job
+	var temp []models.ApplyJob
+	//var jobIDs []uint
+	var candIDs []uint
+	//m := make(map[uint][]uint)
+
+	db.Table("jobs").Where("role_type LIKE ?", role+"%").Find(&jobs)
+	fmt.Println(jobs)
+
+	for i, job := range jobs {
+		fmt.Println(i, job.JobID)
+		db.Table("candidates_jobs").Where("job_job_id = ?", job.JobID).Find(&temp)
+		for j, t := range temp {
+			fmt.Println(j, job.JobID, t.CandidateUserID)
+			candIDs = append(candIDs, t.CandidateUserID)
+		}
+	}
+
+	db.Table("candidates").Where("user_id IN (?)", candIDs).Find(&candidates)
+	json.NewEncoder(w).Encode(candidates)
+}
