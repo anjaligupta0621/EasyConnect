@@ -90,8 +90,9 @@ class Jobseeker extends React.Component{
         console.log(clickedId);  
 
         const user = {
-            UserID: parseInt(localStorage.getItem("ID")),
-            JobID: clickedId
+            JobJobID: clickedId,
+            CandidateUserID: parseInt(localStorage.getItem("ID"))
+           
         }
 
     

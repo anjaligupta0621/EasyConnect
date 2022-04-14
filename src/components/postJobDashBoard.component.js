@@ -18,11 +18,12 @@ class PostJobDashBoard extends React.Component{
 		var raw = JSON.stringify({
 			"Recruiter_ID": parseInt(localStorage.getItem("ID"))
 		});
-
+		debugger;
 		
 		fetch(`http://localhost:8081/getJobById`, { body: raw, method: "POST", mode:"cors"})
         .then(response => response.json())
 		.then(result => {
+			debugger;
 			this.setState({jobs: result})
 			console.log(this.state.jobs)
 		})
