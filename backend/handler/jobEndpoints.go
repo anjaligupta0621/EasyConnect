@@ -112,11 +112,11 @@ func ApplyForJob(w http.ResponseWriter, r *http.Request) {
 	sqlStatement := `
 	INSERT INTO candidates_jobs (job_job_id, candidate_user_id)
 	VALUES ($1, $2);`
-	db2 := db.Exec(sqlStatement, details.JobJobID, details.CandidateUserID)
-	defer db2.Close()
+	db = db.Exec(sqlStatement, details.JobJobID, details.CandidateUserID)
+	defer db.Close()
 
-	db.Model(&models.Candidate{}).Association("Jobs").Append(jobs)
-	db.Model(&models.Job{}).Association("Candidates").Append(candidates)
+	//db.Model(&models.Candidate{}).Association("Jobs").Append(jobs)
+	//db.Model(&models.Job{}).Association("Candidates").Append(candidates)
 
 	db.Model(&models.Candidate{}).Where("User_ID = ?", details.CandidateUserID).Update("Jobs_Applied", candidates.JobsApplied+1)
 	db.Model(&models.Job{}).Where("Job_ID = ?", details.JobJobID).Update("Candidate_Count", jobs.CandidateCount+1)
@@ -126,6 +126,10 @@ func ApplyForJob(w http.ResponseWriter, r *http.Request) {
 
 func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
+
+	type Recruiter_struct struct {
+		Recruiter_ID uint
+	}
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		panic("failed to connect database")
@@ -133,7 +137,7 @@ func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	decoder := json.NewDecoder(r.Body)
-	var recruiterID uint
+	var recruiterID Recruiter_struct
 	err = decoder.Decode(&recruiterID)
 	if err != nil {
 		panic(err)
@@ -146,7 +150,7 @@ func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
 	var candIDs []uint
 	//m := make(map[uint][]uint)
 
-	db.Table("jobs").Where("recruiter_id = ?", recruiterID).Find(&jobs)
+	db.Table("jobs").Where("recruiter_id = ?", recruiterID.Recruiter_ID).Find(&jobs)
 	fmt.Println(jobs)
 
 	for i, job := range jobs {
@@ -190,6 +194,10 @@ func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
 
 func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 	setupCorsResponse(&w, r)
+
+	type Job_struct struct {
+		Job_ID uint
+	}
 	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
 	if err != nil {
 		panic("failed to connect database")
@@ -197,7 +205,7 @@ func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	decoder := json.NewDecoder(r.Body)
-	var jobid uint
+	var jobid Job_struct
 	err = decoder.Decode(&jobid)
 	if err != nil {
 		panic(err)
@@ -208,7 +216,7 @@ func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 	var candIDs []uint
 
 	fmt.Println(jobid)
-	db.Table("candidates_jobs").Where("job_job_id = ?", jobid).Find(&temp)
+	db.Table("candidates_jobs").Where("job_job_id = ?", jobid.Job_ID).Find(&temp)
 	for j, t := range temp {
 		fmt.Println(j, jobid, t.CandidateUserID)
 		candIDs = append(candIDs, t.CandidateUserID)
@@ -216,5 +224,47 @@ func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 
 	db.Table("candidates").Where("user_id IN (?)", candIDs).Find(&candidates)
 
+	json.NewEncoder(w).Encode(candidates)
+}
+
+func GetCandidatesFromRoleType(w http.ResponseWriter, r *http.Request) {
+	setupCorsResponse(&w, r)
+
+	type Role_struct struct {
+		Role string
+	}
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	var role Role_struct
+	err = decoder.Decode(&role)
+	if err != nil {
+		panic(err)
+	}
+
+	var candidates []models.Candidate
+	var jobs []models.Job
+	var temp []models.ApplyJob
+	//var jobIDs []uint
+	var candIDs []uint
+	//m := make(map[uint][]uint)
+
+	db.Table("jobs").Where("role_type LIKE ?", role.Role+"%").Find(&jobs)
+	fmt.Println(jobs)
+
+	for i, job := range jobs {
+		fmt.Println(i, job.JobID)
+		db.Table("candidates_jobs").Where("job_job_id = ?", job.JobID).Find(&temp)
+		for j, t := range temp {
+			fmt.Println(j, job.JobID, t.CandidateUserID)
+			candIDs = append(candIDs, t.CandidateUserID)
+		}
+	}
+
+	db.Table("candidates").Where("user_id IN (?)", candIDs).Find(&candidates)
 	json.NewEncoder(w).Encode(candidates)
 }

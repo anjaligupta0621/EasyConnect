@@ -37,5 +37,7 @@ func HandleRequests() {
 
 	rtr.HandleFunc("/getCandidatesByJobId", handler.GetCandidatesFromJobID).Methods("POST")
 
+	rtr.HandleFunc("/getCandidatesByRole", handler.GetCandidatesFromRoleType).Methods("POST")
+
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }
