@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import React from 'react';
+import {useState} from 'react';
 import { Redirect, Route, NavLink } from "react-router-dom";
 import "../css/login-modal-wizard.css";
 import "../css/main.css";
@@ -214,7 +215,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
                                                         checked={
                                                             values.roleType === "Mobile App Development"
                                                         }
-                                                        name="radio"
+                                                    
                                                     />
                                                     <span className="checkmark"></span>
                                                 </label>

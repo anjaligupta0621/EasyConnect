@@ -11,7 +11,28 @@ import noCandidateImage from "../img/candidate-no-img.svg";
 
 
 class ShortlistCandidate extends React.Component {
-    
+    state = {
+		shortlistCandidates: [],
+		recruiterID: localStorage.getItem("ID")
+	}
+
+    componentDidMount() {
+
+		var raw = JSON.stringify({
+			"Recruiter_ID": parseInt(localStorage.getItem("ID"))
+		});
+        //debugger;
+		
+		fetch(`http://localhost:8081/getCandidatesByRecruiterId`, { body: raw, method: "POST", mode:"cors"})
+        .then(response => response.json())
+		.then(result => {
+            //debugger;
+			this.setState({shortlistCandidates: result})
+			console.log(this.state.shortlistCandidates)
+		})
+		.catch(error => console.log('error', error));
+	}
+
     render() {
         return (
             <div className="shortList-Component">
@@ -41,11 +62,11 @@ class ShortlistCandidate extends React.Component {
 
                             <div id="postjob">
 
-                                <div class="appl-info">You are viewing <span>all 10 applicants</span> for the role</div>
+                                <div class="appl-info">You are viewing <span>all {this.state.shortlistCandidates.length} applicants</span> for the role</div>
                                 <div class="container-fluid">
                                     <ul class="nav nav-pills">
-                                        <li class="active"><a data-toggle="pill" href="#all-applicants">All Applicants <span>(10)</span></a></li>
-                                        <li><a data-toggle="pill" href="#shortlist">Shortlisted (3)</a></li>
+                                        <li class="active"><a data-toggle="pill" href="#all-applicants">All Applicants <span>({this.state.shortlistCandidates.length})</span></a></li>
+                                        <li><a data-toggle="pill" href="#shortlist">Shortlisted (0)</a></li>
                                     </ul>
                                     <div class="tab-content"> 
                                     <div id="all-applicants" class="tab-pane fade in active">
@@ -70,45 +91,15 @@ class ShortlistCandidate extends React.Component {
 								<div class="clearfix"></div>
                                 <div id="verified" class="margin-top-60">
 									<h3>Candidates with verified Employability Skills</h3>
-									<p>(The Employability Skills of these candidates has been verified using fully proctored tests)</p>
-									<div class="block-candidates-display">
-										<div class="col-lg-5" >
-											<input name="" type="checkbox" value="" class="check"/>
-											<img src="img/candidate-no-img.svg" class="img-candidate"/>
-											<h5>S Stallone</h5>
-											<p><i class="fa fa-envelope-o"></i> abc.deg@gmail.com</p>
-											<p><i class="fa fa-phone"></i> 990298834343</p>
-											<p><a href="#"><i class="fa fa-user"></i> View Full Profile</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-download"></i></a> </p>
-										</div>
-										
-										<div class="col-lg-7 score" >
-										
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Employability Skills</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class=" dot-average"></span> <p>Aptitude</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Reasoning</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Written English</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Spoken English</p>
-											</div>
-											
-										</div>
-										
-									</div>
+									<p>(The Employability Skills of these candidates has been verified using background check)</p>
+                                    {this.state.shortlistCandidates.map((candidate) => (
                                     <div class="block-candidates-display">
 										<div class="col-lg-5" >
 											<input name="" type="checkbox" value="" class="check"/>
 											<img src={noCandidateImage} class="img-candidate"/>
-											<h5>S Stallone</h5>
-											<p><i class="fa fa-envelope-o"></i> abc.deg@gmail.com</p>
-											<p><i class="fa fa-phone"></i> 990298834343</p>
+											<h5> {candidate.Name}</h5>
+											<p><i class="fa fa-envelope-o"></i> {candidate.Email}</p>
+											<p><i class="fa fa-phone"></i> {candidate.Contact}</p>
 											<p><a href="#"><i class="fa fa-user"></i> View Full Profile</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-download"></i></a> </p>
 										</div>
 										
@@ -133,37 +124,7 @@ class ShortlistCandidate extends React.Component {
 										</div>
 										
 									</div>
-                                    <div class="block-candidates-display">
-										<div class="col-lg-5" >
-											<input name="" type="checkbox" value="" class="check"/>
-											<img src={noCandidateImage} class="img-candidate"/>
-											<h5>S Stallone</h5>
-											<p><i class="fa fa-envelope-o"></i> abc.deg@gmail.com</p>
-											<p><i class="fa fa-phone"></i> 990298834343</p>
-											<p><a href="#"><i class="fa fa-user"></i> View Full Profile</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-download"></i></a> </p>
-										</div>
-										
-										<div class="col-lg-7 score" >
-										
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Employability Skills</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class=" dot-average"></span> <p>Aptitude</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Reasoning</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Written English</p>
-											</div>
-											<div class="col-lg-4 score-legend" >										
-												<span class="dot-excellent"></span> <p>Spoken English</p>
-											</div>
-											
-										</div>
-										
-									</div>
+                                    ))}
 								</div>
 								<div class="clearfix"></div>
                                     </div>
