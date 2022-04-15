@@ -3293,7 +3293,7 @@ th {
   -o-transition: all 500ms ease;
   -moz-transition: all 500ms ease;
   display: inline-flex;
-  align-items: center
+  align-items: center;
 }
 
 .sortby a:hover {
@@ -3753,14 +3753,27 @@ th {
   color: #fff;
   font-weight: normal;
   font-size: 16px;
-  
 }
-.user-profile-section>img{
-	height:30px;
-	width:30px;
-	margin-right:5px;
+.user-profile-section > img {
+  height: 30px;
+  width: 30px;
+  margin-right: 5px;
 }
 .user-profile-section > label {
   font-weight: normal;
 }
 /* User profile section ends here */
+.error-handling {
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  color: #df4759!important;
+  width: auto!important;
+  margin: 0!important;
+  left: 0;
+  right: 0;
+  font-size: 18px!important;
+}
+.error-handling.hide-error-message {
+  display: none;
+}
