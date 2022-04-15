@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { matchPath, useLocation } from "react-router";
 import "../css/styles.css";
 import "../css/main.css";
 import "../css/menu.css";
@@ -15,11 +15,46 @@ import jobseekerLogo from "../img/jobseeker.png";
 import ShortlistCandidate from "./shortlistCandidate.component";
 
 const Header = (props) => {
- 
   let navigate = useNavigate();
+  const location = useLocation();
+  const [user, setUser] = useState(undefined);
+
   const [isLoggedInLocal, setIsLoggedInLocal] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    if (localStorage.getItem("userName")) {
+      var raw = JSON.stringify({
+        User: localStorage.getItem("userName"),
+        Token: localStorage.getItem("recruiterID"),
+      });
+      //debugger;
+
+      fetch(`http://localhost:8081/getCurrentRecruiter`, {
+        body: raw,
+        method: "POST",
+        mode: "cors",
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          //debugger;
+          setUser(result);
+        })
+        .catch((error) => console.log("error", error));
+      console.log(user, "---->");
+    }
+  },[]);
+  const checkLocationActive = (curPath) => {
+    const isActive = !!matchPath(
+      {
+        path: curPath,
+        exact: true,
+        strict: true,
+      },
+      location.pathname
+    );
+    return isActive;
+  };
   const checkLogin = () => {
     if (localStorage.getItem("recruiterID", null) !== null) {
       setIsLoggedInLocal(true);
@@ -33,9 +68,9 @@ const Header = (props) => {
   };
 
   const signout = () => {
-    const reqHeader={
-      Token:localStorage.getItem("recruiterID"),
-      UserName:localStorage.getItem("userName")
+    const reqHeader = {
+      Token: localStorage.getItem("recruiterID"),
+      UserName: localStorage.getItem("userName"),
     };
     return fetch(`http://localhost:8081/logout`, {
       body: JSON.stringify(reqHeader),
@@ -55,6 +90,7 @@ const Header = (props) => {
         setIsLoggedInLocal(false);
         localStorage.removeItem("recruiterID");
         localStorage.removeItem("userName");
+        setUser(undefined);
 
         console.log(result);
       })
@@ -62,15 +98,6 @@ const Header = (props) => {
         global.isLoggedIn = false;
       });
   };
-  // const signOut=(e)=>{
-  //   props.signOut(e);
-  // }
-  // const Results = () => (
-  //   <div className="user-profile-section">
-  //     <img alt="user" src={userLogo} className="user-dp" />
-  //     <label className="user-name-container">Welcome! User Name</label>
-  //   </div>
-  // );
 
   return (
     <header>
@@ -95,6 +122,12 @@ const Header = (props) => {
               </Link>{" "}
             </div>
           </div>
+        </div>
+        <div className={`user-avatar-box ${!user ? "hidebox" : ""}`}>
+          <span className="user-avatar"></span>
+          <span className="user-name">
+            Welcome: {user ? user.Name : "Guest User"}
+          </span>
         </div>
       </div>
       <nav className="navbar navbar-inverse">
@@ -123,10 +156,14 @@ const Header = (props) => {
 
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav">
-              <li className="active">
+              <li className={`${checkLocationActive("/") ? "active" : ""}`}>
                 <Link to="/">Home</Link>
               </li>
-              <li>
+              <li
+                className={`${
+                  checkLocationActive("jobDashBoard/") ? "active" : ""
+                }`}
+              >
                 {isLoggedInLocal || checkLogin() ? (
                   <Link to={"/jobDashBoard/"}>Post Job Description</Link>
                 ) : (
@@ -141,7 +178,11 @@ const Header = (props) => {
                 )}
               </li>
 
-              <li>
+              <li
+                className={`${
+                  checkLocationActive("/shortListCandidate") ? "active" : ""
+                }`}
+              >
                 {isLoggedInLocal || checkLogin() ? (
                   <Link to="/shortListCandidate">ShortList Candidate</Link>
                 ) : (
@@ -170,7 +211,7 @@ const Header = (props) => {
                     }}
                   />
                 ) : (
-                  <Link to ="/" onClick={signout} >
+                  <Link to="/" onClick={signout}>
                     Sign Out
                   </Link>
                 )}
