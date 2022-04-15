@@ -6,49 +6,49 @@ import "../css/suppress.css";
 import closelogo from "../img/close.png";
 
 class LoginModal extends React.Component {
-//   state = {
-//     showSignUp: false,
-//     email: "",
-//     password: "",
-//     companyName: "",
-//     recruiterName: "",
-//     corporateWebsite: "",
-//     corporateEmail: "",
-//     contactNumber: "",
-//     signUpPassword: "",
-//   };
+  //   state = {
+  //     showSignUp: false,
+  //     email: "",
+  //     password: "",
+  //     companyName: "",
+  //     recruiterName: "",
+  //     corporateWebsite: "",
+  //     corporateEmail: "",
+  //     contactNumber: "",
+  //     signUpPassword: "",
+  //   };
 
-//   onChangeEmailHandler = (event) => {
-//     this.setState({ email: event.target.value, signinErr: false });
-//   };
+  //   onChangeEmailHandler = (event) => {
+  //     this.setState({ email: event.target.value, signinErr: false });
+  //   };
 
-//   onChangePasswordHandler = (event) => {
-//     this.setState({ password: event.target.value, signinErr: false });
-//   };
+  //   onChangePasswordHandler = (event) => {
+  //     this.setState({ password: event.target.value, signinErr: false });
+  //   };
 
-//   onChangeCompanyNameHandler = (event) => {
-//     this.setState({ companyName: event.target.value });
-//   };
+  //   onChangeCompanyNameHandler = (event) => {
+  //     this.setState({ companyName: event.target.value });
+  //   };
 
-//   onChangeRecruiterNameHandler = (event) => {
-//     this.setState({ recruiterName: event.target.value });
-//   };
+  //   onChangeRecruiterNameHandler = (event) => {
+  //     this.setState({ recruiterName: event.target.value });
+  //   };
 
-//   onChangeWebsiteHandler = (event) => {
-//     this.setState({ corporateWebsite: event.target.value });
-//   };
+  //   onChangeWebsiteHandler = (event) => {
+  //     this.setState({ corporateWebsite: event.target.value });
+  //   };
 
-//   onChangeSignUpEmailHandler = (event) => {
-//     this.setState({ corporateEmail: event.target.value });
-//   };
+  //   onChangeSignUpEmailHandler = (event) => {
+  //     this.setState({ corporateEmail: event.target.value });
+  //   };
 
-//   onChangeContactHandler = (event) => {
-//     this.setState({ contactNumber: event.target.value });
-//   };
+  //   onChangeContactHandler = (event) => {
+  //     this.setState({ contactNumber: event.target.value });
+  //   };
 
-//   onChangeSignUpPasswordHandler = (event) => {
-//     this.setState({ signUpPassword: event.target.value });
-//   };
+  //   onChangeSignUpPasswordHandler = (event) => {
+  //     this.setState({ signUpPassword: event.target.value });
+  //   };
 
   state = {
     showSignUp: false,
@@ -60,6 +60,7 @@ class LoginModal extends React.Component {
     corporateEmail: "",
     contactNumber: "",
     signUpPassword: "",
+    showLoginError: false,
   };
 
   onChangeEmailHandler = (event) => {
@@ -109,15 +110,17 @@ class LoginModal extends React.Component {
         return res.json();
       })
       .then((result) => {
+        this.setState({ showLoginError: false });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         localStorage.setItem("recruiterID", result.Token);
-        localStorage.setItem("ID",result.Recruiter.ID);
+        localStorage.setItem("ID", result.Recruiter.ID);
         localStorage.setItem("userName", result.Recruiter.Email);
         console.log(localStorage.getItem("recruiterID"));
         console.log(localStorage.getItem("ID"));
       })
       .catch((e) => {
+        this.setState({ showLoginError: true });
         console.log(e);
       });
   };
@@ -471,6 +474,11 @@ class LoginModal extends React.Component {
             </div>
 
             <div className="modal-body w-100">
+              <label
+                className={`error-handling ${!this.state.showLoginError ? "hide-error-message" : ""}`}
+              >
+                Incorrect Email/Password
+              </label>
               <h1>Recruiter Login</h1>
               <div>
                 <label htmlFor="email" className="col-lg-12">
