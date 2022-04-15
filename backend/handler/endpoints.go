@@ -232,3 +232,50 @@ func LogOut(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(`message: Successfully Logged out!`)
 
 }
+
+//API for Login
+func GetCurrentUser(w http.ResponseWriter, r *http.Request) {
+	//Setting up response header
+	w.Header().Set("Content-Type", "application/json")
+	setupCorsResponse(&w, r)
+	//Setting up db connection
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	//Decoding request body to get username and password
+	decoder := json.NewDecoder(r.Body)
+
+	type User struct {
+		User  string
+		Token string
+	}
+	var user User
+
+	err2 := decoder.Decode(&user)
+
+	//Checking if request has empty login info
+	if user.User == "" || err2 != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	utils.JWTTokenCheck(user.Token, w)
+
+	var recruiter_ models.Recruiter
+
+	//Querying from db
+	db.Table("recruiters").Where("Email = ?", user.User).Find(&recruiter_)
+
+	// Checking if user exists
+	if recruiter_.Email == "" {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		return
+	}
+
+	json.NewEncoder(w).Encode(recruiter_)
+
+}
