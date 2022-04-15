@@ -61,6 +61,7 @@ class LoginModal extends React.Component {
     contactNumber: "",
     signUpPassword: "",
     showLoginError: false,
+    showSignupError: false,
   };
 
   onChangeEmailHandler = (event) => {
@@ -201,6 +202,7 @@ class LoginModal extends React.Component {
           signUpPassword: "",
           showSignUp: false,
         });
+        this.setState({ showSignupError: false });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         global.isLoggedIn = true;
@@ -208,6 +210,7 @@ class LoginModal extends React.Component {
         localStorage.setItem("userName", result.Recruiter.Email);
       })
       .catch((e) => {
+        this.setState({ showSignupError: true });
         console.log(e);
       });
   };
@@ -233,6 +236,13 @@ class LoginModal extends React.Component {
               className="modal-header"
               style={{ display: this.state.showSignUp ? "block" : "none" }}
             >
+              <label
+                className={`error-handling ${
+                  !this.state.showSignupError ? "hide-error-message" : ""
+                }`}
+              >
+                User Already Registered
+              </label>
               <div id="registration_form" className="overlay-main">
                 <a
                   onClick={this.hideSignUp}
@@ -475,10 +485,13 @@ class LoginModal extends React.Component {
 
             <div className="modal-body w-100">
               <label
-                className={`error-handling ${!this.state.showLoginError ? "hide-error-message" : ""}`}
+                className={`error-handling ${
+                  !this.state.showLoginError ? "hide-error-message" : ""
+                }`}
               >
                 Incorrect Email/Password
               </label>
+
               <h1>Recruiter Login</h1>
               <div>
                 <label htmlFor="email" className="col-lg-12">
