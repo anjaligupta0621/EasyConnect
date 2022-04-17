@@ -1,5 +1,7 @@
 package models
 
+import "github.com/lib/pq"
+
 type Job struct {
 	JobID            uint   `gorm:"primary_key; AUTO_ Increment"`
 	Organization     string `gorm:"Not null"`
@@ -21,19 +23,19 @@ type Job struct {
 // Recruiter Model with gorm mapping
 type Recruiter struct {
 	ID           uint   `gorm:"primary_key; AUTO_ Increment "`
-	Name         string `gorm:"Not null "`
-	Email        string `gorm:"unique; Not null "`
-	Password     string `gorm:"Not null "`
+	Name         string `gorm:"Not null"`
+	Email        string `gorm:"unique; Not null"`
+	Password     string `gorm:"Not null"`
 	Organization string
 	Website      string
-	Contact      string `gorm:" Not null "`
+	Contact      string `gorm:" Not null"`
 	Jobs         []Job  `gorm:"foreignKey:RecruiterID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 }
 
 // User token model with gorm mapping
 type Usertoken struct {
-	Email string `gorm:"unique Not null "`
-	Token string `gorm:"unique; Not null "`
+	Email string `gorm:"unique Not null"`
+	Token string `gorm:"unique; Not null"`
 }
 
 //user Token manager model
@@ -68,11 +70,11 @@ type Person struct {
 // Job model with gorm mapping
 type Candidate struct {
 	UserID      uint   `gorm:"primary_key; AUTO_ Increment "`
-	Name        string `gorm:"Not null "`
-	Email       string `gorm:"unique; Not null "`
-	Password    string `gorm:"Not null "`
-	Username    string `gorm:"unique; Not null "`
-	Contact     string `gorm:"unique; Not null "`
+	Name        string `gorm:"Not null"`
+	Email       string `gorm:"unique; Not null"`
+	Password    string `gorm:"Not null"`
+	Username    string `gorm:"unique; Not null"`
+	Contact     string `gorm:"unique; Not null"`
 	Jobs        []*Job `gorm:"many2many:candidates_jobs;constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 	JobsApplied uint
 }
@@ -85,4 +87,40 @@ type ApplyJob struct {
 type AppliedCandidateResponse struct {
 	Candidate Candidate
 	JobID     uint
+}
+type Candidateprofile struct {
+	Firstname string `gorm:"Not null"`
+	Lastname  string `gorm:"Not null"`
+	Email     string `gorm:"primary_key; Not null"`
+	Phone     string `gorm:"Not null"`
+	Github    string `gorm:"Not null"`
+	Linkedin  string `gorm:"Not null"`
+	Facebook  string `gorm:"Not null"`
+	Instagram string `gorm:"Not null"`
+	// Education
+	Education []College
+	// Project
+	Project []Project
+	// Professional Experience
+	Professionalexperience []ProfessionalExperience
+	// Others
+	Skills    pq.StringArray `gorm:"type:text[]"`
+	Interests pq.StringArray `gorm:"type:text[]"`
+}
+type College struct {
+	College     string
+	Fromyear    string
+	Toyear      string
+	Description string
+}
+type Project struct {
+	Title              string
+	Link               string
+	ProjectDescription string
+}
+type ProfessionalExperience struct {
+	Company               string
+	Position              string
+	Duration              string
+	ExperienceDescription string
 }
