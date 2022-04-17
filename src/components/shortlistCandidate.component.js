@@ -14,12 +14,12 @@ import noCandidateImage from "../img/candidate-no-img.svg";
 class ShortlistCandidate extends React.Component {
   state = {
     shortlistCandidates: [],
-    recruiterID: localStorage.getItem("ID"),
+    recruiterID: localStorage.getItem("recruiterId"),
   };
 
   componentDidMount() {
     var raw = JSON.stringify({
-      Recruiter_ID: parseInt(localStorage.getItem("ID")),
+      Recruiter_ID: parseInt(localStorage.getItem("recruiterId")),
     });
     //debugger;
 
@@ -166,62 +166,65 @@ class ShortlistCandidate extends React.Component {
                           (The Employability Skills of these candidates has been
                           verified using background check)
                         </p>
-                        {this.state.shortlistCandidates.map((candidate,index) => (
-                          <div class="block-candidates-display" key={index}>
-                            <div class="col-lg-5">
-                              <input
-                                name=""
-                                type="checkbox"
-                                value=""
-                                class="check"
-                              />
-                              <img
-                                src={noCandidateImage}
-                                class="img-candidate"
-                              />
-                              <h5> {candidate.Name}</h5>
-                              <p>
-                                <i class="fa fa-envelope-o"></i>{" "}
-                                {candidate.Email}
-                              </p>
-                              <p>
-                                <i class="fa fa-phone"></i> {candidate.Contact}
-                              </p>
-                              <p>
-                                <a href="#">
-                                  <i class="fa fa-user"></i> View Full Profile
-                                </a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#">
-                                  <i class="fa fa-download"></i>
-                                </a>{" "}
-                              </p>
-                            </div>
+                        {this.state.shortlistCandidates.map(
+                          (candidate, index) => (
+                            <div class="block-candidates-display" key={index}>
+                              <div class="col-lg-5">
+                                <input
+                                  name=""
+                                  type="checkbox"
+                                  value=""
+                                  class="check"
+                                />
+                                <img
+                                  src={noCandidateImage}
+                                  class="img-candidate"
+                                />
+                                <h5> {candidate.Name}</h5>
+                                <p>
+                                  <i class="fa fa-envelope-o"></i>{" "}
+                                  {candidate.Email}
+                                </p>
+                                <p>
+                                  <i class="fa fa-phone"></i>{" "}
+                                  {candidate.Contact}
+                                </p>
+                                <p>
+                                  <a href="#">
+                                    <i class="fa fa-user"></i> View Full Profile
+                                  </a>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;
+                                  <a href="#">
+                                    <i class="fa fa-download"></i>
+                                  </a>{" "}
+                                </p>
+                              </div>
 
-                            <div class="col-lg-7 score">
-                              <div class="col-lg-4 score-legend">
-                                <span class="dot-excellent"></span>{" "}
-                                <p>Employability Skills</p>
-                              </div>
-                              <div class="col-lg-4 score-legend">
-                                <span class=" dot-average"></span>{" "}
-                                <p>Aptitude</p>
-                              </div>
-                              <div class="col-lg-4 score-legend">
-                                <span class="dot-excellent"></span>{" "}
-                                <p>Reasoning</p>
-                              </div>
-                              <div class="col-lg-4 score-legend">
-                                <span class="dot-excellent"></span>{" "}
-                                <p>Written English</p>
-                              </div>
-                              <div class="col-lg-4 score-legend">
-                                <span class="dot-excellent"></span>{" "}
-                                <p>Spoken English</p>
+                              <div class="col-lg-7 score">
+                                <div class="col-lg-4 score-legend">
+                                  <span class="dot-excellent"></span>{" "}
+                                  <p>Employability Skills</p>
+                                </div>
+                                <div class="col-lg-4 score-legend">
+                                  <span class=" dot-average"></span>{" "}
+                                  <p>Aptitude</p>
+                                </div>
+                                <div class="col-lg-4 score-legend">
+                                  <span class="dot-excellent"></span>{" "}
+                                  <p>Reasoning</p>
+                                </div>
+                                <div class="col-lg-4 score-legend">
+                                  <span class="dot-excellent"></span>{" "}
+                                  <p>Written English</p>
+                                </div>
+                                <div class="col-lg-4 score-legend">
+                                  <span class="dot-excellent"></span>{" "}
+                                  <p>Spoken English</p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          )
+                        )}
                       </div>
                       <div class="clearfix"></div>
                     </div>

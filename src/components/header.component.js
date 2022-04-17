@@ -26,7 +26,7 @@ const Header = (props) => {
     if (localStorage.getItem("userName")) {
       var raw = JSON.stringify({
         User: localStorage.getItem("userName"),
-        Token: localStorage.getItem("recruiterID"),
+        Token: localStorage.getItem("token"),
       });
       //debugger;
 
@@ -56,7 +56,7 @@ const Header = (props) => {
     return isActive;
   };
   const checkLogin = () => {
-    if (localStorage.getItem("recruiterID", null) !== null) {
+    if (localStorage.getItem("token", null) !== null) {
       setIsLoggedInLocal(true);
       return true;
     }
@@ -69,7 +69,7 @@ const Header = (props) => {
 
   const signout = () => {
     const reqHeader = {
-      Token: localStorage.getItem("recruiterID"),
+      Token: localStorage.getItem("token"),
       UserName: localStorage.getItem("userName"),
     };
     return fetch(`http://localhost:8081/logout`, {
@@ -79,8 +79,10 @@ const Header = (props) => {
     })
       .then((res) => {
         // debugger;
-        localStorage.removeItem("recruiterID");
-        localStorage.removeItem("userName");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("recruiterId");
+        // localStorage.removeItem("userName");
+        localStorage.clear();
         setIsLoggedInLocal(false);
         return res.json();
       })
@@ -88,8 +90,10 @@ const Header = (props) => {
         this.props.setIsLoggedIn(false);
         global.isLoggedIn = false;
         setIsLoggedInLocal(false);
-        localStorage.removeItem("recruiterID");
-        localStorage.removeItem("userName");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("recruiterId");
+        // localStorage.removeItem("userName");
+        localStorage.clear();
         setUser(undefined);
 
         console.log(result);
