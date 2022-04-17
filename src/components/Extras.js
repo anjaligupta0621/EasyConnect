@@ -219,8 +219,8 @@ class Experience extends Component {
               <ListItemText primary="Phone Number" secondary={this.props.values.phone} />
             </ListItem> 
           </List>
-          <Button variant='contained' color='success' onClick={this.onSubmitHandler}>Yes</Button>
-          <Button style={{float: "right"}} variant='contained' color='error' onClick={this.hideModal}>No</Button>
+          <Button variant='contained' onClick={this.onSubmitHandler}>Yes</Button>
+          <Button style={{float: "right"}} variant='contained' onClick={this.hideModal}>No</Button>
         </Box>
       </Modal>
         <Card style={{
@@ -244,7 +244,7 @@ class Experience extends Component {
                   <span className="pl-3">Skills/Languages</span>
                 </h5>
               </Grid>
-              <Grid item xs={0} lg={8} />
+              <Grid item xs="false" lg={8} />
               <br />
               <Grid item md={4} sm={12} xs={12} lg={4}>
                 <TextField
