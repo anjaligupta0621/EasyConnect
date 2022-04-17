@@ -68,6 +68,7 @@ class Jobseeker extends React.Component{
           .then((res) => {
             // localStorage.removeItem("userID");
             // localStorage.removeItem("userName");
+            //
             this.setIsLoggedInUser(false);
             return res.json();
           })

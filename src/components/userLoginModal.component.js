@@ -62,6 +62,7 @@ onChangeEmailHandler = (event) => {
         localStorage.setItem("userID", result.Token);
         localStorage.setItem("userName", result.Candidate.Email);
         localStorage.setItem("ID",result.Candidate.UserID);
+        window.location.assign('/candidateProfile');
         console.log(localStorage.getItem("userID"));
         console.log(localStorage.getItem("ID"));
       })
