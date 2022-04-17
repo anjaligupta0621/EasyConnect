@@ -43,7 +43,7 @@ const Header = (props) => {
         .catch((error) => console.log("error", error));
       console.log(user, "---->");
     }
-  },[]);
+  }, []);
   const checkLocationActive = (curPath) => {
     const isActive = !!matchPath(
       {
@@ -169,13 +169,16 @@ const Header = (props) => {
                 }`}
               >
                 {isLoggedInLocal || checkLogin() ? (
-                  <Link to={"/jobDashBoard/"}>Post Job Description</Link>
+                  <Link to={"/jobDashBoard/"} className="post-job-anchor">
+                    Post Job Description
+                  </Link>
                 ) : (
                   <Link
                     to={""}
                     onClick={() => {
                       setShowModal(true);
                     }}
+                    className="post-job-anchor"
                   >
                     Post Job Description
                   </Link>
@@ -188,13 +191,16 @@ const Header = (props) => {
                 }`}
               >
                 {isLoggedInLocal || checkLogin() ? (
-                  <Link to="/shortListCandidate">ShortList Candidate</Link>
+                  <Link to="/shortListCandidate" className="shortlist-anchor">
+                    ShortList Candidate
+                  </Link>
                 ) : (
                   <Link
                     to={""}
                     onClick={() => {
                       setShowModal(true);
                     }}
+                    className="shortlist-anchor"
                   >
                     ShortList Candidate
                   </Link>
@@ -205,7 +211,7 @@ const Header = (props) => {
               <li>
                 {!isLoggedInLocal ? (
                   <input
-                    name=""
+                    name="login-button"
                     type="submit"
                     value="Sign In"
                     className="sign-in-bt-top"
@@ -215,7 +221,7 @@ const Header = (props) => {
                     }}
                   />
                 ) : (
-                  <Link to="/" onClick={signout}>
+                  <Link to="/" onClick={signout} className="signout-button">
                     Sign Out
                   </Link>
                 )}

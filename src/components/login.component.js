@@ -285,9 +285,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
-                                type="name"
-                                id="name"
+                                name="company-name"
+                                type="text"
+                                id="company-name"
                                 value={this.companyName}
                                 onChange={(event) =>
                                   this.onChangeCompanyNameHandler(event)
@@ -312,9 +312,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
-                                type="name"
-                                id="name"
+                                name="recruiter-name"
+                                type="text"
+                                id="recruiter-name"
                                 value={this.recruiterName}
                                 onChange={(event) =>
                                   this.onChangeRecruiterNameHandler(event)
@@ -339,9 +339,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
-                                type="name"
-                                id="name"
+                                name="corporate-website"
+                                type="text"
+                                id="corporate-website"
                                 value={this.corporateWebsite}
                                 onChange={(event) =>
                                   this.onChangeWebsiteHandler(event)
@@ -366,9 +366,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="Email"
+                                name="corporate-email"
                                 type="email"
-                                id="email"
+                                id="corporate-email"
                                 value={this.corporateEmail}
                                 onChange={(event) =>
                                   this.onChangeSignUpEmailHandler(event)
@@ -394,9 +394,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="contact-number"
                                 type="text"
-                                id="name"
+                                id="contact-number"
                                 value={this.contactNumber}
                                 onChange={(event) =>
                                   this.onChangeContactHandler(event)
@@ -421,9 +421,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="signup-password"
                                 type="password"
-                                id="password"
+                                id="signup-password"
                                 value={this.password}
                                 onChange={(event) =>
                                   this.onChangeSignUpPasswordHandler(event)
@@ -449,9 +449,9 @@ class LoginModal extends React.Component {
                               style={{ padding: "0px" }}
                             >
                               <input
-                                name="name"
+                                name="password-repeat"
                                 type="password"
-                                id="password"
+                                id="password-repeat"
                                 className="text-inputs"
                               />
                               <span id="passwordError"></span>
@@ -463,7 +463,8 @@ class LoginModal extends React.Component {
                           <button
                             type="button"
                             className="btn btn-primary next-step submit-button"
-                            id="submit"
+                            id="signup-submit"
+                            name="signup-submit"
                             onClick={(event) => this.onSignupHandler(event)}
                             data-toggle="modal"
                             data-target=".bd-example-modal-sm"
@@ -512,9 +513,9 @@ class LoginModal extends React.Component {
                 </label>
                 <div className="col-lg-12">
                   <input
-                    name="Password"
+                    name="login-password"
                     type="password"
-                    id="password"
+                    id="login-password"
                     value={this.state.password}
                     onChange={(event) => this.onChangePasswordHandler(event)}
                     className="text-input"
@@ -524,6 +525,7 @@ class LoginModal extends React.Component {
                 <div className="col-lg-12 login bg-transparent">
                   <input
                     type="submit"
+                    name="login-submit"
                     value="LOG IN"
                     onClick={(event) => this.onSignInHandler(event)}
                     className="text-input"
