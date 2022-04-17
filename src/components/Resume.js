@@ -19,6 +19,7 @@ export class Resume extends Component {
     instagram: '',
 
     // Education Information
+
     college: '',
     fromyear1: '',
     toyear1: '',
@@ -100,6 +101,7 @@ export class Resume extends Component {
       instagram,
 
       // Education Information
+
       college,
       fromyear1,
       toyear1,

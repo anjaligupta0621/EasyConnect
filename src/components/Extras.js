@@ -31,9 +31,44 @@ class Experience extends Component {
     this.props.prevStep ();
   };
 
-  createAndDownloadPDF = () => {
+  onSubmitHandler = () => {
 
     console.log(this.props.values);
+
+    const candidate_profile = {
+      firstname: this.props.values.firstname,
+      lastname: this.props.values.lastname,
+      email: this.props.values.email,
+      phone: this.props.values.phone,
+      github: this.props.values.github,
+      linkedin: this.props.values.linkedin,
+      facebook: this.props.values.facebook,
+      instagram: this.props.values.instagram,
+
+      // Education Information
+      college: this.props.values.college,
+      fromyear: this.props.values.fromyear1,
+      toyear: this.props.values.toyear1,
+      qualification: this.props.values.qualification1,
+      description: this.props.values.description1,
+
+      // Project Information...
+      title: this.props.values.title1,
+      link: this.props.values.link1,
+      projectDescription: this.props.values.projectDescription1,
+
+      // Experience Information
+      company: this.props.values.institute1,
+      position: this.props.values.position1,
+      duration: this.props.values.duration1,
+      experienceDescription: this.props.values.experienceDescription1,
+
+    // Extra Information
+      skills: [this.props.values.skill1, this.props.values.skill2, this.props.values.skill3, this.props.values.skill4, this.props.values.skill5],
+      interests: [this.props.values.interest1, this.props.values.interest2, this.props.values.interest3],
+    }
+
+    console.log(candidate_profile);
     // axios
     //   .post ('/create-pdf', this.props.values)
     //   .then (() => {
@@ -300,7 +335,7 @@ class Experience extends Component {
           <Button
             variant="contained"
             color="primary"
-            onClick={this.createAndDownloadPDF}
+            onClick={this.onSubmitHandler}
             endIcon={<GetAppIcon />}
           >
             Submit
