@@ -36,8 +36,11 @@ class Education extends Component {
 
     return (
       <Paper className={classes.padding}>
-        <Card>
-          <CardHeader title="Education Details" />
+        <Card style={{
+          backgroundColor: '#323754',
+          color: "white"
+        }}>
+          <CardHeader title="EDUCATION DETAILS" />
         </Card>
         <CardContent>
           <div className={classes.margin}>
@@ -47,7 +50,7 @@ class Education extends Component {
                   margin="dense"
                   variant="outlined"
                   name="college"
-                  label="College/Unviersity"
+                  label="College/University"
                   style={{width: '80%'}}
                   required
                   value={values.college}

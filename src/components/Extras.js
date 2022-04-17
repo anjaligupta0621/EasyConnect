@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {TextField, Button, Container, Divider} from '@material-ui/core';
+import {TextField, Button, Container, Divider, Modal, Box, Typography, List, ListItem, ListItemText } from '@material-ui/core';
+// import EmailIcon from '@mui/icons-material/Email';
+// import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import {Card, CardHeader, CardContent} from '@material-ui/core';
 import axios from 'axios';
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -21,6 +23,11 @@ const styles = theme => ({
 });
 
 class Experience extends Component {
+
+  state = {
+    showModal: false
+  }
+
   continue = e => {
     e.preventDefault ();
     this.props.nextStep ();
@@ -31,44 +38,118 @@ class Experience extends Component {
     this.props.prevStep ();
   };
 
+  showModal = () => {
+    this.setState({showModal: true});
+  }
+
+  hideModal = () => {
+    this.setState({showModal: false});
+  }
+
   onSubmitHandler = () => {
 
-    console.log(this.props.values);
+    // console.log(this.props.values);
 
     const candidate_profile = {
-      firstname: this.props.values.firstname,
-      lastname: this.props.values.lastname,
-      email: this.props.values.email,
-      phone: this.props.values.phone,
-      github: this.props.values.github,
-      linkedin: this.props.values.linkedin,
-      facebook: this.props.values.facebook,
-      instagram: this.props.values.instagram,
+      Firstname: this.props.values.firstname,
+      Lastname: this.props.values.lastname,
+      Email: this.props.values.email,
+      Phone: this.props.values.phone,
+      Github: this.props.values.github,
+      Linkedin: this.props.values.linkedin,
+      Facebook: this.props.values.facebook,
+      Instagram: this.props.values.instagram,
 
       // Education Information
-      college: this.props.values.college,
-      fromyear: this.props.values.fromyear1,
-      toyear: this.props.values.toyear1,
-      qualification: this.props.values.qualification1,
-      description: this.props.values.description1,
+      Education: [
+        {
+          College: this.props.values.college,
+          Fromyear: this.props.values.fromyear1,
+          Toyear: this.props.values.toyear1,
+          Qualification: this.props.values.qualification1,
+          Description: this.props.values.description1
+        },
+        {
+          College: this.props.values.school,
+          Fromyear: this.props.values.fromyear2,
+          Toyear: this.props.values.toyear2,
+          Qualification: this.props.values.qualification2,
+          Description: this.props.values.description2
+        }
+      ],
+      
 
       // Project Information...
-      title: this.props.values.title1,
-      link: this.props.values.link1,
-      projectDescription: this.props.values.projectDescription1,
+      Project: [
+        {
+          Title: this.props.values.title1,
+          Link: this.props.values.link1,
+          ProjectDescription: this.props.values.projectDescription1,
+        },
+        {
+          Title: this.props.values.title2,
+          Link: this.props.values.link2,
+          ProjectDescription: this.props.values.projectDescription2,
+        }
+      ],
+      
 
       // Experience Information
-      company: this.props.values.institute1,
-      position: this.props.values.position1,
-      duration: this.props.values.duration1,
-      experienceDescription: this.props.values.experienceDescription1,
-
+      Professionalexperience: [
+        {
+          Company: this.props.values.institute1,
+          Position: this.props.values.position1,
+          Duration: this.props.values.duration1,
+          ExperienceDescription: this.props.values.experienceDescription1,
+        },
+        {
+          Company: this.props.values.institute2,
+          Position: this.props.values.position2,
+          Duration: this.props.values.duration2,
+          ExperienceDescription: this.props.values.experienceDescription2,
+        }
+      ],
+      
     // Extra Information
-      skills: [this.props.values.skill1, this.props.values.skill2, this.props.values.skill3, this.props.values.skill4, this.props.values.skill5],
-      interests: [this.props.values.interest1, this.props.values.interest2, this.props.values.interest3],
+      Skills: [this.props.values.skill1, this.props.values.skill2, this.props.values.skill3, this.props.values.skill4, this.props.values.skill5],
+      Interests: [this.props.values.interest1, this.props.values.interest2, this.props.values.interest3],
     }
 
     console.log(candidate_profile);
+
+    this.hideModal();
+
+    // axios.post('http://localhost:8081/updateCandidateProfile', candidate_profile)
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+
+    var raw = JSON.stringify(candidate_profile)
+    console.log(raw);
+
+      fetch(`http://localhost:8081/updateCandidateProfile`, {
+        body: raw,
+        method: "POST",
+        mode: "cors",
+      })
+        .then((res) => {
+          return res.json()
+        })
+        .then((result) => {
+          console.log(result);
+          window.location.assign('/user')
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+
+      window.location.assign('/user');
+    };
+
+    // window.location.assign('/user');
     // axios
     //   .post ('/create-pdf', this.props.values)
     //   .then (() => {
@@ -85,16 +166,68 @@ class Experience extends Component {
     //   .catch (err => {
     //     console.log (err);
     //   });
-  };
+  
 
   render () {
     const {values} = this.props;
     const {classes} = this.props;
 
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+
     return (
       <Paper className={classes.padding}>
-        <Card>
-          <CardHeader title="Extra Details" />
+        <Modal
+        open={this.state.showModal}
+        onClose={this.hideModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography style= {{
+            backgroundColor: '#323754',
+            color: "white",
+            padding: '10px'
+          }} id="modal-modal-title" variant="h6" component="h2">
+            Please check the following details. <br/>
+            If you need to edit any of them, click on No and continue editing. <br />
+            If everything is fine, please click Yes. <br/>
+          </Typography>
+          <List sx={style} component="nav" aria-label="mailbox folders">
+          <ListItem button>
+              <ListItemText primary="First Name" secondary={this.props.values.firstname} />
+            </ListItem>
+            <Divider />
+            <ListItem button divider>
+              <ListItemText primary="Last Name" secondary={this.props.values.lastname} />
+            </ListItem> 
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Email" secondary={this.props.values.email} />
+            </ListItem>
+            <Divider />
+            <ListItem button divider>
+              <ListItemText primary="Phone Number" secondary={this.props.values.phone} />
+            </ListItem> 
+          </List>
+          <Button variant='contained' onClick={this.onSubmitHandler}>Yes</Button>
+          <Button style={{float: "right"}} variant='contained' onClick={this.hideModal}>No</Button>
+        </Box>
+      </Modal>
+        <Card style={{
+          backgroundColor: '#323754',
+          color: "white"
+        }}>
+          <CardHeader title="EXTRA DETAILS" />
         </Card>
         <CardContent>
           <div className={classes.margin}>
@@ -111,7 +244,7 @@ class Experience extends Component {
                   <span className="pl-3">Skills/Languages</span>
                 </h5>
               </Grid>
-              <Grid item xs={0} lg={8} />
+              <Grid item xs="false" lg={8} />
               <br />
               <Grid item md={4} sm={12} xs={12} lg={4}>
                 <TextField
@@ -335,7 +468,7 @@ class Experience extends Component {
           <Button
             variant="contained"
             color="primary"
-            onClick={this.onSubmitHandler}
+            onClick={this.showModal}
             endIcon={<GetAppIcon />}
           >
             Submit

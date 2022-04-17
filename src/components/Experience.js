@@ -59,8 +59,11 @@ class Experience extends Component {
 
     return (
       <Paper className={classes.padding}>
-        <Card>
-          <CardHeader title="Experience Details" />
+        <Card style={{
+          backgroundColor: '#323754',
+          color: "white"
+        }}>
+          <CardHeader title="EXPERIENCE DETAILS" />
         </Card>
         <CardContent>
           <div className={classes.margin}>
