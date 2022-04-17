@@ -35,8 +35,11 @@ class CandidateProfile extends Component {
     const {classes} = this.props;
     return (
       <Paper className={classes.padding}>
-        <Card>
-          <CardHeader title="Personal Details" />
+        <Card style={{
+          backgroundColor: '#323754',
+          color: "white"
+        }}>
+          <CardHeader title="PERSONAL DETAILS" />
         </Card>
         <CardContent>
           <div className={classes.margin}>

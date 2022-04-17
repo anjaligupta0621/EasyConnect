@@ -106,6 +106,7 @@ class UserLoginModal extends React.Component {
         localStorage.setItem("token", result.Candidate.Token);
         localStorage.setItem("candidateId", result.Candidate.UserID);
         localStorage.setItem("userName", result.Candidate.Email);
+        window.location.assign('/candidateProfile');
       })
       .catch((e) => {
         console.log(e);
