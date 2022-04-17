@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a657d33e.css",
+    "main.js": "/static/js/main.2fe75090.js",
+    "static/js/787.484afd3f.chunk.js": "/static/js/787.484afd3f.chunk.js",
+    "static/media/banner-main-img.png": "/static/media/banner-main-img.770b35f9d26e970fd1a3.png",
+    "static/media/carousel3.png": "/static/media/carousel3.f868efafa1de19a1fb63.png",
+    "static/media/logo-large.png": "/static/media/logo-large.c525e491030182641ad5.png",
+    "static/media/logo-2-seek.svg": "/static/media/logo-2-seek.a009fe07e8153b719ed9.svg",
+    "static/media/logo-2.svg": "/static/media/logo-2.e9f8969f2ac5fb0be0db.svg",
+    "index.html": "/index.html",
+    "static/media/add-job-btn.svg": "/static/media/add-job-btn.08ae1cbf9b194f13834004a6f1a4fddf.svg",
+    "static/media/candidate-no-img.svg": "/static/media/candidate-no-img.1dab54b790361ed51320511d5c689bef.svg",
+    "main.a657d33e.css.map": "/static/css/main.a657d33e.css.map",
+    "main.2fe75090.js.map": "/static/js/main.2fe75090.js.map",
+    "787.484afd3f.chunk.js.map": "/static/js/787.484afd3f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a657d33e.css",
+    "static/js/main.2fe75090.js"
+  ]
+}

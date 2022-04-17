@@ -39,6 +39,10 @@ func HandleRequests() {
 
 	rtr.HandleFunc("/getCandidatesByRole", handler.GetCandidatesFromRoleType).Methods("POST")
 	rtr.HandleFunc("/getCurrentRecruiter", handler.GetCurrentUser).Methods("POST")
+	/*
+	   Serve the contents of the build directory that was produced as a part of `npm run build` on the root `/`
+	*/
+	http.Handle("/", http.FileServer(http.Dir("./build")))
 
 	log.Fatal(http.ListenAndServe(":8081", rtr))
 }

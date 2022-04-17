@@ -32,22 +32,24 @@ class Experience extends Component {
   };
 
   createAndDownloadPDF = () => {
-    axios
-      .post ('/create-pdf', this.props.values)
-      .then (() => {
-        axios
-          .get ('fetch-pdf', {responseType: 'arraybuffer'})
-          .then (res => {
-            const pdfBlob = new Blob ([res.data], {type: 'application/pdf'});
-            saveAs (pdfBlob, `${this.props.values.firstname}'s Resume.pdf`);
-          })
-          .catch (err => {
-            console.log (err);
-          });
-      })
-      .catch (err => {
-        console.log (err);
-      });
+
+    console.log(this.props.values);
+    // axios
+    //   .post ('/create-pdf', this.props.values)
+    //   .then (() => {
+    //     axios
+    //       .get ('fetch-pdf', {responseType: 'arraybuffer'})
+    //       .then (res => {
+    //         const pdfBlob = new Blob ([res.data], {type: 'application/pdf'});
+    //         saveAs (pdfBlob, `${this.props.values.firstname}'s Resume.pdf`);
+    //       })
+    //       .catch (err => {
+    //         console.log (err);
+    //       });
+    //   })
+    //   .catch (err => {
+    //     console.log (err);
+    //   });
   };
 
   render () {
@@ -301,7 +303,7 @@ class Experience extends Component {
             onClick={this.createAndDownloadPDF}
             endIcon={<GetAppIcon />}
           >
-            Download Resume
+            Submit
           </Button>
         </Container>
         <p className="text-center text-muted">Page 5</p>
