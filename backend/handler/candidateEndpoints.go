@@ -121,3 +121,48 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
 }
+
+// Candidate Profile Update APi Handler
+func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
+	//Setting up cors
+	w.Header().Set("Content-Type", "application/json")
+	setupCorsResponse(&w, r)
+	// Opening DB
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+
+	var profile models.Candidateprofile
+
+	err2 := decoder.Decode(&profile)
+
+	if err2 != nil {
+		panic(err2)
+	}
+	var candidate models.Candidate
+	db.Table("candidates").Where("email = ?", profile.Email).Find(&candidate)
+
+	if candidate.Email == "" {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		return
+	}
+	// fmt.Print(username)
+	result := db.Create(&models.Candidateprofile{Firstname: profile.Firstname, Lastname: profile.Lastname, Email: profile.Email, Phone: profile.Phone, Github: profile.Github, Linkedin: profile.Linkedin, Facebook: profile.Facebook, Instagram: profile.Instagram, Education: profile.Education, Project: profile.Project, Professionalexperience: profile.Professionalexperience, Skills: profile.Skills, Interests: profile.Interests})
+	// Checking for error
+	fmt.Println("Error:--->", result.Error)
+	if result.Error != nil {
+		// fmt.Println(result)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	// Creating JWT Token
+	db.Table("candidateprofiles").Where("email = ?", profile.Email).Find(&profile)
+
+	json.NewEncoder(w).Encode(profile)
+	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
+}
