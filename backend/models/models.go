@@ -92,11 +92,11 @@ type Candidateprofile struct {
 	Firstname string `gorm:"Not null"`
 	Lastname  string `gorm:"Not null"`
 	Email     string `gorm:"primary_key; Not null"`
-	Phone     string `gorm:"Not null"`
-	Github    string `gorm:"Not null"`
-	Linkedin  string `gorm:"Not null"`
-	Facebook  string `gorm:"Not null"`
-	Instagram string `gorm:"Not null"`
+	Phone     string `gorm:"unique; Not null"`
+	Github    string `gorm:""`
+	Linkedin  string `gorm:""`
+	Facebook  string `gorm:""`
+	Instagram string `gorm:""`
 	// Education
 	Education []College
 	// Project
@@ -108,10 +108,11 @@ type Candidateprofile struct {
 	Interests pq.StringArray `gorm:"type:text[]"`
 }
 type College struct {
-	College     string
-	Fromyear    string
-	Toyear      string
-	Description string
+	College       string
+	Fromyear      string
+	Toyear        string
+	Qualification string
+	Description   string
 }
 type Project struct {
 	Title              string
