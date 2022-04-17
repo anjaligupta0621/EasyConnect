@@ -130,21 +130,21 @@ class Experience extends Component {
     var raw = JSON.stringify(candidate_profile)
     console.log(raw);
 
-      // fetch(`http://localhost:8081/updateCandidateProfile`, {
-      //   body: raw,
-      //   method: "POST",
-      //   mode: "cors",
-      // })
-      //   .then((res) => {
-      //     return res.json()
-      //   })
-      //   .then((result) => {
-      //     console.log(result)
-      //     window.location.assign('/user')
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
+      fetch(`http://localhost:8081/updateCandidateProfile`, {
+        body: raw,
+        method: "POST",
+        mode: "cors",
+      })
+        .then((res) => {
+          return res.json()
+        })
+        .then((result) => {
+          console.log(result);
+          window.location.assign('/user')
+        })
+        .catch((e) => {
+          console.log(e);
+        });
 
       window.location.assign('/user');
     };
