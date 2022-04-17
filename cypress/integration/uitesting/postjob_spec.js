@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
 describe("PostJob page", () => {
-  const username = "ajeet1@gmail.com";
-  const password = "676767";
+  const username = "sola@sola.com";
+  const password = "123456";
   const orgName = "Google.com";
   const website = "http://www.google.com";
   const description =
