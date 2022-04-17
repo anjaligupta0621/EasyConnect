@@ -1,7 +1,6 @@
 # EasyConnect
 
-We are developing a web application named 'EasyConnect' which will act as a bridge between recruiters and job seekers.
-The platform will allow recruiters to post different jobs, and shortlist candidates based on various criterias. On the other hand, the job seekers will be able to view different jobs based on their search, apply to the jobs they find relevant, and they will also be able to learn new skills.
+We are devising a web application designated as 'EasyConnect' which will act as a bridge between recruiters and job seekers. The podium will permit recruiters to post diverse jobs and shortlist contenders based on diverse benchmarks. On the other hand, the job seekers will be able to view different jobs based on their search, apply to the jobs they find appropriate, and they will also be able to learn new skills.
 
 ### Table of Contents
 
@@ -29,8 +28,8 @@ The platform will allow recruiters to post different jobs, and shortlist candida
   * Databse - SQLite 3
  
 ## Setup and Install
-  * FrontEnd: Install NodeJS, React Router DOM 
-  * Backend: Install Golang, SQlite 3
+  * FrontEnd: Install NodeJS, NPM, React, and React Router DOM 
+  * Backend: Install and Setup Golang, SQlite 3[Mac comes with sqlite3 by default]
 
 ## Testing
   * Frontend and Backend Unit Testing.
