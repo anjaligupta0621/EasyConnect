@@ -133,7 +133,12 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 		panic("failed to connect database")
 	}
 	defer db.Close()
-
+	// // Getting Token From Request
+	// reqToken := r.Header.Get("Authorization")
+	// splitToken := strings.Split(reqToken, "Bearer ")
+	// reqToken = splitToken[1]
+	// fmt.Println(reqToken)
+	// // Decoding Body
 	decoder := json.NewDecoder(r.Body)
 
 	var profile models.Candidateprofile

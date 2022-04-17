@@ -114,11 +114,9 @@ class LoginModal extends React.Component {
         this.setState({ showLoginError: false });
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
-        localStorage.setItem("recruiterID", result.Token);
-        localStorage.setItem("ID", result.Recruiter.ID);
+        localStorage.setItem("token", result.Token);
+        localStorage.setItem("recruiterId", result.Recruiter.ID);
         localStorage.setItem("userName", result.Recruiter.Email);
-        console.log(localStorage.getItem("recruiterID"));
-        console.log(localStorage.getItem("ID"));
       })
       .catch((e) => {
         this.setState({ showLoginError: true });
@@ -206,7 +204,8 @@ class LoginModal extends React.Component {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         global.isLoggedIn = true;
-        localStorage.setItem("recruiterID", result.Token);
+        localStorage.setItem("token", result.Token);
+        localStorage.setItem("recruiterId", result.Recruiter.ID);
         localStorage.setItem("userName", result.Recruiter.Email);
       })
       .catch((e) => {

@@ -9,16 +9,16 @@ class UserLoginModal extends React.Component {
   state = {
     showSignUp: false,
     name: "",
-    email:"",
-    password:"",
-    contactNumber: '',
+    email: "",
+    password: "",
+    contactNumber: "",
     signUpPassword: "",
-    isLoggedIn: false
-}
+    isLoggedIn: false,
+  };
 
-onChangeEmailHandler = (event) => {
-    this.setState({email: event.target.value});
-}
+  onChangeEmailHandler = (event) => {
+    this.setState({ email: event.target.value });
+  };
 
   onChangeEmailHandler = (event) => {
     this.setState({ email: event.target.value });
@@ -59,12 +59,10 @@ onChangeEmailHandler = (event) => {
         console.log("Result");
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
-        localStorage.setItem("userID", result.Token);
+        localStorage.setItem("token", result.Token);
+        localStorage.setItem("candidateId", result.Candidate.UserID);
         localStorage.setItem("userName", result.Candidate.Email);
-        localStorage.setItem("ID",result.Candidate.UserID);
-        window.location.assign('/candidateProfile');
-        console.log(localStorage.getItem("userID"));
-        console.log(localStorage.getItem("ID"));
+        window.location.assign("/candidateProfile");
       })
       .catch((e) => {
         console.log(e);
@@ -79,7 +77,7 @@ onChangeEmailHandler = (event) => {
       Email: this.state.email,
       Password: this.state.signUpPassword,
       Contact: this.state.contactNumber,
-      JobsApplied: 0
+      JobsApplied: 0,
     };
     //console.log(JSON.stringify(user));
     debugger;
@@ -89,12 +87,12 @@ onChangeEmailHandler = (event) => {
       mode: "cors",
     })
       .then((res) => {
-          //debugger;
+        //debugger;
         console.log("User Added Succesfully");
         return res.json();
       })
       .then((result) => {
-          //debugger;
+        //debugger;
         this.setState({
           email: user.Email,
           password: user.Password,
@@ -105,9 +103,9 @@ onChangeEmailHandler = (event) => {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         //global.isLoggedIn = true;
-        localStorage.setItem("userID", result.Candidate.Token);
+        localStorage.setItem("token", result.Candidate.Token);
+        localStorage.setItem("candidateId", result.Candidate.UserID);
         localStorage.setItem("userName", result.Candidate.Email);
-        //localStorage.setItem("userName", result.Recruiter.Email);
       })
       .catch((e) => {
         console.log(e);

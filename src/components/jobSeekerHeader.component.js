@@ -14,7 +14,7 @@ const Header = (props) => {
   const [showUserModal, setShowUserModal] = useState(false);
 
   const checkLogin = () => {
-    if (localStorage.getItem("userID", null) !== null) {
+    if (localStorage.getItem("token", null) !== null) {
       setIsLoggedInUser(true);
       return true;
     }
@@ -27,7 +27,7 @@ const Header = (props) => {
 
   const signout = () => {
     const reqHeader = {
-      Token: localStorage.getItem("userID"),
+      Token: localStorage.getItem("token"),
       UserName: localStorage.getItem("userName"),
     };
     return fetch(`http://localhost:8081/logout`, {
@@ -36,8 +36,10 @@ const Header = (props) => {
       mode: "cors",
     })
       .then((res) => {
-        localStorage.removeItem("userID");
-        localStorage.removeItem("userName");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("candidateId");
+        // localStorage.removeItem("userName");
+        localStorage.clear();
         setIsLoggedInUser(false);
         this.props.setIsLoggedIn(false);
         global.isLoggedIn = false;
@@ -47,8 +49,10 @@ const Header = (props) => {
         this.props.setIsLoggedIn(false);
         global.isLoggedIn = false;
         setIsLoggedInUser(false);
-        localStorage.removeItem("userID");
-        localStorage.removeItem("userName");
+        // localStorage.removeItem("token");
+        // localStorage.removeItem("candidateId");
+        // localStorage.removeItem("userName");
+        localStorage.clear();
 
         console.log(result);
       })
