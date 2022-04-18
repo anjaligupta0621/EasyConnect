@@ -268,3 +268,43 @@ func GetCandidatesFromRoleType(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidates").Where("user_id IN (?)", candIDs).Find(&candidates)
 	json.NewEncoder(w).Encode(candidates)
 }
+func GetAppliedJobs(w http.ResponseWriter, r *http.Request) {
+	setupCorsResponse(&w, r)
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+	var user models.Usertoken
+	err2 := decoder.Decode(&user)
+	if err2 != nil {
+		panic(err2)
+	}
+
+	type AppliedJobs struct {
+		JobJobID        uint
+		CandidateUserId uint
+	}
+	var candidates models.Candidate
+	var jobs []AppliedJobs
+	var appliedJobs []models.Job
+	db.Table("candidates").Where("email = ?", user.Email).Find(&candidates)
+	db.Table("candidates_jobs").Where("candidate_user_id = ?", candidates.UserID).Find(&jobs)
+
+	for i := 1; i < len(jobs); i++ {
+		var appliedJobs_ []models.Job
+		db.Table("jobs").Where("job_id = ?", jobs[i].JobJobID).Find(&appliedJobs_)
+		appliedJobs = append(appliedJobs, appliedJobs_...)
+	}
+	type Result struct {
+		Candidate models.Candidate
+		Jobs      []models.Job
+	}
+	var result Result
+	result.Candidate = candidates
+	result.Jobs = appliedJobs
+
+	json.NewEncoder(w).Encode(appliedJobs)
+}
