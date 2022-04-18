@@ -71,6 +71,10 @@ type Rec struct {
 	Recruiter_ID uint
 }
 
+type JobID struct {
+	Job_ID uint
+}
+
 // Job model with gorm mapping
 type Candidate struct {
 	UserID      uint   `gorm:"primary_key; AUTO_ Increment "`
