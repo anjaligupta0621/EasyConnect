@@ -11,9 +11,9 @@
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
-}
-
-.login-modal-user .login input {
+  }
+  
+  .login-modal-user .login input {
     color: #fff !important;
     font-size: 16px;
     text-transform: uppercase;
@@ -21,4 +21,17 @@
     letter-spacing: 2px;
     background-color: #00bcd4;
     border: none;
-}
+  }
+  .main-job-seeker-container .nav-tabs>li>a {
+    color: #000!important;
+  }
+  /* .main-job-seeker-container .nav-tabs>li:hover>a {
+      color: #fff!important;
+    } */
+
+ .main-job-seeker-container .nav-tabs .active {
+    background-color: #269abc !important;
+ }
+ .main-job-seeker-container .nav-tabs>li:hover>a {
+    background-color: #269abc !important;
+ }

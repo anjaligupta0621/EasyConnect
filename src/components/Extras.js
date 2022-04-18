@@ -140,13 +140,12 @@ class Experience extends Component {
         })
         .then((result) => {
           console.log(result);
-          window.location.assign('/user')
+          window.location.assign('/viewCandidate')
         })
         .catch((e) => {
           console.log(e);
         });
 
-      window.location.assign('/user');
     };
 
     // window.location.assign('/user');

@@ -22,6 +22,7 @@ class Jobseeker extends React.Component {
     clickedJob: null,
     isLoggedIn: global.isLoggedIn,
     jobIsApplied: [],
+    appliedJobs: [],
   };
 
   componentDidMount() {
@@ -38,8 +39,28 @@ class Jobseeker extends React.Component {
         console.log(this.state.jobs);
       })
       .catch((err) => console.log(err));
+    this.getAppliedjobs();
   }
 
+  getAppliedjobs = () => {
+    const user = {
+      Email: localStorage.getItem("userName"),
+      Token: localStorage.getItem("token"),
+    };
+    fetch("http://localhost:8081/getAppliedJobs", {
+      body: JSON.stringify(user),
+      method: "POST",
+      mode: "cors",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((res) => {
+        this.setState({ appliedJobs: res });
+        console.log("----> Response", res);
+      })
+      .catch((err) => console.log(err));
+  };
   hideLoginDialog = () => {
     this.setState({
       showModal: false,
@@ -96,7 +117,7 @@ class Jobseeker extends React.Component {
 
     const user = {
       JobJobID: clickedId,
-      CandidateUserID: parseInt(localStorage.getItem("ID")),
+      CandidateUserID: parseInt(localStorage.getItem("candidateId")),
     };
 
     console.log("inside isLoggedIn");
@@ -149,6 +170,7 @@ class Jobseeker extends React.Component {
     const paginate = (pageNumber) => {
       this.setState({ currentPage: pageNumber });
     };
+    const { appliedJobs } = this.state;
 
     return (
       <div className="body-outer jobseeker-main">
@@ -312,48 +334,120 @@ class Jobseeker extends React.Component {
                       </div>
 
                       <div className="clearfix"></div>
-                      <div className="right-body-main-container">
-                        <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
-                          <div className="clearfix"></div>
-                          <div className="showing">
-                            {" "}
-                            Show: <b>all jobs</b>
-                          </div>
-                          {currentJobs
-                            .sort((a, b) => b[1].JobID - a[1].JobID)
-                            .map((item) => (
-                              <div className="jobs" key={item[1].JobID}>
-                                <a target="_blank" className="job_title">
-                                  {item[1].Role_Name} <span>new</span>
-                                </a>
-                                <Button
-                                  onClick={() => this.applyJob(item[1].JobID)}
-                                  disabled={item[2]}
-                                  style={{ float: "right" }}
-                                >
-                                  {item[2] ? "Applied" : "Easy Apply"}
-                                </Button>
-                                <p className="companyname">
+                      <div className="container-fluid main-job-seeker-container">
+                        <ul className="nav nav-tabs">
+                          <li className="active">
+                            <a data-toggle="pill" href="#all-applicants">
+                              All Jobs
+                            </a>
+                          </li>
+                          <li>
+                            <a data-toggle="pill" href="#shortlist">
+                              Applied Jobs
+                            </a>
+                          </li>
+                        </ul>
+                        <div className="tab-content">
+                          <div
+                            id="all-applicants"
+                            className="tab-pane fade in active"
+                          >
+                            <div className="right-body-main-container">
+                              <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
+                                <div className="clearfix"></div>
+                                <div className="showing">
                                   {" "}
-                                  Amazon - <span className="where">USA</span>
-                                </p>
-                                <p>
-                                  {" "}
-                                  <i className="fa fa-dollar"></i>{" "}
-                                  {item[1].Salary_Start} &ndash;{" "}
-                                  <i className="fa fa-dollar"></i>{" "}
-                                  {item[1].Salary_End} per hour{" "}
-                                </p>
-                                <p className="summary">
-                                  {item[1].Responsibilities}
-                                </p>
+                                  Show: <b>all jobs</b>
+                                </div>
+                                {currentJobs
+                                  .sort((a, b) => b[1].JobID - a[1].JobID)
+                                  .map((item) => (
+                                    <div className="jobs" key={item[1].JobID}>
+                                      <a target="_blank" className="job_title">
+                                        {item[1].Role_Name} <span>new</span>
+                                      </a>
+                                      <Button
+                                        onClick={() =>
+                                          this.applyJob(item[1].JobID)
+                                        }
+                                        disabled={item[2]}
+                                        style={{ float: "right" }}
+                                      >
+                                        {item[2] ? "Applied" : "Easy Apply"}
+                                      </Button>
+                                      <p className="companyname">
+                                        {" "}
+                                        Amazon -{" "}
+                                        <span className="where">USA</span>
+                                      </p>
+                                      <p>
+                                        {" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        {item[1].Salary_Start} &ndash;{" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        {item[1].Salary_End} per hour{" "}
+                                      </p>
+                                      <p className="summary">
+                                        {item[1].Responsibilities}
+                                      </p>
+                                    </div>
+                                  ))}
+                                <Pagination
+                                  jobsPerPage={this.state.jobsPerPage}
+                                  totalJobs={this.state.jobs.length}
+                                  paginate={paginate}
+                                />
                               </div>
-                            ))}
-                          <Pagination
-                            jobsPerPage={this.state.jobsPerPage}
-                            totalJobs={this.state.jobs.length}
-                            paginate={paginate}
-                          />
+                            </div>
+                            <div className="clearfix"></div>
+                          </div>
+                          <div id="shortlist" className="tab-pane">
+                            <div className="right-body-main-container">
+                              <div className="col-lg-9 col-md-9 col-sm-9 col-xs-12 xs_padding">
+                                <div className="clearfix"></div>
+                                <div className="showing">
+                                  {" "}
+                                  Show: <b>all job</b>
+                                </div>
+                                {appliedJobs
+                                  ?.sort((a, b) => b[1]?.JobID - a[1]?.JobID)
+                                  .map((item, index) => (
+                                    <div className="jobs" key={index}>
+                                      <a target="_blank" className="job_title">
+                                        {item?.Role_Name} <span>new</span>
+                                      </a>
+                                      <Button
+                                        disabled
+                                        style={{ float: "right" }}
+                                      >
+                                        Applied
+                                      </Button>
+                                      <p className="companyname">
+                                        {" "}
+                                        Amazon -{" "}
+                                        <span className="where">USA</span>
+                                      </p>
+                                      <p>
+                                        {" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        {item?.Salary_Start} &ndash;{" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        {item?.Salary_End} per hour{" "}
+                                      </p>
+                                      <p className="summary">
+                                        {item?.Responsibilities}
+                                      </p>
+                                    </div>
+                                  ))}
+                                <Pagination
+                                  jobsPerPage={this.state.jobsPerPage}
+                                  totalJobs={this.state.jobs.length}
+                                  paginate={paginate}
+                                />
+                              </div>
+                            </div>
+                            <div className="clearfix"></div>
+                          </div>
                         </div>
                       </div>
                     </div>
