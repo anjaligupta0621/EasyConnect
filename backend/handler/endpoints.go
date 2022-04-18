@@ -49,8 +49,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	// }
 	//Checking if request has empty login info
 	if login.Email == "" || login.Password == "" || err2 != nil {
-		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Wrong Credentials"))
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
@@ -62,8 +62,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	// Checking if user exists
 	if recruiter_.Email == "" {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 	//Comparing password from salt
@@ -71,8 +71,8 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 	//Sending response based on password status
 	if !err3 {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"Wrong Password!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	} else {
 		// Creating JWT Token and setting it up as cookies
@@ -210,8 +210,8 @@ func LogOut(w http.ResponseWriter, r *http.Request) {
 	err1 := decoder.Decode(&user)
 
 	if err1 != nil {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("Bad Auth Error\n"))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 	// API Authorization
@@ -276,8 +276,8 @@ func GetCurrentUser(w http.ResponseWriter, r *http.Request) {
 
 	// Checking if user exists
 	if recruiter_.Email == "" {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 

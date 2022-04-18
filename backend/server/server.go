@@ -44,6 +44,8 @@ func HandleRequests() {
 	rtr.HandleFunc("/updateCandidateProfile", handler.CandidateProfileUpdate).Methods("POST")
 	// Get applied jobs
 	rtr.HandleFunc("/getAppliedJobs", handler.GetAppliedJobs).Methods("POST")
+	// Get Candidate Profile API
+	rtr.HandleFunc("/getCandidateProfile", handler.GetCandidateProfile).Methods("POST")
 
 	/*
 	   Serve the contents of the build directory that was produced as a part of `npm run build` on the root `/`

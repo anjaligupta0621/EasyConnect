@@ -175,8 +175,8 @@ func IsAuthorized(user models.TokenManager, w http.ResponseWriter, r *http.Reque
 
 	// Checking if user exists
 	if authUser.Email == "" {
-		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte(`{message:"Session Does Not Exists!"}`))
+		// w.WriteHeader(http.StatusUnauthorized)
+		// w.Write([]byte(`{message:"Session Does Not Exists!"}`))
 		return false
 	}
 	//Matching db token from frontend token
