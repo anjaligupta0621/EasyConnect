@@ -19,6 +19,7 @@ func Router2() *mux.Router {
 	router.HandleFunc("/getJobById", handler.PutUserData).Methods("POST")
 	router.HandleFunc("/getCandidatesByRecruiterId", handler.GetCandidatesFromRecruiterID).Methods("POST")
 	router.HandleFunc("/getCandidatesByJobId", handler.GetCandidatesFromJobID).Methods("POST")
+	router.HandleFunc("/getCandidatesByRole", handler.GetCandidatesFromRoleType).Methods("POST")
 	return router
 }
 
@@ -66,6 +67,15 @@ func TestGetCandidatesFromJobID(t *testing.T) {
 	jobID := &models.JobID{Job_ID: 2}
 	jsonPayload, _ := json.Marshal(jobID)
 	request, _ := http.NewRequest("POST", "/getCandidatesByJobId", bytes.NewBuffer(jsonPayload))
+	response := httptest.NewRecorder()
+	Router2().ServeHTTP(response, request)
+	assert.Equal(t, 200, response.Code, "OK response is expected")
+}
+
+func TestGetCandidatesFromRoleType(t *testing.T) {
+	roletype := &models.Roletype{Role_Type: "SDE"}
+	jsonPayload, _ := json.Marshal(roletype)
+	request, _ := http.NewRequest("POST", "/getCandidatesByRole", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router2().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
