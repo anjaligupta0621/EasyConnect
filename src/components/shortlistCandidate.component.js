@@ -228,6 +228,11 @@ class ShortlistCandidate extends React.Component {
                       </div>
                       <div class="clearfix"></div>
                     </div>
+                    <div id="shortlist" class="tab-pane fade">
+								
+								Shortlisted (30)								
+								
+					</div>
                   </div>
                 </div>
               </div>
