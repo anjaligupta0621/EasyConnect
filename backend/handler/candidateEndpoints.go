@@ -29,23 +29,23 @@ func GetCandidate(w http.ResponseWriter, r *http.Request) {
 		panic(err2)
 	}
 	if login.Email == "" || login.Password == "" || err2 != nil {
-		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Wrong Credentials"))
+		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	var candidate_ models.Candidate
 	db.Table("candidates").Where("email = ?", login.Email).Find(&candidate_)
 
 	if candidate_.Email == "" {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 	err3 := utils.CheckPasswordHash(login.Password, candidate_.Password)
 
 	if !err3 {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"Wrong Password!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	} else {
 		// Creating JWT Token and setting it up as cookies
@@ -152,8 +152,8 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidates").Where("email = ?", profile.Email).Find(&candidate)
 
 	if candidate.Email == "" {
-		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
 	// fmt.Print(username)
@@ -169,5 +169,59 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 	db.Table("candidateprofiles").Where("email = ?", profile.Email).Find(&profile)
 
 	json.NewEncoder(w).Encode(profile)
+	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
+}
+
+// Candidate Profile Update APi Handler
+func GetCandidateProfile(w http.ResponseWriter, r *http.Request) {
+	//Setting up cors
+	w.Header().Set("Content-Type", "application/json")
+	setupCorsResponse(&w, r)
+	// Opening DB
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	decoder := json.NewDecoder(r.Body)
+
+	var profile models.TokenManager
+
+	err2 := decoder.Decode(&profile)
+
+	if err2 != nil {
+		panic(err2)
+	}
+
+	var candidate models.Candidate
+
+	db.Table("candidates").Where("email = ?", profile.UserName).Find(&candidate)
+
+	if candidate.Email == "" {
+		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	utils.JWTTokenCheck(profile.Token, w)
+
+	if !utils.IsAuthorized(profile, w, r) {
+		w.Write([]byte(`{message:"Session Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	var candidateProfile models.Candidateprofile
+	// fmt.Print(username)
+	db.Table("candidateprofiles").Where("email = ?", candidate.Email).Find(&candidateProfile)
+
+	// Checking for error
+	if candidateProfile.Email == "" {
+		w.Write([]byte(`{message:"User Does Not Exists!"}`))
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+	// Creating JWT Token
+	json.NewEncoder(w).Encode(candidateProfile)
 	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
 }
