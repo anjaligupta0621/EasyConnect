@@ -127,12 +127,12 @@ const Header = (props) => {
             </div>
           </div>
         </div>
-        <div className={`user-avatar-box ${!user ? "hidebox" : ""}`}>
+        {isLoggedInLocal && <div className="user-avatar-box">
           <span className="user-avatar"></span>
-          <span className="user-name">
+           <span className="user-name">
             Welcome: {user ? user.Name : "Guest User"}
           </span>
-        </div>
+        </div>}
       </div>
       <nav className="navbar navbar-inverse">
         <div className="container-fluid">
