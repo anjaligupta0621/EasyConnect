@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Box, Card, Grid, Paper, CardHeader, List, ListItem, Divider} from "@material-ui/core";
+import JobSeekerHeader from "./jobSeekerHeader.component";
 // import ListItemButton from '@mui/material';
 
 class ViewCandidate extends React.Component {
@@ -68,6 +69,7 @@ class ViewCandidate extends React.Component {
                 "Artificial Intelligence"
             ]
         },
+        cand: {},
         open: false
     }
 
@@ -75,14 +77,41 @@ class ViewCandidate extends React.Component {
         this.setState({open: !this.state.open})
     }
 
+    componentDidMount = () => {
+        var raw = JSON.stringify({
+            userName: localStorage.getItem('userName'),
+            token: localStorage.getItem('token')
+        })
+        console.log(raw);
+    
+          fetch(`http://localhost:8081/getCandidateProfile`, {
+            body: raw,
+            method: "POST",
+            mode: "cors",
+          })
+            .then((res) => {
+              return res.json()
+            })
+            .then((result) => {
+              this.setState({cand: result})
+              console.log(this.state.cand)
+            //   window.location.assign('/viewCandidate')
+            })
+            .catch((e) => {
+              console.log(e)
+            });
+    }
 
     render() {
 
         return (
+            <div className="body-outer jobseeker-main">
+            <JobSeekerHeader />
             <Container>
                 <Card style={{
-                    backgroundColor: '#323754',
-                    color: "white"
+                    backgroundColor: '#00bcd4',
+                    color: "white",
+                    marginTop: "10px"
                     }}>
                     <CardHeader style={{textAlign: "center"}} title="PERSONAL DETAILS" />
                 </Card>
@@ -90,7 +119,7 @@ class ViewCandidate extends React.Component {
                     <List>
                         <ListItem>
                             <Box>
-                                Name: <span style={{fontWeight: "bold"}}>{this.state.candidate.Firstname}  {this.state.candidate.Lastname}</span>
+                                Name: <span style={{fontWeight: "bold"}}>{this.state.cand.Firstname}  {this.state.cand.Lastname}</span>
                             </Box>
                         </ListItem>
                         <ListItem>
@@ -126,7 +155,7 @@ class ViewCandidate extends React.Component {
                     </List>
                 </Card>
                 <Card style={{
-                    backgroundColor: '#323754',
+                    backgroundColor: '#00bcd4',
                     color: "white"
                     }}>
                     <CardHeader style={{textAlign: "center"}} title="EDUCATION DETAILS" />
@@ -165,7 +194,7 @@ class ViewCandidate extends React.Component {
                         )}
                 </Card>
                 <Card style={{
-                    backgroundColor: '#323754',
+                    backgroundColor: '#00bcd4',
                     color: "white"
                     }}>
                     <CardHeader style={{textAlign: "center"}} title="PROJECTS DEVELOPED" />
@@ -194,7 +223,7 @@ class ViewCandidate extends React.Component {
                         )}
                 </Card>
                 <Card style={{
-                    backgroundColor: '#323754',
+                    backgroundColor: '#00bcd4',
                     color: "white"
                     }}>
                     <CardHeader style={{textAlign: "center"}} title=" PROFESSIONAL EXPERIENCE" />
@@ -228,7 +257,7 @@ class ViewCandidate extends React.Component {
                         )}
                 </Card>
                 <Card style={{
-                    backgroundColor: '#323754',
+                    backgroundColor: '#00bcd4',
                     color: "white"
                     }}>
                     <CardHeader style={{textAlign: "center"}} title="SKILLS AND INTERESTS" />
@@ -270,6 +299,8 @@ class ViewCandidate extends React.Component {
                 </Box>
 
             </Container>
+            </div>
+
         )
     }
 }

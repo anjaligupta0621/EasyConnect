@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { matchPath, useLocation } from "react-router";
 import "./jobSeekerHeader.component.css";
 import UserLoginModal from "./userLoginModal.component";
 
@@ -10,6 +10,7 @@ import jobseekerLogo from "../img/jobseeker.png";
 
 const Header = (props) => {
   let navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedInUser, setIsLoggedInUser] = useState(false);
   const [showUserModal, setShowUserModal] = useState(false);
 
@@ -60,6 +61,19 @@ const Header = (props) => {
         global.isLoggedIn = false;
       });
   };
+
+  const checkLocationActive = (curPath) => {
+    const isActive = !!matchPath(
+      {
+        path: curPath,
+        exact: true,
+        strict: true,
+      },
+      location.pathname
+    );
+    return isActive;
+  };
+
 
   return (
     <header>
@@ -112,9 +126,26 @@ const Header = (props) => {
 
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav">
-              <li className="active">
+              <li className={`${checkLocationActive("/user") ? "active" : ""}`}>
                 <Link to="/user">Home</Link>
               </li>
+              <li className={`${checkLocationActive("viewCandidate/") ? "active" : ""}`}>
+                {isLoggedInUser || checkLogin() ? (
+                  <Link to={"/viewCandidate/"}>
+                    Profile
+                  </Link>
+                ) : (
+                  <Link
+                    to={""}
+                    onClick={() => {
+                      setShowUserModal(true);
+                    }}
+                  >
+                    Profile
+                  </Link>
+                )}
+              </li>
+              
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li>

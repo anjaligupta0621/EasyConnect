@@ -295,7 +295,7 @@ class Jobseeker extends React.Component {
                             />
                             <div className="header-text">
                               <div className="col-md-12 text-left">
-                                <span className="comm_span_c">Take ourr</span>
+                                <span className="comm_span_c">Take our</span>
 
                                 <h3>
                                   <span>
@@ -407,7 +407,7 @@ class Jobseeker extends React.Component {
                                 <div className="clearfix"></div>
                                 <div className="showing">
                                   {" "}
-                                  Show: <b>all job</b>
+                                  Show: <b>applied jobs</b>
                                 </div>
                                 {appliedJobs
                                   ?.sort((a, b) => b[1]?.JobID - a[1]?.JobID)
