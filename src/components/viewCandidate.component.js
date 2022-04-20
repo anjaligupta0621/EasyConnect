@@ -6,70 +6,7 @@ import JobSeekerHeader from "./jobSeekerHeader.component";
 class ViewCandidate extends React.Component {
 
     state = {
-        candidate: {
-            "Firstname": "Ross",
-            "Lastname": "Geller",
-            "Email": "rossgeller@gmail.com",
-            "Phone": "7654738299",
-            "Github": "www.github.com",
-            "Linkedin": "www.linkedin.com",
-            "Facebook": "www.facebook.com",
-            "Instagram": "www.instagram.com",
-            "Education": [
-                {
-                    "College": "University of Florida",
-                    "Fromyear": "2022",
-                    "Toyear": "2024",
-                    "Qualification": "Master's",
-                    "Description": "Computer and Information Sciences"
-                },
-                {
-                    "College": "JIIT",
-                    "Fromyear": "2015",
-                    "Toyear": "2019",
-                    "Qualification": "Bachelor's",
-                    "Description": "Computer Science and Engineering"
-                }
-            ],
-            "Project": [
-                {
-                    "Title": "Easy Connect",
-                    "Link": "www.easyconnect-se.com",
-                    "ProjectDescription": "Job Portal"
-                },
-                {
-                    "Title": "ABCD",
-                    "Link": "abcd.com",
-                    "ProjectDescription": "ABCD"
-                }
-            ],
-            "Professionalexperience": [
-                {
-                    "Company": "Wipro",
-                    "Position": "Project Engineer",
-                    "Duration": "2 years",
-                    "ExperienceDescription": "Project Engineer"
-                },
-                {
-                    "Company": "Kitinfinet",
-                    "Position": "Frontend Intern",
-                    "Duration": "2 months",
-                    "ExperienceDescription": "Internship"
-                }
-            ],
-            "Skills": [
-                "Python",
-                "Golang",
-                "Salesforce",
-                "MySQL"
-            ],
-            "Interests": [
-                "Machine Learning",
-                "Software Engineering",
-                "Artificial Intelligence"
-            ]
-        },
-        cand: {},
+        candidate: {},
         open: false
     }
 
@@ -93,8 +30,8 @@ class ViewCandidate extends React.Component {
               return res.json()
             })
             .then((result) => {
-              this.setState({cand: result})
-              console.log(this.state.cand)
+              this.setState({candidate: result})
+              console.log(this.state.candidate)
             //   window.location.assign('/viewCandidate')
             })
             .catch((e) => {
@@ -107,7 +44,7 @@ class ViewCandidate extends React.Component {
         return (
             <div className="body-outer jobseeker-main">
             <JobSeekerHeader />
-            <Container>
+            {this.state.candidate ? <Container>
                 <Card style={{
                     backgroundColor: '#00bcd4',
                     color: "white",
@@ -119,7 +56,7 @@ class ViewCandidate extends React.Component {
                     <List>
                         <ListItem>
                             <Box>
-                                Name: <span style={{fontWeight: "bold"}}>{this.state.cand.Firstname}  {this.state.cand.Lastname}</span>
+                                Name: <span style={{fontWeight: "bold"}}>{this.state.candidate.Firstname}  {this.state.candidate.Lastname}</span>
                             </Box>
                         </ListItem>
                         <ListItem>
@@ -161,7 +98,7 @@ class ViewCandidate extends React.Component {
                     <CardHeader style={{textAlign: "center"}} title="EDUCATION DETAILS" />
                 </Card>
                 <Card>
-                        { this.state.candidate.Education.map((item) =>  (
+                        {this.state.candidate.Education ? this.state.candidate.Education.map((item) =>  (
                             <List>
                             <ListItem>
                                 <Box>
@@ -191,7 +128,7 @@ class ViewCandidate extends React.Component {
                             <Divider />
                         </List>
                         )
-                        )}
+                        ) : <div> Loading... </div>}
                 </Card>
                 <Card style={{
                     backgroundColor: '#00bcd4',
@@ -200,7 +137,7 @@ class ViewCandidate extends React.Component {
                     <CardHeader style={{textAlign: "center"}} title="PROJECTS DEVELOPED" />
                 </Card>
                 <Card>
-                        { this.state.candidate.Project.map((item) =>  (
+                        {this.state.candidate.Project ? this.state.candidate.Project.map((item) =>  (
                             <List>
                             <ListItem>
                                 <Box>
@@ -220,7 +157,7 @@ class ViewCandidate extends React.Component {
                             <Divider />
                         </List>
                         )
-                        )}
+                        ) : <div> Loading... </div>}
                 </Card>
                 <Card style={{
                     backgroundColor: '#00bcd4',
@@ -229,7 +166,7 @@ class ViewCandidate extends React.Component {
                     <CardHeader style={{textAlign: "center"}} title=" PROFESSIONAL EXPERIENCE" />
                 </Card>
                 <Card>
-                        { this.state.candidate.Professionalexperience.map((item) =>  (
+                        {this.state.candidate.Professionalexperience ? this.state.candidate.Professionalexperience.map((item) =>  (
                             <List>
                             <ListItem>
                                 <Box>
@@ -254,7 +191,7 @@ class ViewCandidate extends React.Component {
                             <Divider />
                         </List>
                         )
-                        )}
+                        ) : <div> Loading... </div>}
                 </Card>
                 <Card style={{
                     backgroundColor: '#00bcd4',
@@ -269,7 +206,7 @@ class ViewCandidate extends React.Component {
                                 padding: "10px",
                                 marginRight: "10px"
                             }}>
-                            { this.state.candidate.Skills.map((item) =>  (
+                            {this.state.candidate.Skills ? this.state.candidate.Skills.map((item) =>  (
                             <List>
                             <ListItem>
                                 <Box>
@@ -278,12 +215,12 @@ class ViewCandidate extends React.Component {
                             </ListItem>
                         </List>
                         )
-                        )}
+                        ): <div> Loading... </div>}
                             </Card>
                         </Grid>
                         <Grid item xs={6}>
                             <Card>
-                        { this.state.candidate.Interests.map((item) =>  (
+                        {this.state.candidate.Interests ? this.state.candidate.Interests.map((item) =>  (
                             <List>
                             <ListItem>
                                 <Box>
@@ -292,13 +229,13 @@ class ViewCandidate extends React.Component {
                             </ListItem>
                         </List>
                         )
-                        )}
+                        ) : <div> Loading </div>}
                         </Card>
                         </Grid>
                     </Grid>
                 </Box>
 
-            </Container>
+            </Container> : <div>Loading</div>}
             </div>
 
         )
