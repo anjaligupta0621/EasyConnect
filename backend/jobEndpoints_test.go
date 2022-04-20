@@ -92,9 +92,9 @@ func TestApplyForJob(t *testing.T) {
 	assert.Equal(t, 200, response.Code, "OK response is expected")
 }
 func TestGetAppliedJobs(t *testing.T) {
-	roletype := &models.Roletype{Role_Type: "SDE"}
-	jsonPayload, _ := json.Marshal(roletype)
-	request, _ := http.NewRequest("POST", "/getCandidatesByRole", bytes.NewBuffer(jsonPayload))
+	ut := &models.Usertoken{Token: "Token", Email: "test2"}
+	jsonPayload, _ := json.Marshal(ut)
+	request, _ := http.NewRequest("POST", "/getAppliedJobs", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router2().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
