@@ -24,11 +24,13 @@ class Jobseeker extends React.Component {
     jobIsApplied: [],
     appliedJobs: [],
   };
-
   componentDidMount() {
     axios
       .post("http://localhost:8081/getAllJobs")
       .then((res) => {
+        setTimeout(() => {
+          this.getAppliedjobs();
+        });
         const processedJobs = [];
 
         for (let i = 0; i < res.data.length; i++) {
@@ -39,7 +41,6 @@ class Jobseeker extends React.Component {
         console.log(this.state.jobs);
       })
       .catch((err) => console.log(err));
-    this.getAppliedjobs();
   }
 
   getAppliedjobs = () => {
@@ -91,6 +92,7 @@ class Jobseeker extends React.Component {
         // localStorage.removeItem("candidateId");
         // localStorage.removeItem("userName");
         localStorage.clear();
+        this.getAppliedjobs();
 
         this.setIsLoggedInUser(false);
         return res.json();
@@ -103,63 +105,68 @@ class Jobseeker extends React.Component {
         // localStorage.removeItem("candidateId");
         // localStorage.removeItem("userName");
         localStorage.clear();
+        this.getAppliedjobs();
 
         console.log(result);
       })
       .catch((e) => {
+        this.getAppliedjobs();
+
         global.isLoggedIn = false;
       });
   };
 
   applyJob = (clickedId) => {
-    console.log("inside applyJob");
-    console.log(clickedId);
+    this.getAppliedjobs();
+    if (localStorage.getItem("token")) {
+      console.log("inside applyJob");
+      console.log(clickedId);
 
-    const user = {
-      JobJobID: clickedId,
-      CandidateUserID: parseInt(localStorage.getItem("candidateId")),
-    };
+      const user = {
+        JobJobID: clickedId ? clickedId : 1,
+        CandidateUserID: parseInt(localStorage.getItem("candidateId")),
+      };
 
-    console.log("inside isLoggedIn");
-    fetch(`http://localhost:8081/applyForJob`, {
-      body: JSON.stringify(user),
-      method: "POST",
-      mode: "cors",
-    })
-      .then((res) => {
-        console.log("Applied!");
-        // console.log(res.json());
-        return res.json();
+      console.log("inside isLoggedIn");
+      fetch(`http://localhost:8081/applyForJob`, {
+        body: JSON.stringify(user),
+        method: "POST",
+        mode: "cors",
       })
-      .then((result) => {
-        console.log("Result");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        .then((res) => {
+          console.log("Applied!");
+          // console.log(res.json());
+          return res.json();
+        })
+        .then((result) => {
+          console.log("Result");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
 
-    let filterAndUpdateJobs = this.state.jobs;
+      let filterAndUpdateJobs = this.state.jobs;
 
-    // console.log(filterAndUpdateJobs)
+      // console.log(filterAndUpdateJobs)
 
-    for (let i = 0; i < filterAndUpdateJobs.length; i++) {
-      // traversing list of lists
+      for (let i = 0; i < filterAndUpdateJobs.length; i++) {
+        // traversing list of lists
 
-      if (filterAndUpdateJobs[i][0] === clickedId) {
-        // matching job id found and hence update its 3rd element to True/False
-        //console.log(filterAndUpdateJobs[i][j][2])
-        if (filterAndUpdateJobs[i][2] === false) {
-          filterAndUpdateJobs[i][2] = true;
-        } else {
-          filterAndUpdateJobs[i][2] = false;
+        if (filterAndUpdateJobs[i][0] === clickedId) {
+          // matching job id found and hence update its 3rd element to True/False
+          //console.log(filterAndUpdateJobs[i][j][2])
+          if (filterAndUpdateJobs[i][2] === false) {
+            filterAndUpdateJobs[i][2] = true;
+          } else {
+            filterAndUpdateJobs[i][2] = false;
+          }
+          break;
         }
-        break;
       }
+
+      console.log(filterAndUpdateJobs);
+      this.setState({ jobs: filterAndUpdateJobs });
     }
-
-    console.log(filterAndUpdateJobs);
-
-    this.setState({ jobs: filterAndUpdateJobs });
   };
 
   render() {
@@ -370,7 +377,7 @@ class Jobseeker extends React.Component {
                                         onClick={() =>
                                           this.applyJob(item[1].JobID)
                                         }
-                                        disabled={item[2]}
+                                        disabled={item[2] || !localStorage.getItem("token")}
                                         style={{ float: "right" }}
                                       >
                                         {item[2] ? "Applied" : "Easy Apply"}
