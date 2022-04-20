@@ -177,12 +177,12 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 
 	for _, p := range profile.Project {
 		result := db.Create(&models.Project{Email: profile.Email, Title: p.Title, Link: p.Link, ProjectDescription: p.ProjectDescription})
-		fmt.Println("Education:--->", result)
+		fmt.Println("Project:--->", result)
 	}
 
 	for _, s := range profile.Professionalexperience {
 		result := db.Create(&models.ProfessionalExperience{Email: profile.Email, Company: s.Company, Position: s.Position, ExperienceDescription: s.ExperienceDescription})
-		fmt.Println("Education:--->", result)
+		fmt.Println("Experience:--->", result)
 	}
 
 	db.Table("candidateprofiles").Where("email = ?", profile.Email).Find(&profile)
