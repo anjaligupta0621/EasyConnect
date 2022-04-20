@@ -151,43 +151,17 @@ func GetCandidatesFromRecruiterID(w http.ResponseWriter, r *http.Request) {
 	//m := make(map[uint][]uint)
 
 	db.Table("jobs").Where("recruiter_id = ?", recruiterID.Recruiter_ID).Find(&jobs)
-	fmt.Println(jobs)
 
 	for i, job := range jobs {
-		fmt.Println(i, job.JobID)
+		fmt.Println(i)
 		db.Table("candidates_jobs").Where("job_job_id = ?", job.JobID).Find(&temp)
 		for j, t := range temp {
-			fmt.Println(j, job.JobID, t.CandidateUserID)
+			fmt.Println(j)
 			candIDs = append(candIDs, t.CandidateUserID)
 		}
 	}
 
 	db.Table("candidates").Where("user_id IN (?)", candIDs).Find(&candidates)
-
-	//fmt.Println(candIDs)
-
-	// for i, id := range jobIDs {
-	// 	//var candIDs []uint
-	// 	db.Table("candidates_jobs").Select("candidate_user_id").Where("job_job_id = ?", jobIDs[i]).Scan(&candIDs)
-	// 	fmt.Println(i, jobIDs[i], candIDs)
-	// 	m[id] = candIDs
-	// }
-
-	// setOfCandidates := make(map[uint]string)
-
-	// for jobid, candArray := range m {
-	// 	fmt.Println("Key:", jobid, "=>", "Element:", candArray)
-	// 	for candid := range candArray {
-	// 		setOfCandidates[uint(candArray[candid])] = "exist" //to remove duplicate candidates that may come from different job IDs.
-	// 	}
-	// }
-
-	// keys := make([]uint, 0, len(setOfCandidates))
-	// for k := range setOfCandidates {
-	// 	keys = append(keys, k)
-	// }
-
-	//db.Table("candidates").Where("User_ID IN ?", candIDs).Find(&candidates)
 
 	json.NewEncoder(w).Encode(candidates)
 }
@@ -215,10 +189,9 @@ func GetCandidatesFromJobID(w http.ResponseWriter, r *http.Request) {
 	var temp []models.ApplyJob
 	var candIDs []uint
 
-	fmt.Println(jobid)
 	db.Table("candidates_jobs").Where("job_job_id = ?", jobid.Job_ID).Find(&temp)
 	for j, t := range temp {
-		fmt.Println(j, jobid, t.CandidateUserID)
+		fmt.Println(j)
 		candIDs = append(candIDs, t.CandidateUserID)
 	}
 
@@ -254,13 +227,12 @@ func GetCandidatesFromRoleType(w http.ResponseWriter, r *http.Request) {
 	//m := make(map[uint][]uint)
 
 	db.Table("jobs").Where("role_type LIKE ?", role.Role+"%").Find(&jobs)
-	fmt.Println(jobs)
 
 	for i, job := range jobs {
-		fmt.Println(i, job.JobID)
+		fmt.Println(i)
 		db.Table("candidates_jobs").Where("job_job_id = ?", job.JobID).Find(&temp)
 		for j, t := range temp {
-			fmt.Println(j, job.JobID, t.CandidateUserID)
+			fmt.Println(j)
 			candIDs = append(candIDs, t.CandidateUserID)
 		}
 	}

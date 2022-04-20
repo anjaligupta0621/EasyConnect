@@ -95,7 +95,6 @@ func JWTTokenCheck(tokenStr string, w http.ResponseWriter) {
 		func(t *jwt.Token) (interface{}, error) {
 			return []byte(Hasher(jwtKey)), nil
 		})
-	// fmt.Println(err)
 	// Checking with claims and return error
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {

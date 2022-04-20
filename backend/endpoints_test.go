@@ -53,11 +53,11 @@ func TestGetUsers(t *testing.T) {
 func TestPutUserData(t *testing.T) {
 	recruiter := &models.Recruiter{
 		Name:         "test2",
-		Email:        "test2",
+		Email:        "test2w@d.com",
 		Password:     "test",
 		Organization: "test",
 		Website:      "test",
-		Contact:      "test2",
+		Contact:      "2222222223",
 	}
 	jsonPayload, _ := json.Marshal(recruiter)
 	request, _ := http.NewRequest("POST", "/signup", bytes.NewBuffer(jsonPayload))
