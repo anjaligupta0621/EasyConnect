@@ -4,7 +4,7 @@ import PostJobDashBoard from "./postJobDashBoard.component";
 import Jobseekerheader from "./jobseeker.component";
 import Home from "./home.component";
 import PostJob from "./postJob.component";
-import ShortListCandidate from "./shortlistCandidate.component";
+import ApplicantDashboard from "./applicantsDashboard.component";
 import CandidateProfile from './candidateProfile.component';
 import Resume from './Resume';
 import ViewCandidate from './viewCandidate.component';
@@ -16,7 +16,7 @@ function RouterContainer(props) {
                 <Route path="/jobDashBoard" element={<PostJobDashBoard  />} />
                 <Route path="/postJob" element={<PostJob />} />
                 <Route path="/user" element={<Jobseekerheader />} />
-                <Route path="/shortListCandidate" element={<ShortListCandidate />} />
+                <Route path="/shortListCandidate" element={<ApplicantDashboard />} />
                 <Route path="/candidateProfile" element={<Resume />} /> 
                 <Route path="/viewCandidate" element={<ViewCandidate />} />               
                 <Route path="/" element={<Home/>} />

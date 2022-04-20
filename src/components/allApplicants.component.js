@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./header.component";
 import axios from "axios";
-import "./shortlistCandidate.component.css";
 import grammerImage from "../img/grammer.png";
 import shortlist from "../img/shortlist-candidate.svg";
 import downExcel from "../img/excel-download.svg";
@@ -11,12 +10,13 @@ import verbalImage from "../img/non-verbal-reasoning.png";
 import speakingImage from "../img/speaking.png";
 import noCandidateImage from "../img/candidate-no-img.svg";
 
-class ShortlistCandidate extends React.Component {
+class AllApplicants extends React.Component {
 
     state = {
-        shortlistCandidates: [],
+        applliedCandidates: [],
         recruiterID: localStorage.getItem("recruiterId"),
       };
+      
     componentDidMount() {
         var raw = JSON.stringify({
           Recruiter_ID: parseInt(localStorage.getItem("recruiterId")),
@@ -31,21 +31,59 @@ class ShortlistCandidate extends React.Component {
           .then((response) => response.json())
           .then((result) => {
             //debugger;
-            this.setState({ shortlistCandidates: result });
-            console.log(this.state.shortlistCandidates);
+            this.setState({ applliedCandidates: result });
+            console.log(this.state.applliedCandidates);
           })
           .catch((error) => console.log("error", error));
       }
   render() {
     return (
         <div id="all-applicants" class="tab-pane fade in active">
+                      <div id="Sort-By">
+                        <h3>Sort by:</h3>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sortby">
+                          <a href="#" name="category">
+                            View All
+                          </a>
+                          <a href="#" name="category">
+                            <img src={grammerImage} /> Software Development
+                          </a>
+                          <a href="#" name="category">
+                            <img src={mathsImage} /> Aptitude
+                          </a>
+                          <a href="#" name="category">
+                            <img src={verbalImage} /> Reasoning
+                          </a>
+                          <a href="#" name="category">
+                            <img src={speakingImage} /> Business Development
+                          </a>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div id="download-buttons">
+                        <button>
+                          <img src={downExcel} />
+                          Download as Excel File
+                        </button>
+                        <button>
+                          <img src={shortlist} />
+                          Shortlist Candidates
+                        </button>
+                        <button class="inactive">
+                          <img src={downExcel} /> Download as Excel File
+                        </button>
+                        <button class="inactive">
+                          <img src={shortlist} /> Shortlist Candidates
+                        </button>
+                      </div>
+                      <div class="clearfix"></div>
                       <div id="verified" class="margin-top-60">
-                        <h3>Shortlist Candidates</h3>
+                        <h3>Candidates with verified Employability Skills</h3>
                         <p>
-                          ( candidates has been
-                          shortlisted  according to their Skills)
+                          (The Employability Skills of these candidates has been
+                          verified using background check)
                         </p>
-                        {this.state.shortlistCandidates.map(
+                        {this.state.applliedCandidates.map(
                           (candidate, index) => (
                             <div class="block-candidates-display" key={index}>
                               <div class="col-lg-5">
@@ -113,4 +151,4 @@ class ShortlistCandidate extends React.Component {
     );
   }
 }
-export default ShortlistCandidate;
+export default AllApplicants;
