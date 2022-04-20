@@ -17,6 +17,7 @@ func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/login", handler.GetUsers).Methods("POST")
 	router.HandleFunc("/signup", handler.PutUserData).Methods("POST")
+	router.HandleFunc("/logout", handler.LogOut).Methods("POST")
 	return router
 }
 
@@ -65,4 +66,16 @@ func TestPutUserData(t *testing.T) {
 	response = httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.Equal(t, 400, response.Code, "OK response is not expected")
+}
+
+func TestLogOut(t *testing.T) {
+	tokenm := &models.TokenManager{
+		Token:    "GeneratedRandomly",
+		UserName: "test2",
+	}
+	jsonPayload, _ := json.Marshal(tokenm)
+	request, _ := http.NewRequest("POST", "/logout", bytes.NewBuffer(jsonPayload))
+	response := httptest.NewRecorder()
+	Router().ServeHTTP(response, request)
+	assert.Equal(t, 401, response.Code, "OK response is not expected")
 }
