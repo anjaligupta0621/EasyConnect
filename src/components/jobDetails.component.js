@@ -54,6 +54,7 @@ const JobDetails = ({ prevStep, handleChange, values }) => {
       Active: String(values.isPartAllowed),
       RecruiterID: parseInt(localStorage.getItem("recruiterId")),
       CandidateCount: 0,
+      Organization: values.organization
     };
 
     console.log(JSON.stringify(data));

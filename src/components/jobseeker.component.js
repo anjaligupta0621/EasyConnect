@@ -377,7 +377,7 @@ class Jobseeker extends React.Component {
                                       </Button>
                                       <p className="companyname">
                                         {" "}
-                                        Amazon -{" "}
+                                        {item[1].Organization} -{" "}
                                         <span className="where">USA</span>
                                       </p>
                                       <p>
@@ -409,7 +409,7 @@ class Jobseeker extends React.Component {
                                   {" "}
                                   Show: <b>applied jobs</b>
                                 </div>
-                                {appliedJobs
+                                {/* {appliedJobs
                                   ?.sort((a, b) => b[1]?.JobID - a[1]?.JobID)
                                   .map((item, index) => (
                                     <div className="jobs" key={index}>
@@ -438,7 +438,33 @@ class Jobseeker extends React.Component {
                                         {item?.Responsibilities}
                                       </p>
                                     </div>
-                                  ))}
+                                  ))} */}
+                                  <div className="jobs">
+                                      <a target="_blank" className="job_title">
+                                        Software Developer <span>new</span>
+                                      </a>
+                                      <Button
+                                        disabled
+                                        style={{ float: "right" }}
+                                      >
+                                        Applied
+                                      </Button>
+                                      <p className="companyname">
+                                        {" "}
+                                        Tesla -{" "}
+                                        <span className="where"> USA</span>
+                                      </p>
+                                      <p>
+                                        {" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        45 &ndash;{" "}
+                                        <i className="fa fa-dollar"></i>{" "}
+                                        50 per hour{" "}
+                                      </p>
+                                      <p className="summary">
+                                        Develop Frontend and Backend
+                                      </p>
+                                    </div>
                                 <Pagination
                                   jobsPerPage={this.state.jobsPerPage}
                                   totalJobs={this.state.jobs.length}

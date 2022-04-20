@@ -130,7 +130,7 @@ const Header = (props) => {
         {isLoggedInLocal && <div className="user-avatar-box">
           <span className="user-avatar"></span>
            <span className="user-name">
-            Welcome: {user ? user.Name : "Guest User"}
+            Welcome: {user ? user.Name : ""}
           </span>
         </div>}
       </div>
