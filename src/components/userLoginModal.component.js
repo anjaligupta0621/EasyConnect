@@ -103,7 +103,7 @@ class UserLoginModal extends React.Component {
         this.props.hideLogin();
         this.props.setIsLoggedIn(true);
         //global.isLoggedIn = true;
-        localStorage.setItem("token", result.Candidate.Token);
+        localStorage.setItem("token", result.Token);
         localStorage.setItem("candidateId", result.Candidate.UserID);
         localStorage.setItem("userName", result.Candidate.Email);
         window.location.assign('/candidateProfile');

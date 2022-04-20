@@ -17,7 +17,8 @@ func CreateDB() {
 	defer db.Close()
 
 	// Migrate the schema
-	db.AutoMigrate(&models.Recruiter{}, &models.Usertoken{}, &models.Job{}, &models.Candidate{}, &models.Candidateprofile{})
+	db.AutoMigrate(&models.Recruiter{}, &models.Usertoken{}, &models.Job{}, &models.Candidate{},
+		&models.Candidateprofile{}, &models.Education{}, &models.ProfessionalExperience{}, &models.Project{})
 	// db.AutoMigrate(&models.Job{})
 	// db.AutoMigrate(&models.Candidtate{})
 }

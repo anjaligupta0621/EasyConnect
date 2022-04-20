@@ -141,9 +141,9 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 	// // Decoding Body
 	decoder := json.NewDecoder(r.Body)
 
-	var profile models.Candidateprofile
-
+	var profile models.CandidatepRequest
 	err2 := decoder.Decode(&profile)
+	fmt.Println("Input Array", profile)
 
 	if err2 != nil {
 		panic(err2)
@@ -157,15 +157,34 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// fmt.Print(username)
-	result := db.Create(&models.Candidateprofile{Firstname: profile.Firstname, Lastname: profile.Lastname, Email: profile.Email, Phone: profile.Phone, Github: profile.Github, Linkedin: profile.Linkedin, Facebook: profile.Facebook, Instagram: profile.Instagram, Education: profile.Education, Project: profile.Project, Professionalexperience: profile.Professionalexperience, Skills: profile.Skills, Interests: profile.Interests})
-	// Checking for error
-	fmt.Println("Error:--->", result.Error)
+	result := db.Create(&models.Candidateprofile{Firstname: profile.Firstname, Lastname: profile.Lastname,
+		Email: profile.Email, Phone: profile.Phone, Github: profile.Github,
+		Linkedin: profile.Linkedin, Facebook: profile.Facebook, Instagram: profile.Instagram,
+		Skills: profile.Skills, Interests: profile.Interests})
+
+	// // Checking for error
+	// fmt.Println("Error:--->", result.Error)
 	if result.Error != nil {
 		// fmt.Println(result)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	// Creating JWT Token
+
+	for _, e := range profile.Education {
+		result := db.Create(&models.Education{Email: profile.Email, College: e.College, Fromyear: e.Fromyear, Toyear: e.Toyear, Qualification: e.Qualification, Description: e.Description})
+		fmt.Println("Education:--->", result)
+	}
+
+	for _, p := range profile.Project {
+		result := db.Create(&models.Project{Email: profile.Email, Title: p.Title, Link: p.Link, ProjectDescription: p.ProjectDescription})
+		fmt.Println("Education:--->", result)
+	}
+
+	for _, s := range profile.Professionalexperience {
+		result := db.Create(&models.ProfessionalExperience{Email: profile.Email, Company: s.Company, Position: s.Position, ExperienceDescription: s.ExperienceDescription})
+		fmt.Println("Education:--->", result)
+	}
+
 	db.Table("candidateprofiles").Where("email = ?", profile.Email).Find(&profile)
 
 	json.NewEncoder(w).Encode(profile)
@@ -221,7 +240,28 @@ func GetCandidateProfile(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
+	var education []models.Education
+	db.Table("educations").Where("email=?", profile.UserName).Find(&education)
+	var project []models.Project
+	db.Table("projects").Where("email=?", profile.UserName).Find(&project)
+	var proExp []models.ProfessionalExperience
+	db.Table("professional_experiences").Where("email=?", profile.UserName).Find(&proExp)
+
+	var candidateResponse models.CandidatepRequest
+	candidateResponse.Firstname = candidateProfile.Firstname
+	candidateResponse.Lastname = candidateProfile.Lastname
+	candidateResponse.Email = candidateProfile.Email
+	candidateResponse.Phone = candidateProfile.Phone
+	candidateResponse.Github = candidateProfile.Github
+	candidateResponse.Linkedin = candidateProfile.Linkedin
+	candidateResponse.Facebook = candidateProfile.Facebook
+	candidateResponse.Instagram = candidateProfile.Instagram
+	candidateResponse.Education = education
+	candidateResponse.Project = project
+	candidateResponse.Professionalexperience = proExp
+	candidateResponse.Skills = candidateProfile.Skills
+	candidateResponse.Interests = candidateProfile.Interests
 	// Creating JWT Token
-	json.NewEncoder(w).Encode(candidateProfile)
+	json.NewEncoder(w).Encode(candidateResponse)
 	//json.NewEncoder(w).Encode("New Candidate Successfully Added: " + candidate_.Name)
 }

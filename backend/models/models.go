@@ -1,6 +1,8 @@
 package models
 
-import "github.com/lib/pq"
+import (
+	"github.com/lib/pq"
+)
 
 type Job struct {
 	JobID            uint   `gorm:"primary_key; AUTO_ Increment"`
@@ -101,39 +103,50 @@ type AppliedCandidateResponse struct {
 	JobID     uint
 }
 type Candidateprofile struct {
-	Firstname string `gorm:"Not null"`
-	Lastname  string `gorm:"Not null"`
-	Email     string `gorm:"primary_key; Not null"`
-	Phone     string `gorm:"unique; Not null"`
-	Github    string `gorm:""`
-	Linkedin  string `gorm:""`
-	Facebook  string `gorm:""`
-	Instagram string `gorm:""`
-	// Education
-	Education []College
-	// Project
-	Project []Project
-	// Professional Experience
-	Professionalexperience []ProfessionalExperience
-	// Others
+	Firstname string         `gorm:"Not null"`
+	Lastname  string         `gorm:"Not null"`
+	Email     string         `gorm:"primary_key; Not null"`
+	Phone     string         `gorm:"unique; Not null"`
+	Github    string         `gorm:""`
+	Linkedin  string         `gorm:""`
+	Facebook  string         `gorm:""`
+	Instagram string         `gorm:""`
 	Skills    pq.StringArray `gorm:"type:text[]"`
 	Interests pq.StringArray `gorm:"type:text[]"`
 }
-type College struct {
-	College       string
-	Fromyear      string
-	Toyear        string
-	Qualification string
-	Description   string
+type CandidatepRequest struct {
+	Firstname              string
+	Lastname               string
+	Email                  string
+	Phone                  string
+	Github                 string
+	Linkedin               string
+	Facebook               string
+	Instagram              string
+	Education              []Education
+	Project                []Project
+	Professionalexperience []ProfessionalExperience
+	Skills                 pq.StringArray
+	Interests              pq.StringArray
+}
+type Education struct {
+	Email         string `gorm:""`
+	College       string `gorm:""`
+	Fromyear      string `gorm:""`
+	Toyear        string `gorm:""`
+	Qualification string `gorm:""`
+	Description   string `gorm:""`
 }
 type Project struct {
-	Title              string
-	Link               string
-	ProjectDescription string
+	Email              string `gorm:""`
+	Title              string `gorm:""`
+	Link               string `gorm:""`
+	ProjectDescription string `gorm:""`
 }
 type ProfessionalExperience struct {
-	Company               string
-	Position              string
-	Duration              string
-	ExperienceDescription string
+	Email                 string `gorm:""`
+	Company               string `gorm:""`
+	Position              string `gorm:""`
+	Duration              string `gorm:""`
+	ExperienceDescription string `gorm:""`
 }
