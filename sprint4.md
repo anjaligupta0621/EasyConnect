@@ -498,7 +498,13 @@ Created the Unit test cases to check the robustness of our API.
 * A Dropdown is created at both the recruiter and jobseeker homepage where they can switch their view.
 ## ApplyJobs Dashboard
 * A Dashboard Interface is created where all the jobs posted by recruiter will display and jobseeker can apply to jobs after registration to the platform.
-
+## Applied Jobs Dashboard
+* A Dashboard where user will be able to see the jobs applied by him/her.
+## Edit User Profile
+* Once a candidate (job seeker) signs up, he is redirected to a page where he has to fill out details like Education, Professional Experience, Skills, Projects, etc.
+## View User Profile
+* Once the user has filled up all the details, they will be visible under the Profile Section of the Job Seeker Dashboard.
+        
 ## Mobile view
 All User Interface pages are scree size responsive. Attaching the various screenshots to validate this.
 * Home Page Screenshot
