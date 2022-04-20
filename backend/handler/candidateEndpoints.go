@@ -89,11 +89,9 @@ func PutCandidateData(w http.ResponseWriter, r *http.Request) {
 
 	username := utils.GetUsernameFromEmail(candidate.Email)
 
-	// fmt.Print(username)
 	result := db.Create(&models.Candidate{Name: candidate.Name, Email: candidate.Email, Password: userPwd, Username: username, Contact: candidate.Contact, JobsApplied: 0})
 	// Checking for error
 	if result.Error != nil {
-		// fmt.Println(result)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -133,17 +131,11 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 		panic("failed to connect database")
 	}
 	defer db.Close()
-	// // Getting Token From Request
-	// reqToken := r.Header.Get("Authorization")
-	// splitToken := strings.Split(reqToken, "Bearer ")
-	// reqToken = splitToken[1]
-	// fmt.Println(reqToken)
 	// // Decoding Body
 	decoder := json.NewDecoder(r.Body)
 
 	var profile models.CandidatepRequest
 	err2 := decoder.Decode(&profile)
-	fmt.Println("Input Array", profile)
 
 	if err2 != nil {
 		panic(err2)
@@ -156,33 +148,30 @@ func CandidateProfileUpdate(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	// fmt.Print(username)
 	result := db.Create(&models.Candidateprofile{Firstname: profile.Firstname, Lastname: profile.Lastname,
 		Email: profile.Email, Phone: profile.Phone, Github: profile.Github,
 		Linkedin: profile.Linkedin, Facebook: profile.Facebook, Instagram: profile.Instagram,
 		Skills: profile.Skills, Interests: profile.Interests})
 
 	// // Checking for error
-	// fmt.Println("Error:--->", result.Error)
 	if result.Error != nil {
-		// fmt.Println(result)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	for _, e := range profile.Education {
 		result := db.Create(&models.Education{Email: profile.Email, College: e.College, Fromyear: e.Fromyear, Toyear: e.Toyear, Qualification: e.Qualification, Description: e.Description})
-		fmt.Println("Education:--->", result)
+		fmt.Println("Education:--->", result.RowsAffected)
 	}
 
 	for _, p := range profile.Project {
 		result := db.Create(&models.Project{Email: profile.Email, Title: p.Title, Link: p.Link, ProjectDescription: p.ProjectDescription})
-		fmt.Println("Project:--->", result)
+		fmt.Println("Project:--->", result.RowsAffected)
 	}
 
 	for _, s := range profile.Professionalexperience {
 		result := db.Create(&models.ProfessionalExperience{Email: profile.Email, Company: s.Company, Position: s.Position, ExperienceDescription: s.ExperienceDescription})
-		fmt.Println("Experience:--->", result)
+		fmt.Println("Experience:--->", result.RowsAffected)
 	}
 
 	db.Table("candidateprofiles").Where("email = ?", profile.Email).Find(&profile)
@@ -231,7 +220,6 @@ func GetCandidateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var candidateProfile models.Candidateprofile
-	// fmt.Print(username)
 	db.Table("candidateprofiles").Where("email = ?", candidate.Email).Find(&candidateProfile)
 
 	// Checking for error

@@ -36,7 +36,7 @@ var job = &models.Job{
 	Salary_Start:     "test",
 	Salary_End:       "test",
 	Active:           "test",
-	RecruiterID:      3,
+	RecruiterID:      4,
 }
 
 func TestAddJob(t *testing.T) {

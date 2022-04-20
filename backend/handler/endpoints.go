@@ -30,12 +30,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		panic("failed to connect database")
 	}
 	defer db.Close()
-	// Getting Token From Request
-	// reqToken := r.Header.Get("Authorization")
-	// splitToken := strings.Split(reqToken, "Bearer ")
-	// reqToken = splitToken[1]
-	// fmt.Println(reqToken)
-	// Decoding Body
+
 	//Decoding request body to get username and password
 	decoder := json.NewDecoder(r.Body)
 
@@ -87,7 +82,6 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 		var jobs []models.Job
 		db.Table("jobs").Where("Recruiter_ID = ?", recruiter_.ID).Find(&jobs)
-		fmt.Println(jobs)
 		recruiter_.Jobs = jobs
 		// Creating custom Response
 		response := models.RecruiterResponse{
