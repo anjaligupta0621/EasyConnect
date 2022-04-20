@@ -162,7 +162,7 @@ describe("Easy Connect", () => {
       .click();
   });
   //   #8 Test Case Recruiter Posts a Job!
-  it("Post a Job", () => {
+  it("Recruiter Posts a Job", () => {
     const username = "sola@sola.com";
     const password = "123456";
     const orgName = "Google.com";
@@ -369,4 +369,45 @@ describe("Easy Connect", () => {
       .contains("Applied");
     cy.contains("Sign Out").click();
   });
+    //   #21 Test Case Candidate Profile Update!
+    it("Candidate Updates profile details", () => {
+      const username = "sola@sola.com";
+      const password = "123456";
+      const orgName = "Google.com";
+      const website = "http://www.google.com";
+      const description =
+        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..";
+      const roleName = "SDE II";
+      const responsibilities =
+        "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..";
+      const salaryFrom = 30000;
+      const salaryTo = 70000;
+      cy.visit("http://localhost:3000/");
+      cy.get("#btnlogin").click({ force: true });
+      cy.get("input[name=emailId]").type(username);
+      cy.get("input[name=login-password]").type(password);
+      cy.get("input[type=submit].text-input").click();
+      cy.get(".post-job-anchor").click();
+      cy.get(".main-wrapper").find("h1").contains("Dashboard");
+      cy.url().should("include", "/jobDashBoard");
+  
+      cy.get(".postJob-anchor").click();
+      cy.url().should("include", "/postJob");
+  
+      cy.get("input[name=organization_name]").type(orgName);
+      cy.get("input[name=organization_website]").type(website);
+      cy.get("[name=orgDescription]").type(description);
+      cy.contains("Next").click({ force: true });
+      cy.get("input[name=role_name]").type(roleName);
+      cy.get("input[name=question]").first().check();
+      cy.get("input[name=jobtype]").last().check();
+      cy.get("input[name=date]").last().check();
+      cy.get('[name="responsibilities"]').type(responsibilities);
+      cy.get('[name="salaryFrom"]').first().type(salaryFrom);
+      cy.get('[name="salaryTo"]').first().type(salaryTo);
+      cy.get(".post-button").click();
+      cy.url().should("include", "/jobDashBoard");
+      cy.get(".main-wrapper").find("h1").contains("Dashboard");
+      cy.get(".navbar-right").find(".signout-button").contains("Sign Out");
+    });
 });
