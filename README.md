@@ -14,13 +14,13 @@ We are devising a web application designated as 'EasyConnect' which will act as 
 * Recruiter View : 
   * -[x] Recruiter can login/SignUp 
   * -[x] Post the Job
-  * -[ ] Search qualified Candidates
-  * -[ ] Shortlist the Candidates for Interview
+  * -[x] Search qualified Candidates
+  * -[x] Shortlist the Candidates for Interview
 * Candidate View :  
-  * -[ ] Candidate can login/SignUp
-  * -[ ] Create the Resume Based Profile
-  * -[ ] Search for Jobs
-  * -[ ] Apply for Jobs
+  * -[x] Candidate can login/SignUp
+  * -[x] Create the Resume Based Profile
+  * -[x] Search for Jobs
+  * -[x] Apply for Jobs
 
 
 # Complete video demo of the project progress:
