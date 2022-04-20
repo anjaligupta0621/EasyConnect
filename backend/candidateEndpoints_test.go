@@ -10,6 +10,7 @@ import (
 	"github.com/anjaligupta0621/EasyConnect/backend/handler"
 	"github.com/anjaligupta0621/EasyConnect/backend/models"
 	"github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,6 +19,7 @@ func Router3() *mux.Router {
 	router.HandleFunc("/candidateLogin", handler.GetCandidate).Methods("POST")
 	router.HandleFunc("/candidateSignup", handler.PutCandidateData).Methods("POST")
 	router.HandleFunc("/updateCandidateProfile", handler.CandidateProfileUpdate).Methods("POST")
+	router.HandleFunc("/getCandidateProfile", handler.GetCandidateProfile).Methods("POST")
 	return router
 }
 
@@ -137,25 +139,37 @@ func TestCandidateProfileUpdate(t *testing.T) {
 	response := httptest.NewRecorder()
 	Router3().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is expected")
+
+	cand.Email = "Nonexisting"
+	jsonPayload, _ = json.Marshal(cand)
+	request, _ = http.NewRequest("POST", "/updateCandidateProfile", bytes.NewBuffer(jsonPayload))
+	response = httptest.NewRecorder()
+	Router3().ServeHTTP(response, request)
+	assert.Equal(t, 401, response.Code, "OK response is not expected")
 }
 
 func TestGetCandidateProfile(t *testing.T) {
-	recruiter := &models.Candidate{
-		Name:        "test2",
-		Email:       "test2",
-		Password:    "test2",
-		Contact:     "test2",
-		JobsApplied: 0,
+
+	token := &models.TokenManager{
+		Token:    "Dummy",
+		UserName: "test2",
 	}
-	jsonPayload, _ := json.Marshal(recruiter)
-	request, _ := http.NewRequest("POST", "/candidateSignup", bytes.NewBuffer(jsonPayload))
+	jsonPayload, _ := json.Marshal(token)
+	request, _ := http.NewRequest("POST", "/getCandidateProfile", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router3().ServeHTTP(response, request)
-	assert.Equal(t, 200, response.Code, "OK response is expected")
+	assert.Equal(t, 400, response.Code, "OK response is not expected")
 
-	request, _ = http.NewRequest("POST", "/candidateSignup", bytes.NewBuffer(jsonPayload))
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	var ut models.Usertoken
+	db.Table("usertokens").Where("Email = ?", token.UserName).Find(&ut)
+	token.Token = ut.Token
+	request, _ = http.NewRequest("POST", "/getCandidateProfile", bytes.NewBuffer(jsonPayload))
 	response = httptest.NewRecorder()
 	Router3().ServeHTTP(response, request)
-	assert.Equal(t, 400, response.Code, "OK response is not expected")
-	//assert.Equal(t, "\"User already exists\"\n", response.Body.String(), "Signup was supposed to fail")
+	assert.Equal(t, 200, response.Code, "OK response is not expected")
 }
