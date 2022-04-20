@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -10,6 +11,7 @@ import (
 	"github.com/anjaligupta0621/EasyConnect/backend/handler"
 	"github.com/anjaligupta0621/EasyConnect/backend/models"
 	"github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -31,7 +33,7 @@ func TestGetUsers(t *testing.T) {
 	request, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(jsonPayload))
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
-	assert.Equal(t, 401, response.Code, "OK response is not expected")
+	assert.Equal(t, 200, response.Code, "OK response is expected")
 
 	login = &models.Login{
 		Email:    "test2",
@@ -78,4 +80,23 @@ func TestLogOut(t *testing.T) {
 	response := httptest.NewRecorder()
 	Router().ServeHTTP(response, request)
 	assert.Equal(t, 401, response.Code, "OK response is not expected")
+
+	db, err := gorm.Open("sqlite3", "RecruiterDetails.db")
+	if err != nil {
+		panic("failed to connect database")
+	}
+	defer db.Close()
+	var token models.TokenManager
+	var ut models.Usertoken
+	db.Table("usertokens").Where("Email = ?", tokenm.UserName).Find(&ut)
+	token.Token = ut.Token
+	token.UserName = ut.Email
+	fmt.Println(token.Token)
+	fmt.Println()
+	fmt.Println(token.UserName)
+	jsonPayload, _ = json.Marshal(token)
+	request, _ = http.NewRequest("POST", "/logout", bytes.NewBuffer(jsonPayload))
+	response = httptest.NewRecorder()
+	Router().ServeHTTP(response, request)
+	assert.Equal(t, 200, response.Code, "OK response is expected")
 }
