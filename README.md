@@ -1044,12 +1044,29 @@ All User Interface pages are scree size responsive. Attaching the various screen
 * Post Job Screenshot
 * <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
 
-* Posted Job Screenshot
-* <<---Anjali Gupta
-* JobSeeker View Screenshot
-* <<---Anjali Gupta
+## Screenshots of Different Tabs
+ 
+* Post Job Dashboard Screenshot (Recruiter View)
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 10 04 PM" src="https://user-images.githubusercontent.com/61660321/164357749-d61e9614-8240-4893-8d43-89fa644bdf75.png">
+ 
+* Shortlist Candidates Screenshot (Recruiter View)
+ <img width="1431" alt="Screen Shot 2022-04-20 at 10 13 43 PM" src="https://user-images.githubusercontent.com/61660321/164357935-023efa44-5c6f-47a9-a8c6-9ca82b28c5b1.png">
 
-## Cypress Testing
+* JobSeeker View Screenshot
+<img width="1439" alt="Screen Shot 2022-04-20 at 10 16 44 PM" src="https://user-images.githubusercontent.com/61660321/164358260-1459500a-6b11-400d-ad1e-51c26b1776d2.png">
+
+<img width="1437" alt="Screen Shot 2022-04-20 at 10 16 52 PM" src="https://user-images.githubusercontent.com/61660321/164358267-e4e5e0e8-16cc-46f3-b5a3-889ed1427f61.png">
+
+* Applied Jobs Screenshot (JobSeeker View)
+ <img width="1440" alt="Screen Shot 2022-04-20 at 10 17 22 PM" src="https://user-images.githubusercontent.com/61660321/164358312-330e4d37-08d6-4ab4-acc9-85d0140fc9f8.png">
+
+* Candidate Profile Screenshots
+<img width="1387" alt="Screen Shot 2022-04-20 at 10 18 10 PM" src="https://user-images.githubusercontent.com/61660321/164358420-8aab9513-9fee-4e13-9263-19ed768faefe.png">
+<img width="1297" alt="Screen Shot 2022-04-20 at 10 18 27 PM" src="https://user-images.githubusercontent.com/61660321/164358477-ceae962a-e827-4f25-8d9c-5f3ccc74dfd9.png">
+
+
+## Cypress Testing![Uploading Screen Shot 2022-04-20 at 10.18.27 PM.png…]()
+
 To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
 
 ### Testing Recruiter Login
