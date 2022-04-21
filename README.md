@@ -30,6 +30,9 @@ https://user-images.githubusercontent.com/61660321/164351503-350cb1e6-8146-4084-
 # Link to the Project Board
 https://github.com/anjaligupta0621/EasyConnect/projects
 
+# Cypress Frontend Video
+https://user-images.githubusercontent.com/61660321/164353065-4f9de39a-9409-4089-a406-ab7fa06fbb14.mp4
+
 # Detail Documentation of Complete Project:
 # Backend Documentation
 
