@@ -25,7 +25,7 @@ We are devising a web application designated as 'EasyConnect' which has two part
 
 
 # Complete video demo of the project progress:
-https://drive.google.com/file/d/1_EVGk6AFDZtBuQJx9vvPnt3Dmdr0FPX8/view
+https://user-images.githubusercontent.com/61660321/164351503-350cb1e6-8146-4084-9e51-71b1cb5ebe1d.mp4
 
 # Detail Documentation of Complete Project:
 # Backend Documentation
