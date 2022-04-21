@@ -1,6 +1,6 @@
 # EasyConnect
 
-We are devising a web application designated as 'EasyConnect' which will act as a bridge between recruiters and job seekers. The podium will permit recruiters to post diverse jobs and shortlist contenders based on diverse benchmarks. On the other hand, the job seekers will be able to view different jobs based on their search, apply to the jobs they find appropriate, and they will also be able to learn new skills.
+We are devising a web application designated as 'EasyConnect' which has two parts: Recruiter and Job seeker. This will act as a bridge between recruiters and job seekers. The podium will permit recruiters to post diverse jobs which will be visibe to the all the Users who came to out platofrm and shortlist contenders based on diverse skills.On the other hand, the job seekers will be able to build their Rich profile containing details about their past Experience and expertise about the work.Job seeker can look different jobs based on their search, apply to the jobs they find appropriate, and they will also be able to learn new skills.Once the Job seeker applied for the Job, the recruiter can look at the applicant profile and shortlist it for further follow ups. This reduce the time for selecting successful candidates.
 
 ### Table of Contents
 
