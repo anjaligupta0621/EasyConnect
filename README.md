@@ -1065,7 +1065,7 @@ All User Interface pages are scree size responsive. Attaching the various screen
 <img width="1297" alt="Screen Shot 2022-04-20 at 10 18 27 PM" src="https://user-images.githubusercontent.com/61660321/164358477-ceae962a-e827-4f25-8d9c-5f3ccc74dfd9.png">
 
 
-## Cypress Testing![Uploading Screen Shot 2022-04-20 at 10.18.27 PM.png…]()
+## Cypress Testing
 
 To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
 
@@ -1081,7 +1081,7 @@ To check the workflow of project and end to end Integration, we used the automat
 
 
 ### Testing PostJob
-![WhatsApp Image 2022-04-01 at 8 35 36 PM](https://user-images.githubusercontent.com/16004962/161360021-f01713be-ddf2-4667-b9be-1f69b35f9cdc.jpeg)
+
 
 ### Testing Candidate SignUp and Login
 <img width="1290" alt="Screen Shot 2022-04-01 at 9 34 31 PM" src="https://user-images.githubusercontent.com/16004962/161360490-8675d5c6-e66b-4bd8-9f89-9b64b470d165.png">
@@ -1090,21 +1090,12 @@ To check the workflow of project and end to end Integration, we used the automat
 
 <img width="1282" alt="Screen Shot 2022-04-01 at 9 43 47 PM" src="https://user-images.githubusercontent.com/16004962/161360752-d2c3b6a1-5eb6-42b8-b9e1-ced8f9465f0e.png">
 
-### Testing Apply Jobs Module
+### Testing Candidate Module
 
-<img width="1285" alt="Screen Shot 2022-04-01 at 10 24 43 PM" src="https://user-images.githubusercontent.com/16004962/161362126-ea0c4f29-a450-40fe-8642-766635ba0a8c.png">
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 29 39 PM" src="https://user-images.githubusercontent.com/61660321/164360237-4d96cbb5-a686-4c4b-b213-498ecfa6ea50.png">
 
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 29 52 PM" src="https://user-images.githubusercontent.com/61660321/164360244-d0352825-74e2-46e6-ad0b-73f003dd6c2e.png">
 
-## Setup and Install
-  * FrontEnd: Install NodeJS, React Router DOM 
-  * Backend: Install Golang, SQlite 3
-  * Testing: FrontEnd-Testing: Cypress, Backend-Testing: Unit Testing
-
-## Authors
-  * Shashank Kumar Frontend/Backend
-  * Richa Gupta   Backend 
-  * Anjali Gupta  Frontend
-  * Gaurav Pathak Backend/Frontend
 
 ## Technology Stack
   * Frontend - ReactJs, HTML, CSS, Bootstrap, AJAX
