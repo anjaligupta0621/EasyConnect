@@ -27,6 +27,9 @@ We are devising a web application designated as 'EasyConnect' which has two part
 # Complete video demo of the project progress:
 https://user-images.githubusercontent.com/61660321/164351503-350cb1e6-8146-4084-9e51-71b1cb5ebe1d.mp4
 
+#Link to the Projects Board
+https://github.com/anjaligupta0621/EasyConnect/projects
+
 # Detail Documentation of Complete Project:
 # Backend Documentation
 
@@ -1091,6 +1094,9 @@ To check the workflow of project and end to end Integration, we used the automat
 
 ## Testing
   * Frontend and Backend Unit Testing.
+ 
+## Link to Sprint 4 Deliverables
+ https://github.com/anjaligupta0621/EasyConnect/projects/4#column-18385023
 
 ## Authors
   * Shashank Kumar- Frontend
