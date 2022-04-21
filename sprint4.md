@@ -1,6 +1,9 @@
 
 # Complete video demo of the project progress:
+https://user-images.githubusercontent.com/61660321/164352711-8368a0fa-776d-43f8-b8bb-c04d62302024.mp4
 
+# Cypress Frontend 
+https://user-images.githubusercontent.com/61660321/164352946-794bcd42-6fcd-4a02-8c4d-fe5715a07947.mp4
 
 # Backend Documentation
 
