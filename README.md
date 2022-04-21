@@ -1111,6 +1111,7 @@ To check the workflow of project and end to end Integration, we used the automat
  
 ## Link to Sprint 4 Deliverables
  https://github.com/anjaligupta0621/EasyConnect/projects/4#column-18385023
+ https://github.com/anjaligupta0621/EasyConnect/blob/main/sprint4.md
 
 ## Authors
   * Shashank Kumar- Frontend
