@@ -519,19 +519,29 @@ All User Interface pages are scree size responsive. Attaching the various screen
 * Post Job Screenshot
 * <img width="394" alt="Screen Shot 2022-03-04 at 9 38 33 PM" src="https://user-images.githubusercontent.com/16004962/156864876-3582ba64-e1bf-458a-831f-6ac584d584d5.png">
 
-* Posted Job Screenshot
-<img width="1440" alt="Screen Shot 2022-04-01 at 10 48 25 PM" src="https://user-images.githubusercontent.com/61660321/161363628-4a43d78c-8f4b-4afd-a51b-02c9c92e2497.png">
-        
+## Screenshots of Different Tabs
+ 
+* Post Job Dashboard Screenshot (Recruiter View)
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 10 04 PM" src="https://user-images.githubusercontent.com/61660321/164357749-d61e9614-8240-4893-8d43-89fa644bdf75.png">
+ 
+* Shortlist Candidates Screenshot (Recruiter View)
+ <img width="1431" alt="Screen Shot 2022-04-20 at 10 13 43 PM" src="https://user-images.githubusercontent.com/61660321/164357935-023efa44-5c6f-47a9-a8c6-9ca82b28c5b1.png">
 
 * JobSeeker View Screenshot
-        
-<img width="1440" alt="Screen Shot 2022-04-01 at 11 02 52 PM" src="https://user-images.githubusercontent.com/61660321/161363654-85e1df21-37a4-407a-a969-b1e283c0b7d5.png">
-        
- <img width="1440" alt="Screen Shot 2022-04-01 at 11 03 04 PM" src="https://user-images.githubusercontent.com/61660321/161363666-e2ad5a01-3528-4b38-a14f-a886d2e8f953.png">
+<img width="1439" alt="Screen Shot 2022-04-20 at 10 16 44 PM" src="https://user-images.githubusercontent.com/61660321/164358260-1459500a-6b11-400d-ad1e-51c26b1776d2.png">
 
- 
+<img width="1437" alt="Screen Shot 2022-04-20 at 10 16 52 PM" src="https://user-images.githubusercontent.com/61660321/164358267-e4e5e0e8-16cc-46f3-b5a3-889ed1427f61.png">
+
+* Applied Jobs Screenshot (JobSeeker View)
+ <img width="1440" alt="Screen Shot 2022-04-20 at 10 17 22 PM" src="https://user-images.githubusercontent.com/61660321/164358312-330e4d37-08d6-4ab4-acc9-85d0140fc9f8.png">
+
+* Candidate Profile Screenshots
+<img width="1387" alt="Screen Shot 2022-04-20 at 10 18 10 PM" src="https://user-images.githubusercontent.com/61660321/164358420-8aab9513-9fee-4e13-9263-19ed768faefe.png">
+<img width="1297" alt="Screen Shot 2022-04-20 at 10 18 27 PM" src="https://user-images.githubusercontent.com/61660321/164358477-ceae962a-e827-4f25-8d9c-5f3ccc74dfd9.png">
+
 
 ## Cypress Testing
+
 To check the workflow of project and end to end Integration, we used the automated testing framework Cypress to validate our work.Created the cypress tests cases where we are checking recruiter and Job-seeker components . All Test cases passing correctly.Attached below the screenshot of these components:
 
 ### Testing Recruiter Login
@@ -546,7 +556,7 @@ To check the workflow of project and end to end Integration, we used the automat
 
 
 ### Testing PostJob
-![WhatsApp Image 2022-04-01 at 8 35 36 PM](https://user-images.githubusercontent.com/16004962/161360021-f01713be-ddf2-4667-b9be-1f69b35f9cdc.jpeg)
+
 
 ### Testing Candidate SignUp and Login
 <img width="1290" alt="Screen Shot 2022-04-01 at 9 34 31 PM" src="https://user-images.githubusercontent.com/16004962/161360490-8675d5c6-e66b-4bd8-9f89-9b64b470d165.png">
@@ -555,10 +565,11 @@ To check the workflow of project and end to end Integration, we used the automat
 
 <img width="1282" alt="Screen Shot 2022-04-01 at 9 43 47 PM" src="https://user-images.githubusercontent.com/16004962/161360752-d2c3b6a1-5eb6-42b8-b9e1-ced8f9465f0e.png">
 
+### Testing Candidate Module
 
-### Testing Apply Jobs Module
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 29 39 PM" src="https://user-images.githubusercontent.com/61660321/164360237-4d96cbb5-a686-4c4b-b213-498ecfa6ea50.png">
 
-<img width="1285" alt="Screen Shot 2022-04-01 at 10 24 43 PM" src="https://user-images.githubusercontent.com/16004962/161362126-ea0c4f29-a450-40fe-8642-766635ba0a8c.png">
+<img width="1440" alt="Screen Shot 2022-04-20 at 10 29 52 PM" src="https://user-images.githubusercontent.com/61660321/164360244-d0352825-74e2-46e6-ad0b-73f003dd6c2e.png">
 
 ## Setup and Install
   * FrontEnd: Install NodeJS, React Router DOM 
