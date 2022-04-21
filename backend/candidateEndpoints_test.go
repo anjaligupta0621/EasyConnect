@@ -142,32 +142,6 @@ func TestCandidateProfileUpdate(t *testing.T) {
 }
 
 func TestGetCandidateProfile(t *testing.T) {
-	recruiter := &models.Usertoken{
-		Token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6IkZIRXVQY1FrOTBOWHBlQkBlYXN5LWNvbm5lY3QuY29tIiwiZXhwIjoxNjUwMzU0NTYwfQ.Q10kXPdU8WONbom6eKOcu5E2ojRBs-Rih0lbeJnV7kM",
-		Email: "FHEuPcQk90NXpeB@easy-connect.com",
-	}
-	jsonPayload, _ := json.Marshal(recruiter)
-	request, _ := http.NewRequest("POST", "/getCandidateProfile", bytes.NewBuffer(jsonPayload))
-	response := httptest.NewRecorder()
-	Router3().ServeHTTP(response, request)
-	assert.Equal(t, 404, response.Code, "OK response is expected")
-
-	request, _ = http.NewRequest("POST", "/getCandidateProfile", bytes.NewBuffer(jsonPayload))
-	response = httptest.NewRecorder()
-	Router3().ServeHTTP(response, request)
-	assert.Equal(t, 404, response.Code, "OK response is not expected")
-	//assert.Equal(t, "\"User already exists\"\n", response.Body.String(), "Signup was supposed to fail")
-	assert.Equal(t, 200, response.Code, "OK response is expected")
-
-	cand.Email = "Nonexisting"
-	jsonPayload, _ = json.Marshal(cand)
-	request, _ = http.NewRequest("POST", "/updateCandidateProfile", bytes.NewBuffer(jsonPayload))
-	response = httptest.NewRecorder()
-	Router3().ServeHTTP(response, request)
-	assert.Equal(t, 401, response.Code, "OK response is not expected")
-}
-
-func TestGetCandidateProfiles(t *testing.T) {
 
 	token := &models.TokenManager{
 		Token:    "Dummy",
@@ -191,5 +165,4 @@ func TestGetCandidateProfiles(t *testing.T) {
 	response = httptest.NewRecorder()
 	Router3().ServeHTTP(response, request)
 	assert.Equal(t, 200, response.Code, "OK response is not expected")
-
 }
